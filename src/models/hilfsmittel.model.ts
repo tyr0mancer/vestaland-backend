@@ -18,9 +18,5 @@ const HilfsmittelModel = getModelForClass(Hilfsmittel);
 export {Hilfsmittel, HilfsmittelModel}
 
 export const hilfsmittelSchema = z.object({
-    body: z.object({
-        name: z.string({
-            required_error: "Name is required",
-        }),
-    }),
+    name: z.string({required_error: "Das Hilfsmittel muss einen Namen enthalten"}),
 });

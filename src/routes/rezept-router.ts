@@ -1,10 +1,13 @@
 import express, {Router} from "express";
 import {RezeptModel} from "../models/rezept.model";
 import {validateRequest} from "../middleware/validate-request";
-import {genericParamsSchema} from "./generic-router";
+import {z} from "zod";
+import {mongoose} from "@typegoose/typegoose";
 
 
 const router: Router = express.Router();
+
+const genericParams = z.object({_id: z.custom<mongoose.Types.ObjectId>()})
 
 // Suche
 router.get('/',
@@ -32,7 +35,7 @@ router.get('/',
 
 // Suche
 router.get('/:id',
-  validateRequest(genericParamsSchema),
+  validateRequest({params: genericParams}),
   async (req, res) => {
     try {
       const rezept = await RezeptModel

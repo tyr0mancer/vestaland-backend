@@ -30,9 +30,5 @@ export class Rezept {
 export const RezeptModel = getModelForClass(Rezept);
 
 export const rezeptSchema = z.object({
-  body: z.object({
-    name: z.string({
-      required_error: "Name is required",
-    }),
-  })
+  name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}),
 });

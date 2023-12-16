@@ -32,9 +32,5 @@ export class Lebensmittel {
 export const LebensmittelModel = getModelForClass(Lebensmittel);
 
 export const lebensmittelSchema = z.object({
-  body: z.object({
-    name: z.string({
-      required_error: "Name is required",
-    }),
-  }),
+  name: z.string({required_error: "Das Lebensmittel muss einen Namen enthalten"}),
 });
