@@ -1,7 +1,6 @@
 import {Request, Response} from "express";
 import {ReturnModelType} from "@typegoose/typegoose/lib/types";
 
-
 export function genericPost<T>(genericModel: ReturnModelType<any>) {
   return (req: Request, res: Response) => {
     genericModel.create(req.body)
@@ -12,7 +11,6 @@ export function genericPost<T>(genericModel: ReturnModelType<any>) {
       })
   }
 }
-
 
 export function genericPut<T>(genericModel: ReturnModelType<any>) {
   return (req: Request, res: Response) => {
@@ -29,10 +27,8 @@ export function genericPut<T>(genericModel: ReturnModelType<any>) {
   }
 }
 
-
 export function genericDelete(genericModel: ReturnModelType<any>) {
   return (req: Request, res: Response) => {
-
     genericModel.findOneAndDelete({_id: req.params.id})
       .then((response: any) => {
         if (!response)
@@ -45,7 +41,6 @@ export function genericDelete(genericModel: ReturnModelType<any>) {
       })
   }
 }
-
 
 export function genericGet<T>(genericModel: ReturnModelType<any>) {
   return (req: Request, res: Response) => {
@@ -65,11 +60,9 @@ export function genericGet<T>(genericModel: ReturnModelType<any>) {
 export function genericSearch<T>(genericModel: ReturnModelType<any>) {
   return async (req: Request, res: Response) => {
     let query: { [key: string]: any } = {};
-
     if (req.query.name && typeof req.query.name == "string") {
       query.name = new RegExp(req.query.name, 'i');
     }
-
     try {
       const response = await genericModel.find(query);
       res.status(200).json(response).send();
@@ -78,6 +71,3 @@ export function genericSearch<T>(genericModel: ReturnModelType<any>) {
     }
   }
 }
-
-
-
