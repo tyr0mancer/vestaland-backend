@@ -1,0 +1,11 @@
+# Projektbezogen
+.env
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# WebStorm
+.idea/
+*.iml
