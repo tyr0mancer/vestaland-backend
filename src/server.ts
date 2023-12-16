@@ -18,7 +18,6 @@ const port = process.env.PORT || 3000;
 app.set("port", port)
 
 
-
 // Middleware
 app.use(requestLogger);
 app.use(express.json());
@@ -26,7 +25,7 @@ app.use(express.json());
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.send('Hello Mundo!!');
 });
 
 app.use('/api', apiRoutes);
@@ -35,6 +34,7 @@ app.use('/api', apiRoutes);
 
 const start = async (): Promise<void> => {
   try {
+    console.log('Versuche Verbindungsaufbau zu MongoDB')
 
     // connect to mongoDB Atlas
     const mongoUri = process.env.DB_CONNECTION_STRING || ""
