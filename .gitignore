@@ -1,6 +1,7 @@
 # Projektbezogen
 .env
 dist/
+docs/
 # Node.js
 node_modules/
 npm-debug.log
