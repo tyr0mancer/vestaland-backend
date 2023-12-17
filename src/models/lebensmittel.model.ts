@@ -19,8 +19,10 @@ export class Lebensmittel {
   public beschreibung?: string
 
   @prop()
-  public defaultUnit?: string
+  public defaultUnit: string = "St"
 
+  // Gramm pro Kubikzentimeter bzw kg pro Liter
+  // Beispiel: Mehl hat eine Dichte von 0.7 - das heißt das ein kg Mehl etwa 1,5 L Volumen haben, oder 1 L Mehl, etwa 0,7 kg wiegt.
   @prop()
   public density?: number
 
