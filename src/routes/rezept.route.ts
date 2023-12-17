@@ -26,9 +26,9 @@ rezeptRouter.get('/',
 
     try {
       const rezepte = await RezeptModel.find(query);
-      res.status(200).json(rezepte).send();
+      res.status(200).json(rezepte);
     } catch (error) {
-      res.status(500).json(error).send();
+      res.status(500).json(error);
     }
   })
 
@@ -45,8 +45,8 @@ rezeptRouter.get('/:id',
         .populate({path: 'arbeitsschritte.zutaten.lebensmittel'})
         .populate({path: 'arbeitsschritte.hilfsmittel'})
 
-      res.status(200).json(rezept).send();
+      res.status(200).json(rezept);
     } catch (error) {
-      res.status(500).json(error).send();
+      res.status(500).json(error);
     }
   })

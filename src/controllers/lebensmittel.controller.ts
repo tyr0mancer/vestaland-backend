@@ -1,29 +1,34 @@
 import {Request, Response} from "express";
-import {LebensmittelModel} from "../models/lebensmittel.model";
+import {Lebensmittel, LebensmittelModel} from "../models/lebensmittel.model";
 
-export async function findeLebensmittelController(req: Request, res: Response) {
-  try {
-    const response = await LebensmittelModel.find({});
-    res.status(200).json(response).send();
-  } catch (error) {
-    res.status(500).json(error).send();
-  }
+export function findeLebensmittelController(req: Request, res: Response) {
+
+
+
+  LebensmittelModel.find({})
+    .then((response: Lebensmittel[]) => {
+      res.status(200).json(response)
+    })
+    .catch((err: any) => {
+      console.error(JSON.stringify(err))
+      res.status(500).send();
+    })
 }
 
 
-export async function erstelleLebensmittelController(req: Request, res: Response) {
+export function erstelleLebensmittelController(req: Request, res: Response) {
   try {
-    res.status(200).json("ok for now").send();
+    res.status(200).send("ok for now");
   } catch (error) {
-    res.status(500).json(error).send();
+    res.status(500).json(error);
   }
 }
 
 export async function importiereLebensmittelController(req: Request, res: Response) {
   try {
 
-    res.status(200).json("ok for now").send();
+    res.status(200).send("ok for now");
   } catch (error) {
-    res.status(500).json(error).send();
+    res.status(500).json(error);
   }
 }

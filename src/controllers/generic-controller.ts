@@ -4,9 +4,9 @@ import {ReturnModelType} from "@typegoose/typegoose/lib/types";
 export function genericPost<T>(genericModel: ReturnModelType<any>) {
   return (req: Request, res: Response) => {
     genericModel.create(req.body)
-      .then((response: T) => res.status(201).json(response).send())
+      .then((response: T) => res.status(201).json(response))
       .catch((error: any) => {
-        res.status(500).json(error).send()
+        res.status(500).json(error)
         console.error(error)
       })
   }
@@ -18,10 +18,10 @@ export function genericPut<T>(genericModel: ReturnModelType<any>) {
       .then((response: T) => {
         if (!response)
           return res.status(404).send();
-        res.status(200).json(response).send()
+        res.status(200).json(response)
       })
       .catch((error: any) => {
-        res.status(500).json(error).send()
+        res.status(500).json(error)
         console.error(error)
       })
   }
@@ -36,7 +36,7 @@ export function genericDelete(genericModel: ReturnModelType<any>) {
         res.status(204).send();
       })
       .catch((error: any) => {
-        res.status(500).json(error).send()
+        res.status(500).json(error)
         console.error(error)
       })
   }
@@ -48,10 +48,10 @@ export function genericGet<T>(genericModel: ReturnModelType<any>) {
       .then((response: T) => {
         if (!response)
           return res.status(404).send();
-        res.status(200).json(response).send()
+        res.status(200).json(response)
       })
       .catch((error: any) => {
-        res.status(500).json(error).send()
+        res.status(500).json(error)
         console.error(error)
       })
   }
@@ -65,9 +65,9 @@ export function genericSearch<T>(genericModel: ReturnModelType<any>) {
     }
     try {
       const response = await genericModel.find(query);
-      res.status(200).json(response).send();
+      res.status(200).json(response);
     } catch (error) {
-      res.status(500).json(error).send();
+      res.status(500).json(error);
     }
   }
 }

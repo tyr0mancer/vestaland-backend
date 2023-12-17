@@ -11,8 +11,6 @@ const router: Router = express.Router();
 
 // Suche
 router.get('/',
-  validateAuthorization(),
-  validateRequest({}),
   findeLebensmittelController)
 
 router.post('/',
