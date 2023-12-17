@@ -5,12 +5,12 @@ import {z} from "zod";
 import {mongoose} from "@typegoose/typegoose";
 
 
-const router: Router = express.Router();
+export const rezeptRouter: Router = express.Router();
 
 const genericParams = z.object({_id: z.custom<mongoose.Types.ObjectId>()})
 
 // Suche
-router.get('/',
+rezeptRouter.get('/',
   async (req, res) => {
     let query: { [key: string]: any } = {};
 
@@ -34,7 +34,7 @@ router.get('/',
 
 
 // Suche
-router.get('/:id',
+rezeptRouter.get('/:id',
   validateRequest({params: genericParams}),
   async (req, res) => {
     try {
@@ -50,6 +50,3 @@ router.get('/:id',
       res.status(500).json(error).send();
     }
   })
-
-
-export default router;
