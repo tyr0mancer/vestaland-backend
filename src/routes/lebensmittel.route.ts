@@ -6,21 +6,18 @@ import {lebensmittelSchema} from "../models/lebensmittel.model";
 import {z} from "zod";
 
 
-const router: Router = express.Router();
-
+export const lebensmittelRouter: Router = express.Router();
 
 // Suche
-router.get('/',
+lebensmittelRouter.get('/',
   findeLebensmittelController)
 
-router.post('/',
+lebensmittelRouter.post('/',
   validateAuthorization(['redakteur']),
   validateRequest({body: lebensmittelSchema}),
   erstelleLebensmittelController)
 
-router.post('/import/',
+lebensmittelRouter.post('/import/',
   //validateAuthorization(['admin']),
   validateRequest({body: z.array(lebensmittelSchema)}),
   erstelleLebensmittelController)
-
-export default router;
