@@ -28,7 +28,6 @@ export class Lebensmittel {
   public unitWeight?: number
 }
 
-
 export const LebensmittelModel = getModelForClass(Lebensmittel);
 
 export const lebensmittelSchema = z.object({

@@ -1,8 +1,7 @@
 import {mongoose, prop, Ref} from '@typegoose/typegoose';
 import {Lebensmittel} from "./lebensmittel.model";
 
-class Zutat {
-
+export class Zutat {
     @prop({autopopulate: true, ref: "Lebensmittel", type: mongoose.Schema.Types.ObjectId})
     public lebensmittel?: Ref<Lebensmittel>;
 
@@ -15,6 +14,3 @@ class Zutat {
     @prop()
     public menge: number=1;
 }
-
-
-export {Zutat}

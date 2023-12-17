@@ -1,10 +1,39 @@
 import {prop, getModelForClass, Ref, mongoose, modelOptions} from '@typegoose/typegoose';
-
-import {Zutat} from "./Zutat";
-import {Arbeitsschritt} from "./Arbeitsschritt";
-import {Hilfsmittel} from "./hilfsmittel.model";
 import {z} from "zod";
 
+import {Zutat} from "./zutat.model";
+import {Hilfsmittel} from "./hilfsmittel.model";
+
+export class Aktion {
+  @prop({required: true})
+  public name: string = "";
+
+  @prop()
+  public beschreibung?: string;
+
+  @prop()
+  public temperatur?: number;
+
+  @prop()
+  public hitze?: string;
+
+  @prop()
+  public dauer?: number;
+}
+
+export class Arbeitsschritt {
+  @prop({type: Aktion, _id: false})
+  public aktion?: Aktion;
+
+  @prop({type: Zutat, _id: false})
+  public zutaten: Zutat[] = [];
+
+  @prop({ref: "Hilfsmittel", type: mongoose.Schema.Types.ObjectId})
+  public hilfsmittel: Ref<Hilfsmittel>[]= [];
+
+  @prop()
+  public dauer?: number;
+}
 
 @modelOptions({schemaOptions: {collection: "rezepte"}})
 export class Rezept {
