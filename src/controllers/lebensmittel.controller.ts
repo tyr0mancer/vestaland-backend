@@ -18,20 +18,12 @@ export function findeLebensmittelController(req: Request, res: Response) {
     })
 }
 
+export function importiereLebensmittelController(req: Request, res: Response) {
+  LebensmittelModel.create(req.body)
+    .then((response: Lebensmittel) => res.status(201).json(response))
+    .catch((error: any) => {
+      res.status(500).json(error)
+      console.error(error)
+    })
 
-export function erstelleLebensmittelController(req: Request, res: Response) {
-  try {
-    res.status(200).send("ok for now");
-  } catch (error) {
-    res.status(500).json(error);
-  }
-}
-
-export async function importiereLebensmittelController(req: Request, res: Response) {
-  try {
-
-    res.status(200).send("ok for now");
-  } catch (error) {
-    res.status(500).json(error);
-  }
 }
