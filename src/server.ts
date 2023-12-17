@@ -2,8 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-import {requestLogger} from "./middleware/request-logger";
 import apiRoutes from "./routes";
+
 
 
 // read variables from .env
@@ -19,7 +19,8 @@ app.set("port", port)
 
 
 // Middleware
-app.use(requestLogger);
+const morgan = require('morgan');
+app.use(morgan('combined')); // Logs requests with various details
 app.use(express.json());
 
 
