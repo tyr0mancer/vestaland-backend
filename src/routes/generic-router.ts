@@ -15,8 +15,7 @@ export function genericRouter<T>(genericModel: ReturnModelType<any>, genericSche
   router.get('/:id', validateRequest({params: genericParams}), genericGet<T>(genericModel))
   router.post('/', validateRequest({body: genericSchema}), genericPost<T>(genericModel))
   router.delete('/:id', validateRequest({params: genericParams}), genericDelete(genericModel))
-  router.put('/:id', validateRequest({params: genericParams, body: genericSchema}), genericPut<T>(genericModel)
-  )
+  router.put('/:id', validateRequest({params: genericParams, body: genericSchema}), genericPut<T>(genericModel))
 
   return router
 }
