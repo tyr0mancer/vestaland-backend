@@ -1,40 +1,12 @@
-import express from 'express';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-import apiRoutes from "./routes";
-
-
-
-// read variables from .env
-dotenv.config();
-
-
-// launch express app
-const app = express();
+import app from "./app";
 
 const host = process.env.HOST || "localhost";
 const port = process.env.PORT || 3000;
-app.set("port", port)
-
-
-// Middleware
-const morgan = require('morgan');
-app.use(morgan('combined')); // Logs requests with various details
-app.use(express.json());
-
-
-// Routes
-app.get('/', (req, res) => {
-  res.send('Hello Mundo!!');
-});
-
-app.use('/api', apiRoutes);
-
-
-
 const start = async (): Promise<void> => {
   try {
+    const currentTime = new Date();
+    console.log(currentTime);
     console.log('Versuche Verbindungsaufbau zu MongoDB')
 
     // connect to mongoDB Atlas
