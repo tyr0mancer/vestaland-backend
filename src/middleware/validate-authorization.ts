@@ -23,8 +23,8 @@ export const validateAuthorization = (requiredRole?: BenutzerRolle) => {
       next()
     };
   }
-;
 
+// @todo clean up
 declare global {
   namespace Express {
     interface Request {
