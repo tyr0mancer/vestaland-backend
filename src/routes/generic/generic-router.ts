@@ -2,9 +2,9 @@ import express, {Router} from "express";
 import {ReturnModelType} from "@typegoose/typegoose/lib/types";
 import {z} from "zod";
 
-import {validateRequest} from "../middleware/validate-request";
+import {validateRequest} from "../../middleware/validate-request";
 import {mongoose} from "@typegoose/typegoose";
-import {genericDelete, genericGet, genericPost, genericPut, genericSearch} from "../controllers/generic-controller";
+import {genericDelete, genericGet, genericPost, genericPut, genericSearch} from "../../controllers/generic-controller";
 
 const genericParams = z.object({_id: z.custom<mongoose.Types.ObjectId>()})
 

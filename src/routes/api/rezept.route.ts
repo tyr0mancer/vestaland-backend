@@ -1,6 +1,6 @@
 import express, {Router} from "express";
-import {RezeptModel} from "../models/rezept.model";
-import {validateRequest} from "../middleware/validate-request";
+import {RezeptModel} from "../../models/rezept.model";
+import {validateRequest} from "../../middleware/validate-request";
 import {z} from "zod";
 import {mongoose} from "@typegoose/typegoose";
 
