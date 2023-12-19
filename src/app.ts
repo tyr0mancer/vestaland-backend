@@ -19,6 +19,17 @@ app.use(cookieParser());
 app.use(morgan('combined'));
 app.use(express.json());
 
+// CORS
+// @todo update for production
+const corsOptions = {
+  origin: process.env.FRONTEND_CORS_URL || '*',
+  preflightContinue: true,
+  credentials: true
+}
+const cors = require('cors');
+app.use(cors(corsOptions));
+
+
 // Routes
 app.use('/', mainRouter);
 
