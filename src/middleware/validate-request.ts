@@ -1,5 +1,7 @@
 import {Request, Response, NextFunction} from 'express';
 import {z} from "zod";
+import {mongoose} from "@typegoose/typegoose";
+export const genericParams = z.object({_id: z.custom<mongoose.Types.ObjectId>()})
 
 type validateRequestType = { body?: z.ZodSchema<any>, params?: z.ZodSchema<any>, query?: z.ZodSchema<any> }
 export const validateRequest = (schemaObject: validateRequestType) => {

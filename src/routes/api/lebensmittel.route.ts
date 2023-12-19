@@ -11,7 +11,6 @@ import {validateAuthorization} from "../../middleware/validate-authorization";
 
 export const lebensmittelRouter: Router = express.Router();
 
-// Suche
 lebensmittelRouter.get('/',
   findeLebensmittelController)
 

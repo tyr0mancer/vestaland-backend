@@ -1,52 +1,9 @@
 import express, {Router} from "express";
-import {RezeptModel} from "../../models/rezept.model";
-import {validateRequest} from "../../middleware/validate-request";
-import {z} from "zod";
-import {mongoose} from "@typegoose/typegoose";
+import {genericParams, validateRequest} from "../../middleware/validate-request";
+import {findeRezept, getRezeptDetail} from "../../controllers/rezept.controller";
 
 
 export const rezeptRouter: Router = express.Router();
 
-const genericParams = z.object({_id: z.custom<mongoose.Types.ObjectId>()})
-
-// Suche
-rezeptRouter.get('/',
-  async (req, res) => {
-    let query: { [key: string]: any } = {};
-
-    if (req.query.name && typeof req.query.name == "string") {
-      query.name = new RegExp(req.query.name, 'i');
-    }
-
-    // @todo implement more filter
-    if (req.query.zutaten && typeof req.query.zutaten == "string") {
-      const zutaten = req.query.zutaten.split(',');
-      query.zutaten = {$in: {lebensmittel: {$in: zutaten}}};
-    }
-
-    try {
-      const rezepte = await RezeptModel.find(query);
-      res.status(200).json(rezepte);
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  })
-
-
-// Suche
-rezeptRouter.get('/:id',
-  validateRequest({params: genericParams}),
-  async (req, res) => {
-    try {
-      const rezept = await RezeptModel
-        .findById(req.params.id)
-        .populate({path: 'zutaten.lebensmittel'})
-        .populate({path: 'hilfsmittel'})
-        .populate({path: 'arbeitsschritte.zutaten.lebensmittel'})
-        .populate({path: 'arbeitsschritte.hilfsmittel'})
-
-      res.status(200).json(rezept);
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  })
+rezeptRouter.get('/', findeRezept)
+rezeptRouter.get('/:id', validateRequest({params: genericParams}), getRezeptDetail)
