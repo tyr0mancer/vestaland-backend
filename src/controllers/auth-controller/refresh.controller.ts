@@ -8,9 +8,11 @@ export function refreshController(req: Request, res: Response) {
   const refreshToken = req.cookies[process.env.REFRESH_TOKEN_COOKIE || '']
   const user = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET || '') as UserInformation
 
+  // @todo remove!
+  console.log(refreshToken)
   BenutzerModel.findById(user._id).then(benutzer => {
     if (!benutzer)
-      return res.status(401).send('Benutzer nicht gefunden')
+      return res.status(403).send('Benutzer nicht gefunden')
 
     return successfulLogin(benutzer, benutzer._id, res)
   })
