@@ -16,14 +16,14 @@ export function loginController(req: Request, res: Response) {
 
       // Kein Benutzer mit dieser Email gefunden
       if (!benutzer || !benutzer.password)
-        return res.status(401).send('Email / Passwort Kombination passt nicht')
+        return res.status(403).send('Email / Passwort Kombination passt nicht')
 
       // Entspricht das gehashte Passwort dem Eintrag der Datenbank?
       bcrypt.compare(req.body.password, benutzer.password).then(isValid => {
 
         // Gleiche Antwort wie oben
         if (!isValid)
-          return res.status(401).send('Email / Passwort Kombination passt nicht')
+          return res.status(403).send('Email / Passwort Kombination passt nicht')
 
         return successfulLogin(benutzer, benutzer._id, res)
       })
