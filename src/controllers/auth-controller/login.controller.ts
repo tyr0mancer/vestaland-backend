@@ -56,7 +56,6 @@ export function successfulLogin(benutzer: Benutzer, _id: Types.ObjectId, res: Re
     // RefreshToken als Cookie setzen
     res.cookie(process.env.REFRESH_TOKEN_COOKIE || 'REFRESH_TOKEN_COOKIE', refreshtoken,
       {
-        domain: process.env.REFRESH_TOKEN_COOKIE_DOMAIN,
         httpOnly: true,
         secure: true,
         sameSite: "none",
