@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import {mainRouter} from "./routes";
 import morgan from 'morgan';
 
-const cookieParser = require('cookie-parser');
 
 // read variables from .env
 dotenv.config();
@@ -12,6 +11,7 @@ dotenv.config();
 const app = express();
 
 // Cookies
+const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 
@@ -21,9 +21,19 @@ app.use(express.json());
 
 // CORS
 // @todo update for production
+const allowedOrigins = [
+  'https://vestaland.netlify.app',
+  'http://192.168.2.36:3000'
+];
+
 const corsOptions = {
-  origin: process.env.FRONTEND_CORS_URL || 'https://vestaland.netlify.app',
-  preflightContinue: true,
+  origin: function (origin: any, callback: (error: Error | null, noError?: boolean) => {}) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   credentials: true
 }
 const cors = require('cors');
@@ -31,7 +41,7 @@ app.use(cors(corsOptions));
 
 
 // Routes
-app.use('/', mainRouter);
+  app.use('/', mainRouter);
 
 export default app;
 

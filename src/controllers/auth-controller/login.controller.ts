@@ -48,7 +48,7 @@ export function successfulLogin(benutzer: Benutzer, _id: Types.ObjectId, res: Re
     }, process.env.AUTH_TOKEN_SECRET as (string), {expiresIn: "15 minutes"})
 
     // Refresh-Token erstellen.
-    // Dieses ist ein Tag gültig und kann zur Erstellung eines Auth-Token verwendet werden, nicht aber für andere Zugriffe
+    // Dieses ist 24h gültig und kann zur Erstellung eines Auth-Token verwendet werden, nicht aber für andere Zugriffe
     const refreshtoken = jwt.sign({
       _id,
     }, process.env.REFRESH_TOKEN_SECRET as (string), {expiresIn: "1 days"})
@@ -59,9 +59,9 @@ export function successfulLogin(benutzer: Benutzer, _id: Types.ObjectId, res: Re
         httpOnly: true,
         secure: true,
         sameSite: "none",
-        maxAge: 86_400_000
+        maxAge: 86_400_000,
+        path: "/"
       });
-
     return res.status(200).json({
       _id,
       name: benutzer.name,
