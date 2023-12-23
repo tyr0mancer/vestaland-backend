@@ -1,22 +1,24 @@
 import {Request, Response} from "express";
 import jwt from "jsonwebtoken";
-import {BenutzerModel, UserInformation} from "../../models/benutzer.model";
+import {BenutzerModel} from "../../models/benutzer.model";
 import {successfulLogin} from "./login.controller";
+import {UserInformation} from "../../types";
+import {errorResponse} from "../generic-controller";
 
 export function refreshController(req: Request, res: Response) {
   const refreshToken = req.cookies[process.env.REFRESH_TOKEN_COOKIE || 'REFRESH_TOKEN_COOKIE']
   if (!refreshToken)
-    return res.status(403).send('Kein Token')
+    return errorResponse(res, 403, "Kein Refresh Token")
   const user = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET || '') as UserInformation
   BenutzerModel.findById(user._id)
     .then(benutzer => {
       if (!benutzer)
-        return res.status(403).send('Benutzer nicht gefunden')
+        return errorResponse(res, 403, "Ungültiges Token")
       return successfulLogin(benutzer, benutzer._id, res)
     })
     .catch(error => {
       console.log(error)
-      return res.status(403).send('Fehler')
+      return errorResponse(res, 403, "Fehler")
     })
 
 }

@@ -1,19 +1,8 @@
 import {prop, getModelForClass, modelOptions} from '@typegoose/typegoose';
 import {z} from "zod";
+import {BenutzerRolle} from "../types";
 
-export enum BenutzerRolle {
-  BENUTZER = 'benutzer',
-  REDAKTEUR = 'redakteur',
-  ADMIN = 'admin'
-}
 
-export interface UserInformation {
-  _id: string,
-  iat: number,
-  exp: number,
-  rollen?: BenutzerRolle[]
-  isAdmin?: boolean
-}
 
 @modelOptions({schemaOptions: {collection: "benutzer"}})
 export class Benutzer {

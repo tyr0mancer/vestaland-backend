@@ -4,6 +4,8 @@ import {Benutzer, BenutzerModel} from "../../models/benutzer.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {Types} from "mongoose";
+import {catchError, errorResponse} from "../generic-controller";
+import {LoginResponse} from "../../types";
 
 export const loginSchema = z.object({
   username: z.string({required_error: "Benutzername fehlt."}),
@@ -16,23 +18,20 @@ export function loginController(req: Request, res: Response) {
 
       // Kein Benutzer mit dieser Email gefunden
       if (!benutzer || !benutzer.password)
-        return res.status(403).send('Email / Passwort Kombination passt nicht')
+        return errorResponse(res, 403, "Email / Passwort Kombination passt nicht")
 
       // Entspricht das gehashte Passwort dem Eintrag der Datenbank?
       bcrypt.compare(req.body.password, benutzer.password).then(isValid => {
 
         // Gleiche Antwort wie oben
         if (!isValid)
-          return res.status(403).send('Email / Passwort Kombination passt nicht')
+          return errorResponse(res, 403, "Email / Passwort Kombination passt nicht")
 
         return successfulLogin(benutzer, benutzer._id, res)
       })
 
     })
-    .catch((error: any) => {
-      res.status(500).json(error)
-      console.error(error)
-    })
+    .catch(error => catchError(res, error))
 }
 
 
@@ -62,16 +61,16 @@ export function successfulLogin(benutzer: Benutzer, _id: Types.ObjectId, res: Re
         maxAge: 86_400_000,
         path: "/"
       });
-    return res.status(200).json({
-      _id,
+    const loginResponse: LoginResponse = {
+      _id: _id.toString(),
       name: benutzer.name,
       email: benutzer.email,
       rollen: benutzer.rollen,
       authtoken,
       refreshtoken
-    })
+    }
+    return res.status(200).json(loginResponse)
   } catch (error) {
-    console.error(error)
-    return res.status(500).send('error')
+    catchError(res, error)
   }
 }
