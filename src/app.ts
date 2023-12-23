@@ -22,7 +22,7 @@ app.use(express.json());
 // CORS
 // @todo update for production
 const corsOptions = {
-  origin: process.env.FRONTEND_CORS_URL || '*',
+  origin: process.env.FRONTEND_CORS_URL || 'https://vestaland.netlify.app',
   preflightContinue: true,
   credentials: true
 }
