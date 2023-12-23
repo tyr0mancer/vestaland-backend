@@ -13,6 +13,7 @@ import {BenutzerRolle} from "../../types";
 export const lebensmittelRouter: Router = express.Router();
 
 lebensmittelRouter.get('/',
+  validateAuthorization(),
   findeLebensmittelController)
 
 lebensmittelRouter.post('/import/',
