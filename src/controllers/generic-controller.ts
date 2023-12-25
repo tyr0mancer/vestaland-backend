@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {ReturnModelType} from "@typegoose/typegoose/lib/types";
-import {ApiError} from "../types";
+import {ApiError} from "../types/types";
 
 export function genericPost<T>(genericModel: ReturnModelType<any>) {
   return (req: Request, res: Response) => {

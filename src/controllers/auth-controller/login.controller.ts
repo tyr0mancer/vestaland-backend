@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {Types} from "mongoose";
 import {catchError, errorResponse} from "../generic-controller";
-import {LoginResponse} from "../../types";
+import {LoginResponse} from "../../types/types";
 
 export const loginSchema = z.object({
   username: z.string({required_error: "Benutzername fehlt."}),

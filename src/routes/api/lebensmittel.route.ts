@@ -8,7 +8,7 @@ import {lebensmittelSchema} from "../../models/lebensmittel.model";
 import {z} from "zod";
 
 import {validateAuthorization} from "../../middleware/validate-authorization";
-import {BenutzerRolle} from "../../types";
+import {BenutzerRolle} from "../../types/types";
 
 export const lebensmittelRouter: Router = express.Router();
 

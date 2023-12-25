@@ -2,6 +2,7 @@ import express from 'express';
 import {mainRouter} from "./routes";
 import morgan from 'morgan';
 import dotenv from "dotenv";
+import * as path from "path";
 
 
 // create express app
@@ -44,10 +45,14 @@ app.use(cors(corsOptions));
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-// Routes
-app.use('/', mainRouter);
-
 // File Uploads
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
+
+
+
+// Routes
+app.use('/', mainRouter);
+const publicPath = path.join(__dirname, '../public')
+app.use('/public', express.static(publicPath));
 

@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import jwt from "jsonwebtoken";
 import {BenutzerModel} from "../../models/benutzer.model";
 import {successfulLogin} from "./login.controller";
-import {UserInformation} from "../../types";
+import {UserInformation} from "../../types/types";
 import {errorResponse} from "../generic-controller";
 
 export function refreshController(req: Request, res: Response) {

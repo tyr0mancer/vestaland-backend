@@ -1,6 +1,6 @@
 import {prop, getModelForClass, modelOptions} from '@typegoose/typegoose';
 import {z} from "zod";
-import {BenutzerRolle} from "../types";
+import {BenutzerRolle} from "../types/types";
 
 
 
