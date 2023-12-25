@@ -3,6 +3,9 @@ import {z} from "zod";
 
 import {Zutat} from "./zutat.model";
 import {Hilfsmittel} from "./hilfsmittel.model";
+import {Datei} from "./datei.model";
+import {Benutzer} from "./benutzer.model";
+import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 
 export class Aktion {
   @prop({required: true})
@@ -36,12 +39,18 @@ export class Arbeitsschritt {
 }
 
 @modelOptions({schemaOptions: {collection: "rezepte"}})
-export class Rezept {
+export class Rezept extends TimeStamps {
   @prop({required: true})
   public name: string = '';
 
   @prop()
   public beschreibung?: string;
+
+  @prop({ref: "Benutzer", type: mongoose.Schema.Types.ObjectId})
+  public author?: Ref<Benutzer>;
+
+  @prop({ref: "Datei", type: mongoose.Schema.Types.ObjectId})
+  public bild?: Ref<Datei>;
 
   @prop({type: Zutat, _id: false})
   public zutaten: Zutat[] = [];

@@ -1,6 +1,12 @@
 import {Request, Response} from "express";
-import {RezeptModel} from "../models/rezept.model";
-import {sendGenericServerError} from "../middleware/error-handler";
+import {DocumentType} from '@typegoose/typegoose';
+import mongoose from "mongoose";
+
+import {Datei} from "../models/datei.model";
+import {Rezept, RezeptModel} from "../models/rezept.model";
+import {BenutzerRolle} from "../types/types";
+import {sendErrorResponse, sendGenericServerError} from "../middleware/error-handler";
+import {handleFileUpload} from "./datei.controller";
 
 export async function findeRezept(req: Request, res: Response) {
   let query: { [key: string]: any } = {};
@@ -17,7 +23,10 @@ export async function findeRezept(req: Request, res: Response) {
   }
 
   try {
-    const rezepte = await RezeptModel.find(query);
+    const rezepte = await RezeptModel.find(query)
+      .populate({path: 'author'})
+      .populate({path: 'bild'})
+      .populate({path: 'zutaten.lebensmittel'})
     res.status(200).json(rezepte);
   } catch (error) {
     sendGenericServerError(res, error)
@@ -29,6 +38,8 @@ export async function getRezeptDetail(req: Request, res: Response) {
   try {
     const rezept = await RezeptModel
       .findById(req.params.id)
+      .populate({path: 'author'})
+      .populate({path: 'bild'})
       .populate({path: 'zutaten.lebensmittel'})
       .populate({path: 'hilfsmittel'})
       .populate({path: 'arbeitsschritte.zutaten.lebensmittel'})
@@ -39,3 +50,44 @@ export async function getRezeptDetail(req: Request, res: Response) {
     sendGenericServerError(res, error)
   }
 }
+
+
+export async function postRezept(req: Request, res: Response) {
+  try {
+    const rezept = req.body as Rezept
+    rezept.author = req.user?._id ? new mongoose.Types.ObjectId(req.user._id) : undefined
+    RezeptModel.create(req.body)
+      .then((response) => res.status(201).json(response))
+      .catch((error: any) => sendGenericServerError(res, error))
+  } catch (error) {
+    sendGenericServerError(res, error)
+  }
+}
+
+export async function bildZuRezept(req: Request, res: Response) {
+  try {
+    const rezept = await RezeptModel.findById(req.params.id)
+    if (!rezept)
+      return sendErrorResponse(res, 404, "Rezept nicht gefunden")
+
+    const authorId: string | null = rezept?.author?._id.toString() || null
+    if (!req.user?.rollen?.includes(BenutzerRolle.ADMIN) && authorId && authorId !== req.user?._id)
+      return sendErrorResponse(res, 403, "Keine ausreichenden Rechte")
+
+    const datei: DocumentType<Datei> = await handleFileUpload(req)
+    rezept.bild = datei ? new mongoose.Types.ObjectId(datei._id) : undefined
+
+    RezeptModel.findOneAndUpdate({_id: rezept._id}, rezept, {new: true})
+      .then((response) => {
+        if (!response)
+          return sendErrorResponse(res, 404, "Eintrag nicht gefunden")
+        res.status(200).json(response)
+      })
+      .catch((error: any) => sendGenericServerError(res, error))
+  } catch (error) {
+    sendGenericServerError(res, error)
+  }
+}
+
+
+

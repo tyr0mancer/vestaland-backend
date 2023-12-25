@@ -1,4 +1,5 @@
 import {Request, Response} from "express";
+import { DocumentType } from '@typegoose/typegoose';
 import {UploadedFile} from "express-fileupload";
 import * as path from "path";
 import mongoose from 'mongoose';
@@ -13,17 +14,14 @@ const fs = require('fs');
 
 export async function uploadFile(req: Request, res: Response) {
   handleFileUpload(req)
-    .then(uploadedFile => {
-      DateiModel.create(uploadedFile)
-        .then((response: Datei) => res.status(201).json(response))
-    })
+    .then((response: Datei) => res.status(201).json(response))
     .catch(error => handleError(res, error))
 }
 
 
 //@todo How to handle Array of images? Restrict amount? AV measurements
-export function handleFileUpload(req: Request, attributeName: string = "image"): Promise<Datei> {
-  return new Promise<Datei>((resolve, reject) => {
+export function handleFileUpload(req: Request, attributeName: string = "image"): Promise<DocumentType<Datei>> {
+  return new Promise<DocumentType<Datei>>((resolve, reject) => {
     if (!req.files || !req.files[attributeName] || req.files[attributeName] === undefined)
       return reject({status: 400, message: "Keine Datei mitgesendet"} as ApiError);
 
@@ -43,8 +41,8 @@ export function handleFileUpload(req: Request, attributeName: string = "image"):
       fileName: randomFileName,
       uploadedBy: req.user?._id ? new mongoose.Types.ObjectId(req.user._id) : undefined
     }
-    return resolve(datei)
 
+    return resolve(DateiModel.create(datei))
   })
 }
 

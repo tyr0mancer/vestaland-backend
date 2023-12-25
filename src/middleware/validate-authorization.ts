@@ -9,7 +9,7 @@ export const validateAuthorization = (requiredRole?: BenutzerRolle) => {
       ? req.headers.authorization.substring(7)
       : req.header('auth-token');
 
-    if (!token)
+    if (!token || token === "")
       return sendErrorResponse(res, 401, "auth-token fehlt")
 
     try {
