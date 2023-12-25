@@ -15,8 +15,11 @@ dotenv.config();
   Add Middleware
  */
 
-// Routes
-app.use('/', mainRouter);
+// Parse JSON
+app.use(express.json());
+
+// Logging
+app.use(morgan('combined'));
 
 // CORS
 // @todo update for production to remove 192.168.2.36
@@ -37,15 +40,12 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
-// Logging
-app.use(morgan('combined'));
-
-// Parse JSON
-app.use(express.json());
-
 // Cookies
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
+
+// Routes
+app.use('/', mainRouter);
 
 // File Uploads
 const fileUpload = require('express-fileupload');
