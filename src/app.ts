@@ -1,31 +1,30 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import {mainRouter} from "./routes";
 import morgan from 'morgan';
+import dotenv from "dotenv";
 
+
+// create express app
+export const app = express();
 
 // read variables from .env
 dotenv.config();
 
-// create express app
-const app = express();
 
-// Cookies
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
+/*
+  Add Middleware
+ */
 
-
-// Middleware
-app.use(morgan('combined'));
-app.use(express.json());
+// Routes
+app.use('/', mainRouter);
 
 // CORS
-// @todo update for production
+// @todo update for production to remove 192.168.2.36
+const cors = require('cors');
 const allowedOrigins = [
   'https://vestaland.netlify.app',
   'http://192.168.2.36:3000'
 ];
-
 const corsOptions = {
   origin: function (origin: any, callback: (error: Error | null, noError?: boolean) => {}) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
@@ -36,12 +35,19 @@ const corsOptions = {
   },
   credentials: true
 }
-const cors = require('cors');
 app.use(cors(corsOptions));
 
+// Logging
+app.use(morgan('combined'));
 
-// Routes
-  app.use('/', mainRouter);
+// Parse JSON
+app.use(express.json());
 
-export default app;
+// Cookies
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+// File Uploads
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
 
