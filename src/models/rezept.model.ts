@@ -7,36 +7,46 @@ import {Datei} from "./datei.model";
 import {Benutzer} from "./benutzer.model";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 
-export class Aktion {
-  @prop({required: true})
-  public name: string = "";
-
-  @prop()
-  public beschreibung?: string;
-
+export class KochschrittMeta {
   @prop()
   public temperatur?: number;
 
   @prop()
   public hitze?: string;
 
-  @prop()
-  public dauer?: number;
 }
 
-export class Arbeitsschritt {
-  @prop({type: Aktion, _id: false})
-  public aktion?: Aktion;
+export class Kochschritt {
+  @prop({required: true})
+  public name?: string = "";
+
+  @prop()
+  public beschreibung?: string;
+
+  @prop()
+  public dauer?: number;
 
   @prop({type: Zutat, _id: false})
   public zutaten: Zutat[] = [];
 
   @prop({ref: "Hilfsmittel", type: mongoose.Schema.Types.ObjectId})
-  public hilfsmittel: Ref<Hilfsmittel>[]= [];
+  public hilfsmittel: Ref<Hilfsmittel>[] = [];
+
+  @prop({type: KochschrittMeta, _id: false})
+  public meta?: KochschrittMeta;
+
+}
+
+export class RezeptMeta {
 
   @prop()
-  public dauer?: number;
+  public vegetarisch?: boolean;
+
+  @prop()
+  public healthy?: boolean;
+
 }
+
 
 @modelOptions({schemaOptions: {collection: "rezepte"}})
 export class Rezept extends TimeStamps {
@@ -58,8 +68,11 @@ export class Rezept extends TimeStamps {
   @prop({ref: "Hilfsmittel", type: mongoose.Schema.Types.ObjectId})
   public hilfsmittel: Ref<Hilfsmittel>[] = [];
 
-  @prop({type: Arbeitsschritt, _id: false})
-  public arbeitsschritte: Arbeitsschritt[] = [];
+  @prop({type: Kochschritt, _id: false})
+  public kochschritte: Kochschritt[] = [];
+
+  @prop({type: RezeptMeta, _id: false})
+  public meta?: RezeptMeta;
 
   @prop()
   public portionen: number = 1;
