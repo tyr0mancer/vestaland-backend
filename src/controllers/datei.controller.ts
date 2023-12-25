@@ -1,60 +1,80 @@
 import {Request, Response} from "express";
-import {catchError, errorResponse} from "./generic-controller";
 import {UploadedFile} from "express-fileupload";
 import * as path from "path";
+import mongoose from 'mongoose';
 
-export function uploadFile(req: Request, res: Response) {
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return errorResponse(res, 400, 'Keine Datei mitgesendet')
-  }
-  try {
-    // Check if 'uploadedFile' is an array or a single file
-    const fileOrFiles = req.files.uploadedFile;
-    const dir = path.join(__dirname, '../../public/uploads');
+import {Datei, DateiModel} from "../models/datei.model";
+import {ApiError} from "../types/types";
+import {handleError, sendErrorResponse} from "../middleware/error-handler";
 
-    if (Array.isArray(fileOrFiles)) {
-      // Handle the case where it's an array of files
-      fileOrFiles.forEach(file => {
-        file.mv(`${dir}/${file.name}`, err => {
-          if (err) {
-            return res.status(500).send(err);
-          }
-        });
-      });
-      res.send('Files uploaded!');
-    } else {
+const crypto = require('crypto');
+const fs = require('fs');
 
-      // Handle the case where it's a single file
-      const file = fileOrFiles as UploadedFile;
-      file.mv(`${dir}/${file.name}`, err => {
-        if (err) {
-          return res.status(500).send(err);
-        }
-        res.send('File uploaded!');
-      });
-    }
-  } catch (error: any) {
-    catchError(res, error)
-  }
+
+export async function uploadFile(req: Request, res: Response) {
+  handleFileUpload(req)
+    .then(uploadedFile => {
+      DateiModel.create(uploadedFile)
+        .then((response: Datei) => res.status(201).json(response))
+    })
+    .catch(error => handleError(res, error))
 }
 
-/*
-function moveFile(file: UploadedFile): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const dir = path.join(__dirname, '../../public/uploads');
-    file.mv(`${dir}/${file.name}`, err => {
-      reject(err)
+
+//@todo How to handle Array of images? Restrict amount? AV measurements
+export function handleFileUpload(req: Request, attributeName: string = "image"): Promise<Datei> {
+  return new Promise<Datei>((resolve, reject) => {
+    if (!req.files || !req.files[attributeName] || req.files[attributeName] === undefined)
+      return reject({status: 400, message: "Keine Datei mitgesendet"} as ApiError);
+
+    const fileOrFiles: UploadedFile | UploadedFile[] = req.files[attributeName]
+    const uploadedFile = Array.isArray(fileOrFiles) ? fileOrFiles[0] : fileOrFiles
+    const fileExtension = path.extname(uploadedFile.name);
+    const fileNameWithoutExtension = path.basename(uploadedFile.name, path.extname(uploadedFile.name));
+    const randomFileName = generateRandomString(8) + fileExtension;
+    const uploadPath = path.join(__dirname, '../../public/uploads/', randomFileName);
+    uploadedFile.mv(`${uploadPath}`, err => {
+      return reject(err)
     });
-    resolve('OK')
+
+    const datei: Datei = {
+      name: fileNameWithoutExtension,
+      fileNameOriginal: uploadedFile.name,
+      fileName: randomFileName,
+      uploadedBy: req.user?._id ? new mongoose.Types.ObjectId(req.user._id) : undefined
+    }
+    return resolve(datei)
+
   })
 }
-*/
+
+function generateRandomString(length: number) {
+  return crypto.randomBytes(length).toString('hex');
+}
 
 
-export function deleteFile(req: Request, res: Response) {
+export async function deleteFile(req: Request, res: Response) {
   try {
-    res.status(204).send()
-  } catch (error: any) {
-    catchError(res, error)
+    const datei = await DateiModel.findById({_id: req.params.id})
+    if (!datei)
+      return sendErrorResponse(res, 404, "Datei nicht in DB gefunden")
+    const filename = path.join(__dirname, '../../public/uploads/' + datei.fileName)
+    fs.unlink(filename, (err: any) => {
+      if (err) {
+        if (err.code === 'ENOENT') {
+          return res.status(404).send('Datei nicht auf Server gefunden');
+        }
+        return res.status(500).send('Datei konnte nicht gelöscht werden');
+      }
+
+      DateiModel.findOneAndDelete({_id: req.params.id})
+        .then(() => res.status(204).send())
+        .catch((error) => {
+          console.error(error)
+          sendErrorResponse(res, 500, "Datei wurde gelöscht konnte aber nicht aus DB entfernt werden")
+        })
+    });
+  } catch (error) {
+    return handleError(res, error)
   }
 }

@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {catchError} from "../generic-controller";
+import {sendGenericServerError} from "../../middleware/error-handler";
 
 export function logoutController(req: Request, res: Response) {
   try {
@@ -14,7 +14,7 @@ export function logoutController(req: Request, res: Response) {
       });
     return res.status(204).send()
   } catch (error) {
-    catchError(res, error)
+    sendGenericServerError(res, error)
   }
 
 }

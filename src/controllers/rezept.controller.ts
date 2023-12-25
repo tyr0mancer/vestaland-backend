@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {RezeptModel} from "../models/rezept.model";
-import {catchError} from "./generic-controller";
+import {sendGenericServerError} from "../middleware/error-handler";
 
 export async function findeRezept(req: Request, res: Response) {
   let query: { [key: string]: any } = {};
@@ -20,7 +20,7 @@ export async function findeRezept(req: Request, res: Response) {
     const rezepte = await RezeptModel.find(query);
     res.status(200).json(rezepte);
   } catch (error) {
-    catchError(res, error)
+    sendGenericServerError(res, error)
   }
 }
 
@@ -36,6 +36,6 @@ export async function getRezeptDetail(req: Request, res: Response) {
 
     res.status(200).json(rezept);
   } catch (error) {
-    catchError(res, error)
+    sendGenericServerError(res, error)
   }
 }
