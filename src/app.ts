@@ -47,8 +47,9 @@ app.use(cookieParser());
 
 // File Uploads
 const fileUpload = require('express-fileupload');
-app.use(fileUpload());
-
+app.use(fileUpload({
+  limits: { fileSize: 10 * 1024 * 1024 }, // 100 MB
+}));
 
 
 // Routes
