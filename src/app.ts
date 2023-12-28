@@ -27,6 +27,7 @@ app.use(morgan('combined'));
 const cors = require('cors');
 const allowedOrigins = [
   'https://vestaland.netlify.app',
+  'https://app.vestaland.de',
   'http://192.168.2.36:3000'
 ];
 const corsOptions = {
