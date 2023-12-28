@@ -30,7 +30,7 @@ export const BenutzerModel = getModelForClass(Benutzer);
 
 export const benutzerSchema = z.object({
   name: z.string({required_error: "Benutzername erforderlich"}),
-  email: z.string({required_error: "Email erforderlich"}),
+  email: z.string({required_error: "Email erforderlich"}).email("Email ist ungültig"),
   password: z.string({required_error: "Passwort erforderlich"}),
 });
 
@@ -39,3 +39,6 @@ export const changePasswordSchema = z.object({
   password: z.string({required_error: "Passwort erforderlich"}),
 });
 
+export const requestNewPasswordSchema = z.object({
+  email: z.string({required_error: "Email erforderlich"}).email("Email ist ungültig")
+});

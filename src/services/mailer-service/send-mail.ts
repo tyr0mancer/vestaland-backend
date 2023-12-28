@@ -36,7 +36,7 @@ export function sendMail(to: string, subject: string, text: string, html?: strin
   return new Promise(async (resolve, reject) => {
     transporter
       .sendMail({
-        from: '"Team Vestaland ☃" <team@vestaland.de>',
+        from: '"Team Vestaland 🍽" <team@vestaland.de>',
         to,
         subject,
         text,
