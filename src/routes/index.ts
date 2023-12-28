@@ -9,6 +9,7 @@ import {authRouter} from "./auth/auth.route";
 import {rezeptRouter} from "./api/rezept.route";
 import {lebensmittelRouter} from "./api/lebensmittel.route";
 import {dateiRouter} from "./api/datei.route";
+import {Essensplan, EssensplanModel, essensplanSchema} from "../models/essensplan.model";
 
 const apiRouter = express.Router();
 
@@ -24,7 +25,10 @@ apiRouter.use('/datei', dateiRouter);
 apiRouter.use('/rezept', genericRouter<Rezept>(RezeptModel, rezeptSchema));
 apiRouter.use('/lebensmittel', genericRouter<Lebensmittel>(LebensmittelModel, lebensmittelSchema));
 apiRouter.use('/hilfsmittel', genericRouter<Hilfsmittel>(HilfsmittelModel, hilfsmittelSchema));
+
 apiRouter.use('/einkaufsliste', genericRouter<Einkaufsliste>(EinkaufslisteModel, einkaufslisteSchema));
+apiRouter.use('/essensplan', genericRouter<Essensplan>(EssensplanModel, essensplanSchema));
+apiRouter.use('/vorrat', genericRouter<Einkaufsliste>(EinkaufslisteModel, einkaufslisteSchema));
 
 export const mainRouter = express.Router();
 mainRouter.use('/api', apiRouter)

@@ -4,6 +4,14 @@ export enum BenutzerRolle {
   ADMIN = 'admin'
 }
 
+export enum Einheit {
+  G = 'g',
+  KG = 'kg',
+  STUECK = 'St.',
+  ML = 'ml',
+  L = 'l'
+}
+
 export interface LoginResponse {
   _id: string,
   name: string,
