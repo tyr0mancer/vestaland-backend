@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
-import bcrypt from "bcryptjs";
 import {BenutzerModel} from "../../models/benutzer.model";
 import {sendErrorResponse, sendGenericServerError} from "../../middleware/error-handler";
+import {generatePasswordHash} from "../../services/createHash";
 
 export async function registerController(req: Request, res: Response) {
   const {name, email, password} = req.body
@@ -12,7 +12,7 @@ export async function registerController(req: Request, res: Response) {
       return sendErrorResponse(res, 409, "Ein Benutzer mit dieser Email existiert bereits")
 
     // Hash passwort
-    const hashedPassword = await generateHash(password)
+    const hashedPassword = await generatePasswordHash(password)
 
     // Neuer Benutzer
     const benutzer = new BenutzerModel({
@@ -27,10 +27,4 @@ export async function registerController(req: Request, res: Response) {
   } catch (error) {
     sendGenericServerError(res, error)
   }
-}
-
-export async function generateHash(password: string) {
-  // Hash passwort
-  const salt = await bcrypt.genSalt(10)
-  return bcrypt.hash(password, salt)
 }

@@ -1,16 +1,10 @@
 import {Request, Response} from "express";
-import {z} from "zod";
 import {Benutzer, BenutzerModel} from "../../models/benutzer.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {Types} from "mongoose";
 import {LoginResponse} from "../../types/types";
 import {sendErrorResponse, sendGenericServerError} from "../../middleware/error-handler";
-
-export const loginSchema = z.object({
-  username: z.string({required_error: "Benutzername fehlt."}),
-  password: z.string({required_error: "Passwort fehlt."})
-});
 
 export function loginController(req: Request, res: Response) {
   BenutzerModel.findOne({email: req.body.username})

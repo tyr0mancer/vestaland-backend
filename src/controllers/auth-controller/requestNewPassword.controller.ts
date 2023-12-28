@@ -3,6 +3,7 @@ import {sendErrorResponse, sendGenericServerError} from "../../middleware/error-
 import {BenutzerModel} from "../../models/benutzer.model";
 import {sendRequestPasswordResetMail} from "../../services/mailer-service/request-password-reset";
 import crypto from "crypto";
+import {generateTokenHash} from "../../services/createHash";
 
 export async function requestNewPasswordController(req: Request, res: Response) {
 
@@ -11,10 +12,11 @@ export async function requestNewPasswordController(req: Request, res: Response) 
     if (!benutzer)
       return sendErrorResponse(res, 404, "Benutzer mit dieser Email Adresse existiert nicht")
 
-    const resetPasswordCode = generateRandomString()
-    benutzer.resetPasswordHash = crypto.createHash('sha512').update(resetPasswordCode).digest("hex")
+    const token = generateRandomString()
+    benutzer.resetPasswordHash = await generateTokenHash(token)
+
     benutzer.resetPasswordExpires = new Date(new Date().getTime() + 30 * 60 * 1000)
-    await sendRequestPasswordResetMail(benutzer, resetPasswordCode)
+    await sendRequestPasswordResetMail(benutzer, token)
     await benutzer.save()
     return res.status(204).send()
   } catch (error) {
@@ -22,7 +24,7 @@ export async function requestNewPasswordController(req: Request, res: Response) 
   }
 }
 
-function generateRandomString(length=6) {
+function generateRandomString(length = 6) {
   const randomBytes = crypto.randomBytes(length);
   let randomString = randomBytes.toString('hex');
   randomString = randomString.substr(0, length);

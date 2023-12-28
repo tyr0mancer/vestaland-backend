@@ -1,4 +1,4 @@
-import {prop, getModelForClass, modelOptions} from '@typegoose/typegoose';
+import {prop, getModelForClass, modelOptions, mongoose} from '@typegoose/typegoose';
 import {z} from "zod";
 import {BenutzerRolle} from "../types/types";
 
@@ -41,4 +41,17 @@ export const changePasswordSchema = z.object({
 
 export const requestNewPasswordSchema = z.object({
   email: z.string({required_error: "Email erforderlich"}).email("Email ist ungültig")
+});
+
+export const loginParams = z.object({token: z.custom<mongoose.Types.ObjectId>()})
+
+export const loginSchema = z.object({
+  username: z.string({required_error: "Benutzername fehlt."}),
+  password: z.string({required_error: "Passwort fehlt."})
+});
+
+export const changePasswordAndLoginSchema = z.object({
+  token: z.string({required_error: "Das Token fehlt."}),
+  email: z.string({required_error: "Email Adresse fehlt."}),
+  password: z.string({required_error: "Passwort fehlt."})
 });
