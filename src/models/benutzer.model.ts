@@ -34,3 +34,8 @@ export const benutzerSchema = z.object({
   password: z.string({required_error: "Passwort erforderlich"}),
 });
 
+
+export const changePasswordSchema = z.object({
+  password: z.string({required_error: "Passwort erforderlich"}),
+});
+

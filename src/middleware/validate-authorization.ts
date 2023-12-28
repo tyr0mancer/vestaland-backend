@@ -15,6 +15,7 @@ export const validateAuthorization = (requiredRole?: BenutzerRolle) => {
     try {
       const userInformation = jwt.verify(token, process.env.AUTH_TOKEN_SECRET || '') as UserInformation;
       userInformation.isAdmin = userInformation.rollen?.includes(BenutzerRolle.ADMIN);
+      console.log("userInformation", userInformation)
       req.user = userInformation;
       if (requiredRole && !userInformation.isAdmin && !userInformation.rollen?.includes(requiredRole)) {
         return sendErrorResponse(res, 403, "Unzureichende Rechte")

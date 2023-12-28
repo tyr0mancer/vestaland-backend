@@ -12,6 +12,8 @@ import {dateiRouter} from "./api/datei.route";
 import {Essensplan, EssensplanModel, essensplanSchema} from "../models/essensplan.model";
 import {Vorrat, VorratModel, vorratSchema} from "../models/vorrat.model";
 import {Lagerort, LagerortModel, lagerortSchema} from "../models/lagerort";
+import {sendMail} from "../services/mailer-service/send-mail";
+import {sendGenericServerError} from "../middleware/error-handler";
 
 const apiRouter = express.Router();
 
@@ -38,4 +40,22 @@ mainRouter.use('/api', apiRouter)
 
 // test and documentation
 mainRouter.get('/', (req, res) => res.send('Hello Mundo!'));
+mainRouter.get('/mail-test', (req, res) => {
+  sendTestmail("mail@alex-gross.de").then(() =>
+    res.send('mail sent!'))
+    .catch(error => sendGenericServerError(res, error))
+})
 
+
+function sendTestmail(to: string) {
+  const neuesPasswort = "PasswORT!"
+  const benutzerName = "Mr Beast Fuck The World"
+
+  return new Promise(async (resolve, reject) => {
+    const text = `Hallo ${benutzerName}!\nIhr neues Passwort lautet: ${neuesPasswort} \n\nVG Team Vestaland`
+    const html = `<b>Hallo ${benutzerName}!</b><br/><p>Ihr neues Passwort lautet: <b>${neuesPasswort}</b></p><p>VG<br/>Team Vestaland</p>`
+    const subject = "Ihr neues Passwort ⚠";
+
+    sendMail(to, subject, text, html).then(resolve).catch(reject);
+  })
+}
