@@ -38,7 +38,10 @@ export async function getRezeptDetail(req: Request, res: Response) {
   try {
     const rezept = await RezeptModel
       .findById(req.params.id)
-      .populate({path: 'author'})
+      .populate({
+        path: 'author',
+        select: '-password'
+      })
       .populate({path: 'bild'})
       .populate({path: 'zutaten.lebensmittel'})
       .populate({path: 'hilfsmittel'})
