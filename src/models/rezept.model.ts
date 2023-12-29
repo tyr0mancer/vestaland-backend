@@ -56,6 +56,9 @@ export class Rezept extends TimeStamps {
   @prop()
   public beschreibung?: string;
 
+  @prop()
+  public gesamtDauer?: number;
+
   @prop({ref: "Benutzer", type: mongoose.Schema.Types.ObjectId})
   public author?: Ref<Benutzer>;
 
