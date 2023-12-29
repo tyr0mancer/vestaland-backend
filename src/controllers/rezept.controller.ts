@@ -24,7 +24,10 @@ export async function findeRezept(req: Request, res: Response) {
 
   try {
     const rezepte = await RezeptModel.find(query)
-      .populate({path: 'author'})
+      .populate({
+        path: 'author',
+        select: '_id, name'
+      })
       .populate({path: 'bild'})
       .populate({path: 'zutaten.lebensmittel'})
     res.status(200).json(rezepte);
@@ -40,7 +43,7 @@ export async function getRezeptDetail(req: Request, res: Response) {
       .findById(req.params.id)
       .populate({
         path: 'author',
-        select: '-password'
+        select: '_id, name'
       })
       .populate({path: 'bild'})
       .populate({path: 'zutaten.lebensmittel'})
