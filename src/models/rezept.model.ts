@@ -24,7 +24,13 @@ export class Kochschritt {
   public beschreibung?: string;
 
   @prop()
-  public dauer?: number;
+  public gesamtdauer?: number;
+
+  @prop()
+  public arbeitszeit?: number;
+
+  @prop()
+  public wartezeit?: number;
 
   @prop({type: Zutat, _id: false})
   public zutaten: Zutat[] = [];
@@ -58,6 +64,12 @@ export class Rezept extends TimeStamps {
 
   @prop()
   public gesamtdauer?: number;
+
+  @prop()
+  public arbeitszeit?: number;
+
+  @prop()
+  public wartezeit?: number;
 
   @prop({ref: "Benutzer", type: mongoose.Schema.Types.ObjectId})
   public author?: Ref<Benutzer>;
