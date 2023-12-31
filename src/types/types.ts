@@ -7,7 +7,7 @@ export enum BenutzerRolle {
 export enum KochschrittTypus {
   FREITEXT = 'FREITEXT',
   SCHNEIDEN = 'schneiden',
-  AUFHITZEN = 'aufhitzen',
+  AUFHEIZEN = 'aufheizen',
   BRATEN = 'braten',
   HEISS_BRATEN = 'scharf anbraten',
   PUTZEN = 'putzen',

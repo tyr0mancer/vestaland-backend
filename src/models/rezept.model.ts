@@ -14,7 +14,6 @@ export class KochschrittMeta {
 
   @prop()
   public hitze?: string;
-
 }
 
 export class Kochschritt {
@@ -50,11 +49,9 @@ export class Kochschritt {
 
   @prop({type: KochschrittMeta, _id: false})
   public meta?: KochschrittMeta;
-
 }
 
 export class RezeptMeta {
-
   @prop()
   public vegetarisch?: boolean;
 
@@ -63,9 +60,7 @@ export class RezeptMeta {
 
   @prop()
   public soulfood?: boolean;
-
 }
-
 
 @modelOptions({schemaOptions: {collection: "rezepte"}})
 export class Rezept extends TimeStamps {
