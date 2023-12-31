@@ -4,6 +4,15 @@ export enum BenutzerRolle {
   ADMIN = 'admin'
 }
 
+export enum KochschrittTypus {
+  FREITEXT = 'FREITEXT',
+  SCHNEIDEN = 'schneiden',
+  AUFHITZEN = 'aufhitzen',
+  BRATEN = 'braten',
+  HEISS_BRATEN = 'scharf anbraten',
+  PUTZEN = 'putzen',
+}
+
 export enum Einheit {
   G = 'g',
   KG = 'kg',

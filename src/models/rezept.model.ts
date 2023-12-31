@@ -1,4 +1,4 @@
-import {prop, getModelForClass, Ref, mongoose, modelOptions} from '@typegoose/typegoose';
+import {getModelForClass, modelOptions, mongoose, prop, Ref} from '@typegoose/typegoose';
 import {z} from "zod";
 
 import {Zutat} from "./zutat.model";
@@ -6,6 +6,7 @@ import {Hilfsmittel} from "./hilfsmittel.model";
 import {Datei} from "./datei.model";
 import {Benutzer} from "./benutzer.model";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
+import {KochschrittTypus} from "../types/types";
 
 export class KochschrittMeta {
   @prop()
@@ -20,8 +21,17 @@ export class Kochschritt {
   @prop({required: true})
   public name?: string = "";
 
+  @prop({required: true})
+  public typus: KochschrittTypus = KochschrittTypus.FREITEXT;
+
   @prop()
   public beschreibung?: string;
+
+  @prop()
+  public videoUrl?: string;
+
+  @prop()
+  public repeating?: boolean;
 
   @prop()
   public gesamtdauer?: number;
@@ -51,6 +61,9 @@ export class RezeptMeta {
   @prop()
   public healthy?: boolean;
 
+  @prop()
+  public soulfood?: boolean;
+
 }
 
 
@@ -58,6 +71,9 @@ export class RezeptMeta {
 export class Rezept extends TimeStamps {
   @prop({required: true})
   public name: string = '';
+
+  @prop()
+  public quelleUrl?: string;
 
   @prop()
   public beschreibung?: string;
