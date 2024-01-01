@@ -13,7 +13,7 @@ import {Essensplan, EssensplanModel, essensplanSchema} from "../models/essenspla
 import {Vorrat, VorratModel, vorratSchema} from "../models/vorrat.model";
 import {Lagerort, LagerortModel, lagerortSchema} from "../models/lagerort";
 import {sendMail} from "../services/mailer-service/send-mail";
-import {sendGenericServerError} from "../middleware/error-handler";
+import {handleGenericServerError} from "../middleware/error-handler";
 
 const apiRouter = express.Router();
 
@@ -43,7 +43,7 @@ mainRouter.get('/', (req, res) => res.send('Hello Mundo!'));
 mainRouter.get('/mail-test', (req, res) => {
   sendTestmail("mail@alex-gross.de").then(() =>
     res.send('mail sent!'))
-    .catch(error => sendGenericServerError(res, error))
+    .catch(error => handleGenericServerError(res, error))
 })
 
 

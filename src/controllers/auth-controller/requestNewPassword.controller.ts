@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {sendErrorResponse, sendGenericServerError} from "../../middleware/error-handler";
+import {sendErrorResponse, handleGenericServerError} from "../../middleware/error-handler";
 import {BenutzerModel} from "../../models/benutzer.model";
 import {sendRequestPasswordResetMail} from "../../services/mailer-service/request-password-reset";
 import crypto from "crypto";
@@ -20,7 +20,7 @@ export async function requestNewPasswordController(req: Request, res: Response) 
     await benutzer.save()
     return res.status(204).send()
   } catch (error) {
-    sendGenericServerError(res, error)
+    handleGenericServerError(res, error)
   }
 }
 

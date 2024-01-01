@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {BenutzerModel} from "../../models/benutzer.model";
-import {sendErrorResponse, sendGenericServerError} from "../../middleware/error-handler";
+import {sendErrorResponse, handleGenericServerError} from "../../middleware/error-handler";
 import {generatePasswordHash} from "../../services/createHash";
 
 export async function registerController(req: Request, res: Response) {
@@ -25,6 +25,6 @@ export async function registerController(req: Request, res: Response) {
     return res.status(201).json(benutzer)
 
   } catch (error) {
-    sendGenericServerError(res, error)
+    handleGenericServerError(res, error)
   }
 }

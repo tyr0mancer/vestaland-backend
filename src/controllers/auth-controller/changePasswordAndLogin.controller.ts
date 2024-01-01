@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {sendErrorResponse, sendGenericServerError} from "../../middleware/error-handler";
+import {sendErrorResponse, handleGenericServerError} from "../../middleware/error-handler";
 import {BenutzerModel} from "../../models/benutzer.model";
 import {loginController} from "./login.controller";
 import {generatePasswordHash, generateTokenHash} from "../../services/createHash";
@@ -24,6 +24,6 @@ export async function changePasswordAndLoginController(req: Request, res: Respon
     return sendErrorResponse(res, 403, 'Token ungültig')
 
   } catch (error) {
-    sendGenericServerError(res, error)
+    handleGenericServerError(res, error)
   }
 }

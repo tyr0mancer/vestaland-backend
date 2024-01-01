@@ -5,25 +5,41 @@ import mongoose from "mongoose";
 import {Datei} from "../models/datei.model";
 import {Rezept, RezeptModel} from "../models/rezept.model";
 
-import {sendErrorResponse, sendGenericServerError} from "../middleware/error-handler";
+import {sendErrorResponse, handleGenericServerError} from "../middleware/error-handler";
 import {handleFileUpload} from "./datei.controller";
 import {BenutzerRolle} from "../shared-types";
+import {z} from "zod";
+
+export const findeRezeptSchema = {
+  params: z.object({
+    name: z.string().optional(),
+    zutaten: z.string().optional(),
+    vegetarisch: z.boolean().optional(),
+    healthy: z.boolean().optional(),
+    myRecipes: z.boolean().optional(),
+    soulfood: z.boolean().optional(),
+  }).strict()
+}
 
 export async function findeRezeptController(req: Request, res: Response) {
   let query: { [key: string]: any } = {};
 
-  // @todo zod should be able to do that
-  if (req.query.name && typeof req.query.name == "string") {
-    query.name = new RegExp(req.query.name, 'i');
-  }
+  if (typeof req.query.name == "string")
+    query['name'] = new RegExp(req.query.name, 'i');
+
   if (req.query.zutaten && typeof req.query.zutaten == "string") {
-    const zutaten = req.query.zutaten.split(',');
-    query.zutaten = {$in: {lebensmittel: {$in: zutaten}}};
+    const zutaten = req.query.zutaten.split(',').filter(id => mongoose.Types.ObjectId.isValid(id));
+    query['zutaten.lebensmittel'] = {$in: zutaten}
   }
-  if (req.query.zutaten && typeof req.query.zutaten == "string") {
-    const zutaten = req.query.zutaten.split(',');
-    query.zutaten = {$in: {lebensmittel: {$in: zutaten}}};
-  }
+
+  if (typeof req.query.vegetarisch == "string")
+    query['meta.vegetarisch'] = true
+  if (typeof req.query.healthy == "string")
+    query['meta.healthy'] = true
+  if (typeof req.query.soulfood == "string")
+    query['meta.soulfood'] = true
+  if (typeof req.query.myRecipes == "string")
+    query['author'] = req.user?._id
 
 
   try {
@@ -35,7 +51,7 @@ export async function findeRezeptController(req: Request, res: Response) {
       .populate({path: 'bild'})
     res.status(200).json(rezepte);
   } catch (error) {
-    sendGenericServerError(res, error)
+    handleGenericServerError(res, error)
   }
 }
 
@@ -56,7 +72,7 @@ export async function getRezeptDetailController(req: Request, res: Response) {
 
     res.status(200).json(rezept);
   } catch (error) {
-    sendGenericServerError(res, error)
+    handleGenericServerError(res, error)
   }
 }
 
@@ -67,9 +83,9 @@ export async function postRezept(req: Request, res: Response) {
     rezept.author = req.user?._id ? new mongoose.Types.ObjectId(req.user._id) : undefined
     RezeptModel.create(req.body)
       .then((response) => res.status(201).json(response))
-      .catch((error: any) => sendGenericServerError(res, error))
+      .catch((error: any) => handleGenericServerError(res, error))
   } catch (error) {
-    sendGenericServerError(res, error)
+    handleGenericServerError(res, error)
   }
 }
 
@@ -92,9 +108,9 @@ export async function bildZuRezept(req: Request, res: Response) {
           return sendErrorResponse(res, 404, "Eintrag nicht gefunden")
         res.status(200).json(response)
       })
-      .catch((error: any) => sendGenericServerError(res, error))
+      .catch((error: any) => handleGenericServerError(res, error))
   } catch (error) {
-    sendGenericServerError(res, error)
+    handleGenericServerError(res, error)
   }
 }
 

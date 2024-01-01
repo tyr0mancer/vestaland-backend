@@ -22,7 +22,7 @@ export async function uploadFile(req: Request, res: Response) {
 //@todo How to handle Array of images? Restrict amount? AV measurements
 export function handleFileUpload(req: Request, attributeName: string = "image"): Promise<DocumentType<Datei>> {
   return new Promise<DocumentType<Datei>>((resolve, reject) => {
-    if (!req.files || !req.files[attributeName] || req.files[attributeName] === undefined)
+    if (!req.files || !req.files[attributeName] || req.files[attributeName] === undefined) //@todo handle with ZOD
       return reject({status: 400, message: "Keine Datei mitgesendet"} as ApiError);
 
     const fileOrFiles: UploadedFile | UploadedFile[] = req.files[attributeName]

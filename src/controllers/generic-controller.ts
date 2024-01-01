@@ -1,12 +1,12 @@
 import {Request, Response} from "express";
 import {ReturnModelType} from "@typegoose/typegoose/lib/types";
-import {sendErrorResponse, sendGenericServerError} from "../middleware/error-handler";
+import {sendErrorResponse, handleGenericServerError} from "../middleware/error-handler";
 
 export function genericPost<T>(genericModel: ReturnModelType<any>) {
   return (req: Request, res: Response) => {
     genericModel.create(req.body)
       .then((response: T) => res.status(201).json(response))
-      .catch((error: any) => sendGenericServerError(res, error))
+      .catch((error: any) => handleGenericServerError(res, error))
   }
 }
 
@@ -18,7 +18,7 @@ export function genericPut<T>(genericModel: ReturnModelType<any>) {
           return sendErrorResponse(res, 404, "Eintrag nicht gefunden")
         res.status(200).json(response)
       })
-      .catch((error: any) => sendGenericServerError(res, error))
+      .catch((error: any) => handleGenericServerError(res, error))
   }
 }
 
@@ -30,7 +30,7 @@ export function genericDelete(genericModel: ReturnModelType<any>) {
           return sendErrorResponse(res, 404, "Eintrag nicht gefunden")
         res.status(204).send();
       })
-      .catch((error: any) => sendGenericServerError(res, error))
+      .catch((error: any) => handleGenericServerError(res, error))
   }
 }
 
@@ -42,7 +42,7 @@ export function genericGet<T>(genericModel: ReturnModelType<any>) {
           return sendErrorResponse(res, 404, "Eintrag nicht gefunden")
         res.status(200).json(response)
       })
-      .catch((error: any) => sendGenericServerError(res, error))
+      .catch((error: any) => handleGenericServerError(res, error))
   }
 }
 
@@ -56,7 +56,7 @@ export function genericSearch<T>(genericModel: ReturnModelType<any>) {
       const response = await genericModel.find(query);
       res.status(200).json(response);
     } catch (error) {
-      sendGenericServerError(res, error)
+      handleGenericServerError(res, error)
     }
   }
 }

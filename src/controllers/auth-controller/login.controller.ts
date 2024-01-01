@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {Types} from "mongoose";
 import {LoginResponse} from "../../shared-types";
-import {sendErrorResponse, sendGenericServerError} from "../../middleware/error-handler";
+import {sendErrorResponse, handleGenericServerError} from "../../middleware/error-handler";
 import config from "../../config";
 
 export function loginController(req: Request, res: Response) {
@@ -26,7 +26,7 @@ export function loginController(req: Request, res: Response) {
       })
 
     })
-    .catch(error => sendGenericServerError(res, error))
+    .catch(error => handleGenericServerError(res, error))
 }
 
 
@@ -66,6 +66,6 @@ export function successfulLogin(benutzer: Benutzer, _id: Types.ObjectId, res: Re
     }
     return res.status(200).json(loginResponse)
   } catch (error) {
-    sendGenericServerError(res, error)
+    handleGenericServerError(res, error)
   }
 }

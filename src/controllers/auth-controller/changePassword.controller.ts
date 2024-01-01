@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {sendGenericServerError} from "../../middleware/error-handler";
+import {handleGenericServerError} from "../../middleware/error-handler";
 import {BenutzerModel} from "../../models/benutzer.model";
 import {generatePasswordHash} from "../../services/createHash";
 
@@ -12,6 +12,6 @@ console.log(req.user?._id)
     console.log(benutzer)
     return res.status(201).send("Passwort wurde geändert")
   } catch (error) {
-    sendGenericServerError(res, error)
+    handleGenericServerError(res, error)
   }
 }

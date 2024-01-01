@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {Lebensmittel, LebensmittelModel} from "../models/lebensmittel.model";
-import {sendGenericServerError} from "../middleware/error-handler";
+import {handleGenericServerError} from "../middleware/error-handler";
 
 export function findeLebensmittelController(req: Request, res: Response) {
   let query: { [key: string]: any } = {};
@@ -13,12 +13,12 @@ export function findeLebensmittelController(req: Request, res: Response) {
     .then((response: Lebensmittel[]) => {
       res.status(200).json(response)
     })
-    .catch((error: any) => sendGenericServerError(res, error))
+    .catch((error: any) => handleGenericServerError(res, error))
 }
 
 export function importiereLebensmittelController(req: Request, res: Response) {
   LebensmittelModel.create(req.body)
     .then((response: Lebensmittel) => res.status(201).json(response))
-    .catch((error: any) => sendGenericServerError(res, error))
+    .catch((error: any) => handleGenericServerError(res, error))
 
 }
