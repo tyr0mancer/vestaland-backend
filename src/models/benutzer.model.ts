@@ -1,11 +1,23 @@
 import {prop, getModelForClass, modelOptions, mongoose} from '@typegoose/typegoose';
 import {z} from "zod";
 import {BenutzerRolle} from "../shared-types";
+import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 
+
+export const BenutzerSchema = z.object({
+  name: z.string({required_error: "Benutzername erforderlich"}),
+  email: z.string({required_error: "Email erforderlich"}).email("Email ist ungültig"),
+  password: z.string({required_error: "Passwort erforderlich"}),
+  rollen: z.string().array().optional(),
+  resetPasswordHash: z.string().optional(),
+  resetPasswordExpires: z.date().optional()
+}).strict()
+
+type BenutzerType = z.infer<typeof BenutzerSchema>;
 
 
 @modelOptions({schemaOptions: {collection: "benutzer"}})
-export class Benutzer {
+export class Benutzer extends TimeStamps implements BenutzerType{
   @prop({required: true})
   public name: string = '';
 
@@ -28,11 +40,7 @@ export class Benutzer {
 
 export const BenutzerModel = getModelForClass(Benutzer);
 
-export const benutzerSchema = z.object({
-  name: z.string({required_error: "Benutzername erforderlich"}),
-  email: z.string({required_error: "Email erforderlich"}).email("Email ist ungültig"),
-  password: z.string({required_error: "Passwort erforderlich"}),
-});
+
 
 
 export const changePasswordSchema = z.object({

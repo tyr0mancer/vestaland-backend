@@ -62,13 +62,27 @@ export class RezeptMeta {
   public soulfood?: boolean;
 }
 
+
+export const RezeptSchema = z.object({
+  name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}).describe('Der Name des Rezeptes'),
+  quelleUrl: z.string().array().describe('Links zu Videos oder anderen Quellen des Rezeptes'),
+  beschreibung: z.string().max(150).optional().describe('Ein kurzer Beschreibungstext'),
+  freitext: z.string().optional().describe(''),
+  gesamtdauer: z.number().optional(),
+  arbeitszeit: z.number().optional(),
+  wartezeit: z.number().optional(),
+}).strict()
+
+type RezeptType = z.infer<typeof RezeptSchema>;
+
+
 @modelOptions({schemaOptions: {collection: "rezepte"}})
-export class Rezept extends TimeStamps {
+export class Rezept extends TimeStamps implements RezeptType {
   @prop({required: true})
   public name: string = '';
 
   @prop()
-  public quelleUrl?: string;
+  public quelleUrl: string[] = [];
 
   @prop()
   public beschreibung?: string;
@@ -83,7 +97,7 @@ export class Rezept extends TimeStamps {
   public wartezeit?: number;
 
   @prop({ref: "Benutzer", type: mongoose.Schema.Types.ObjectId})
-  public author?: Ref<Benutzer>;
+  public autor?: Ref<Benutzer>;
 
   @prop({ref: "Datei", type: mongoose.Schema.Types.ObjectId})
   public bild?: Ref<Datei>;
@@ -109,3 +123,4 @@ export const RezeptModel = getModelForClass(Rezept);
 export const rezeptSchema = z.object({
   name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}),
 });
+

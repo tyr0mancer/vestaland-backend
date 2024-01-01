@@ -39,13 +39,13 @@ export async function findeRezeptController(req: Request, res: Response) {
   if (typeof req.query.soulfood == "string")
     query['meta.soulfood'] = true
   if (typeof req.query.myRecipes == "string")
-    query['author'] = req.user?._id
+    query['autor'] = req.user?._id
 
 
   try {
     const rezepte = await RezeptModel.find(query)
       .populate({
-        path: 'author',
+        path: 'autor',
         select: '_id, name'
       })
       .populate({path: 'bild'})
@@ -61,7 +61,7 @@ export async function getRezeptDetailController(req: Request, res: Response) {
     const rezept = await RezeptModel
       .findById(req.params.id)
       .populate({
-        path: 'author',
+        path: 'autor',
         select: '_id, name'
       })
       .populate({path: 'bild'})
@@ -80,7 +80,7 @@ export async function getRezeptDetailController(req: Request, res: Response) {
 export async function postRezept(req: Request, res: Response) {
   try {
     const rezept = req.body as Rezept
-    rezept.author = req.user?._id ? new mongoose.Types.ObjectId(req.user._id) : undefined
+    rezept.autor = req.user?._id ? new mongoose.Types.ObjectId(req.user._id) : undefined
     RezeptModel.create(req.body)
       .then((response) => res.status(201).json(response))
       .catch((error: any) => handleGenericServerError(res, error))
@@ -95,8 +95,8 @@ export async function bildZuRezept(req: Request, res: Response) {
     if (!rezept)
       return sendErrorResponse(res, 404, "Rezept nicht gefunden")
 
-    const authorId: string | null = rezept?.author?._id.toString() || null
-    if (!req.user?.rollen?.includes(BenutzerRolle.ADMIN) && authorId && authorId !== req.user?._id)
+    const autorId: string | null = rezept?.autor?._id.toString() || null
+    if (!req.user?.rollen?.includes(BenutzerRolle.ADMIN) && autorId && autorId !== req.user?._id)
       return sendErrorResponse(res, 403, "Keine ausreichenden Rechte")
 
     const datei: DocumentType<Datei> = await handleFileUpload(req)

@@ -2,7 +2,7 @@ import express, {Router} from "express";
 
 import {validateRequest} from "../../middleware/validate-request";
 import {
-  benutzerSchema,
+  BenutzerSchema,
   changePasswordSchema,
   loginParams,
   loginSchema,
@@ -21,7 +21,7 @@ import {changePasswordAndLoginController} from "../../controllers/auth-controlle
 
 export const authRouter: Router = express.Router();
 
-authRouter.post('/register', validateRequest({body: benutzerSchema}), registerController)
+authRouter.post('/register', validateRequest({body: BenutzerSchema}), registerController)
 authRouter.post('/login', validateRequest({body: loginSchema}), loginController)
 authRouter.post('/logout', logoutController)
 authRouter.post('/refresh', refreshController)
