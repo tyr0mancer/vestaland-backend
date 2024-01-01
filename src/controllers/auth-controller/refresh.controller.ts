@@ -4,12 +4,13 @@ import {BenutzerModel} from "../../models/benutzer.model";
 import {successfulLogin} from "./login.controller";
 import {UserInformation} from "../../shared-types";
 import {sendErrorResponse} from "../../middleware/error-handler";
+import config from "../../config";
 
 export function refreshController(req: Request, res: Response) {
-  const refreshToken = req.cookies[process.env.REFRESH_TOKEN_COOKIE || 'REFRESH_TOKEN_COOKIE']
+  const refreshToken = req.cookies[config.refreshTokenCookieName]
   if (!refreshToken)
     return sendErrorResponse(res, 403, "Kein Refresh Token")
-  const user = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET || '') as UserInformation
+  const user = jwt.verify(refreshToken, config.refreshTokenSecret) as UserInformation
   BenutzerModel.findById(user._id)
     .then(benutzer => {
       if (!benutzer)

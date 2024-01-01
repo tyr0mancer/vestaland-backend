@@ -1,10 +1,11 @@
 import {Request, Response} from "express";
 import {sendGenericServerError} from "../../middleware/error-handler";
+import config from "../../config";
 
 export function logoutController(req: Request, res: Response) {
   try {
     // RefreshToken Cookie löschen
-    res.cookie(process.env.REFRESH_TOKEN_COOKIE || 'REFRESH_TOKEN_COOKIE', '',
+    res.cookie(config.refreshTokenCookieName, '',
       {
         httpOnly: true,
         secure: true,

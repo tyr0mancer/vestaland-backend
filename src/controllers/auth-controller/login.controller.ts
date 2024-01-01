@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import {Types} from "mongoose";
 import {LoginResponse} from "../../shared-types";
 import {sendErrorResponse, sendGenericServerError} from "../../middleware/error-handler";
+import config from "../../config";
 
 export function loginController(req: Request, res: Response) {
   BenutzerModel.findOne({email: req.body.username})
@@ -38,16 +39,16 @@ export function successfulLogin(benutzer: Benutzer, _id: Types.ObjectId, res: Re
       _id,
       name: benutzer.name,
       rollen: benutzer.rollen
-    }, process.env.AUTH_TOKEN_SECRET as (string), {expiresIn: "15 minutes"})
+    }, config.authTokenSecret, {expiresIn: "15 minutes"})
 
     // Refresh-Token erstellen.
     // Dieses ist 24h gültig und kann zur Erstellung eines Auth-Token verwendet werden, nicht aber für andere Zugriffe
     const refreshtoken = jwt.sign({
       _id,
-    }, process.env.REFRESH_TOKEN_SECRET as (string), {expiresIn: "1 days"})
+    }, config.refreshTokenSecret, {expiresIn: "1 days"})
 
     // RefreshToken als Cookie setzen
-    res.cookie(process.env.REFRESH_TOKEN_COOKIE || 'REFRESH_TOKEN_COOKIE', refreshtoken,
+    res.cookie(config.refreshTokenCookieName, refreshtoken,
       {
         httpOnly: true,
         secure: true,

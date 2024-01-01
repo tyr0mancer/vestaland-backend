@@ -1,16 +1,13 @@
 import mongoose from 'mongoose';
 import {app} from "./app";
+import config from "./config";
 
-const host = process.env.HOST || "localhost";
-const port = process.env.PORT || 3000;
-const db_host = process.env.DB_SERVER || "localhost";
 const start = async (): Promise<void> => {
   try {
-    console.log(new Date(), 'DB Verbindungsaufbau', db_host)
-    const mongoUri = process.env.DB_CONNECTION_STRING || ""
-    await mongoose.connect(mongoUri)
-    app.listen(port, () => {
-      console.log(`Erfolgreich. Server läuft auf http://${host}:${port}`);
+    console.log(new Date(), 'DB Verbindungsaufbau', config.db.host)
+    await mongoose.connect(config.db.connectionString)
+    app.listen(config.port, () => {
+      console.log(`Server läuft auf ${config.host}:${config.port}`);
     });
   } catch (error) {
     console.error(error);

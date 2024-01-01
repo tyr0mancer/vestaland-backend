@@ -1,15 +1,11 @@
 import express from 'express';
 import {mainRouter} from "./routes";
 import morgan from 'morgan';
-import dotenv from "dotenv";
 import * as path from "path";
 
 
 // create express app
 export const app = express();
-
-// read variables from .env
-dotenv.config();
 
 
 /*

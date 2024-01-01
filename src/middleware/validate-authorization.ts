@@ -2,6 +2,7 @@ import {NextFunction, Request, Response} from 'express';
 import jwt, {TokenExpiredError} from "jsonwebtoken";
 import {BenutzerRolle, UserInformation} from "../shared-types";
 import {sendErrorResponse, sendGenericServerError} from "./error-handler";
+import config from "../config";
 
 export const validateAuthorization = (requiredRole?: BenutzerRolle) => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -13,7 +14,7 @@ export const validateAuthorization = (requiredRole?: BenutzerRolle) => {
       return sendErrorResponse(res, 401, "auth-token fehlt")
 
     try {
-      const userInformation = jwt.verify(token, process.env.AUTH_TOKEN_SECRET || '') as UserInformation;
+      const userInformation = jwt.verify(token, config.authTokenSecret) as UserInformation;
       userInformation.isAdmin = userInformation.rollen?.includes(BenutzerRolle.ADMIN);
       console.log("userInformation", userInformation)
       req.user = userInformation;
