@@ -3,7 +3,7 @@ import {Benutzer, BenutzerModel} from "../../models/benutzer.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {Types} from "mongoose";
-import {LoginResponse} from "../../types/types";
+import {LoginResponse} from "../../shared-types";
 import {sendErrorResponse, sendGenericServerError} from "../../middleware/error-handler";
 
 export function loginController(req: Request, res: Response) {

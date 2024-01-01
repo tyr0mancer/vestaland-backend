@@ -1,6 +1,6 @@
 import {mongoose, prop, Ref} from '@typegoose/typegoose';
 import {Lebensmittel} from "./lebensmittel.model";
-import {Einheit} from "../types/types";
+import {Einheit} from "../shared-types";
 
 export class Zutat {
   @prop({autopopulate: true, ref: "Lebensmittel", type: mongoose.Schema.Types.ObjectId})

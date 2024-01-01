@@ -4,23 +4,27 @@ import mongoose from "mongoose";
 
 import {Datei} from "../models/datei.model";
 import {Rezept, RezeptModel} from "../models/rezept.model";
-import {BenutzerRolle} from "../types/types";
+
 import {sendErrorResponse, sendGenericServerError} from "../middleware/error-handler";
 import {handleFileUpload} from "./datei.controller";
+import {BenutzerRolle} from "../shared-types";
 
-export async function findeRezept(req: Request, res: Response) {
+export async function findeRezeptController(req: Request, res: Response) {
   let query: { [key: string]: any } = {};
 
-  // @todo this should come from validation
+  // @todo zod should be able to do that
   if (req.query.name && typeof req.query.name == "string") {
     query.name = new RegExp(req.query.name, 'i');
   }
-
-  // @todo implement more filter
   if (req.query.zutaten && typeof req.query.zutaten == "string") {
     const zutaten = req.query.zutaten.split(',');
     query.zutaten = {$in: {lebensmittel: {$in: zutaten}}};
   }
+  if (req.query.zutaten && typeof req.query.zutaten == "string") {
+    const zutaten = req.query.zutaten.split(',');
+    query.zutaten = {$in: {lebensmittel: {$in: zutaten}}};
+  }
+
 
   try {
     const rezepte = await RezeptModel.find(query)
@@ -29,7 +33,6 @@ export async function findeRezept(req: Request, res: Response) {
         select: '_id, name'
       })
       .populate({path: 'bild'})
-      .populate({path: 'zutaten.lebensmittel'})
     res.status(200).json(rezepte);
   } catch (error) {
     sendGenericServerError(res, error)
@@ -37,7 +40,7 @@ export async function findeRezept(req: Request, res: Response) {
 }
 
 
-export async function getRezeptDetail(req: Request, res: Response) {
+export async function getRezeptDetailController(req: Request, res: Response) {
   try {
     const rezept = await RezeptModel
       .findById(req.params.id)

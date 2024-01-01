@@ -1,6 +1,6 @@
 import {prop, getModelForClass, modelOptions, mongoose} from '@typegoose/typegoose';
 import {z} from "zod";
-import {BenutzerRolle} from "../types/types";
+import {BenutzerRolle} from "../shared-types";
 
 
 

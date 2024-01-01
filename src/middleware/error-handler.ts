@@ -1,5 +1,5 @@
 import {Response} from "express";
-import {ApiError} from "../types/types";
+import {ApiError} from "../shared-types";
 
 export function handleError(res: Response, error: any) {
   if (isApiError(error))

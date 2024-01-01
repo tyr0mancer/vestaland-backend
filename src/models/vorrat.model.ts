@@ -3,7 +3,7 @@ import {z} from "zod";
 import {Benutzer} from "./benutzer.model";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Lebensmittel} from "./lebensmittel.model";
-import {Einheit} from "../types/types";
+import {Einheit} from "../shared-types";
 import {Lagerort} from "./lagerort";
 
 

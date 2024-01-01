@@ -5,7 +5,7 @@ import * as path from "path";
 import mongoose from 'mongoose';
 
 import {Datei, DateiModel} from "../models/datei.model";
-import {ApiError} from "../types/types";
+import {ApiError} from "../shared-types";
 import {handleError, sendErrorResponse} from "../middleware/error-handler";
 
 const crypto = require('crypto');

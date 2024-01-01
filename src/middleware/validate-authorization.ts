@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import jwt, {TokenExpiredError} from "jsonwebtoken";
-import {BenutzerRolle, UserInformation} from "../types/types";
+import {BenutzerRolle, UserInformation} from "../shared-types";
 import {sendErrorResponse, sendGenericServerError} from "./error-handler";
 
 export const validateAuthorization = (requiredRole?: BenutzerRolle) => {

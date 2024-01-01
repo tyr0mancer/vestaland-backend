@@ -6,7 +6,7 @@ import {Hilfsmittel} from "./hilfsmittel.model";
 import {Datei} from "./datei.model";
 import {Benutzer} from "./benutzer.model";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
-import {KochschrittTypus} from "../types/types";
+import {KochschrittTypus} from "../shared-types";
 
 export class KochschrittMeta {
   @prop()
