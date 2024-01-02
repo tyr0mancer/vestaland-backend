@@ -11,9 +11,10 @@ import {lebensmittelRouter} from "./api/lebensmittel.route";
 import {dateiRouter} from "./api/datei.route";
 import {Essensplan, EssensplanModel, essensplanSchema} from "../models/essensplan.model";
 import {Vorrat, VorratModel, vorratSchema} from "../models/vorrat.model";
-import {Lagerort, LagerortModel, lagerortSchema} from "../models/lagerort";
+import {Lagerort, LagerortModel, lagerortSchema} from "../models/lagerort.model";
 import {sendMail} from "../services/mailer-service/send-mail";
 import {handleGenericServerError} from "../middleware/error-handler";
+import {KochschrittAktionModel, KochschrittAktionSchema} from "../models/kochschritt-aktion.model";
 
 const apiRouter = express.Router();
 
@@ -34,6 +35,8 @@ apiRouter.use('/einkaufsliste', genericRouter<Einkaufsliste>(EinkaufslisteModel,
 apiRouter.use('/essensplan', genericRouter<Essensplan>(EssensplanModel, essensplanSchema));
 apiRouter.use('/lagerort', genericRouter<Lagerort>(LagerortModel, lagerortSchema));
 apiRouter.use('/vorrat', genericRouter<Vorrat>(VorratModel, vorratSchema));
+
+apiRouter.use('/config/aktionen', genericRouter<Vorrat>(KochschrittAktionModel, KochschrittAktionSchema));
 
 export const mainRouter = express.Router();
 mainRouter.use('/api', apiRouter)

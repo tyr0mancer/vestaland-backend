@@ -4,7 +4,7 @@ import {Benutzer} from "./benutzer.model";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Lebensmittel} from "./lebensmittel.model";
 import {Einheit} from "../shared-types";
-import {Lagerort} from "./lagerort";
+import {Lagerort} from "./lagerort.model";
 
 
 @modelOptions({schemaOptions: {collection: "vorraete"}})

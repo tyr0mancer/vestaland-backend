@@ -6,7 +6,7 @@ import {Hilfsmittel} from "./hilfsmittel.model";
 import {Datei} from "./datei.model";
 import {Benutzer} from "./benutzer.model";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
-import {KochschrittTypus} from "../shared-types";
+import {KochschrittAktion} from "./kochschritt-aktion.model";
 
 export class KochschrittMeta {
   @prop()
@@ -20,8 +20,8 @@ export class Kochschritt {
   @prop({required: true})
   public name?: string = "";
 
-  @prop({required: true})
-  public typus: KochschrittTypus = KochschrittTypus.FREITEXT;
+  @prop()
+  public aktion?: Ref<KochschrittAktion>;
 
   @prop()
   public beschreibung?: string;
