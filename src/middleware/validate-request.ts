@@ -15,8 +15,9 @@ export const validateRequest = (schemaObject: validateRequestType) => {
       next();
     } catch (error: any) {
       if (error instanceof ZodError) {
+        console.log('ZOD error')
         return res.status(400).json({
-          message: "Ungültige Anfrage",
+          message: "Schema ist nicht Valide",
           errors: error.errors,
         });
       }

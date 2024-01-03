@@ -12,7 +12,6 @@ type KochschrittAktionType = z.infer<typeof KochschrittAktionSchema>;
 
 @modelOptions({schemaOptions: {collection: "config_aktionen"}})
 export class KochschrittAktion implements KochschrittAktionType {
-
   @prop()
   public aktionName: string = '';
 
