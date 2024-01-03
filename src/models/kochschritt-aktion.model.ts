@@ -4,7 +4,7 @@ import {z} from "zod";
 
 export const KochschrittAktionSchema = z.object({
   aktionName: z.string(),
-  aktionIcon: z.string().optional().describe('absolute URL zu einem'),
+  aktionIcon: z.string().optional().describe('relative URL zu einem passenden Icon'),
 }).strict();
 
 type KochschrittAktionType = z.infer<typeof KochschrittAktionSchema>;

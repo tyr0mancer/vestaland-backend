@@ -14,7 +14,8 @@ import {Vorrat, VorratModel, vorratSchema} from "../models/vorrat.model";
 import {Lagerort, LagerortModel, lagerortSchema} from "../models/lagerort.model";
 import {sendMail} from "../services/mailer-service/send-mail";
 import {handleGenericServerError} from "../middleware/error-handler";
-import {KochschrittAktionModel, KochschrittAktionSchema} from "../models/kochschritt-aktion.model";
+import {KochschrittAktion, KochschrittAktionModel, KochschrittAktionSchema} from "../models/kochschritt-aktion.model";
+import {configRouter} from "./api/config.route";
 
 const apiRouter = express.Router();
 
@@ -25,6 +26,8 @@ apiRouter.use('/auth', authRouter);
 apiRouter.use('/rezept', rezeptRouter);
 apiRouter.use('/lebensmittel', lebensmittelRouter);
 apiRouter.use('/datei', dateiRouter);
+apiRouter.use('/config', configRouter);
+
 
 // generic Routes
 apiRouter.use('/rezept', genericRouter<Rezept>(RezeptModel, rezeptSchema));
@@ -36,7 +39,7 @@ apiRouter.use('/essensplan', genericRouter<Essensplan>(EssensplanModel, essenspl
 apiRouter.use('/lagerort', genericRouter<Lagerort>(LagerortModel, lagerortSchema));
 apiRouter.use('/vorrat', genericRouter<Vorrat>(VorratModel, vorratSchema));
 
-apiRouter.use('/config/aktionen', genericRouter<Vorrat>(KochschrittAktionModel, KochschrittAktionSchema));
+apiRouter.use('/config/aktionen', genericRouter<KochschrittAktion>(KochschrittAktionModel, KochschrittAktionSchema));
 
 export const mainRouter = express.Router();
 mainRouter.use('/api', apiRouter)
