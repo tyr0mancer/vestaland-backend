@@ -19,7 +19,10 @@ export class Lebensmittel {
   public beschreibung?: string
 
   @prop()
-  public defaultUnit: string = "St"
+  public defaultEinheit: Einheit = Einheit.ST
+
+  @prop()
+  public defaultMenge?: number
 
   // Gramm pro Kubikzentimeter bzw kg pro Liter
   // Beispiel: Mehl hat eine Dichte von 0.7 - das heißt das ein kg Mehl etwa 1,5 L Volumen haben, oder 1 L Mehl, etwa 0,7 kg wiegt.
@@ -35,3 +38,15 @@ export const LebensmittelModel = getModelForClass(Lebensmittel);
 export const lebensmittelSchema = z.object({
   name: z.string({required_error: "Das Lebensmittel muss einen Namen enthalten"}),
 });
+
+
+
+export enum Einheit {
+  ST = "St",
+  DZ = "dz",
+  LB = "lb",
+  G = "g",
+  KG = "kg",
+  ML = "ml",
+  L = "l",
+}
