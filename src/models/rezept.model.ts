@@ -21,14 +21,6 @@ class RezeptMeta {
   public soulfood?: boolean;
 }
 
-
-/*
-export const rezeptSchema = z.object({
-  name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}),
-});
-*/
-
-
 export const RezeptSchema = z.object({
   name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}).describe('Der Name des Rezeptes'),
   beschreibung: z.string().max(150).optional().describe('Ein kurzer(!) Beschreibungstext'),
