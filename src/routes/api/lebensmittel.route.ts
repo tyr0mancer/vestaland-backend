@@ -13,7 +13,7 @@ import {BenutzerRolle} from "../../shared-types";
 export const lebensmittelRouter: Router = express.Router();
 
 lebensmittelRouter.get('/',
-  validateAuthorization(),
+  validateAuthorization(BenutzerRolle.BENUTZER),
   findeLebensmittelController)
 
 lebensmittelRouter.post('/import/',

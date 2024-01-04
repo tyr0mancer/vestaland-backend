@@ -16,6 +16,7 @@ import {handleGenericServerError} from "../middleware/error-handler";
 import {KochschrittAktion, KochschrittAktionModel, KochschrittAktionSchema} from "../models/kochschritt-aktion.model";
 import {configRouter} from "./api/config.route";
 import {Vorrat, VorratModel, vorratSchema} from "../models/vorrat.model";
+import {utensilRouter} from "./api/utensil.route";
 
 const apiRouter = express.Router();
 
@@ -25,6 +26,7 @@ apiRouter.use('/auth', authRouter);
 // specific Api-Routes
 apiRouter.use('/rezept', rezeptRouter);
 apiRouter.use('/lebensmittel', lebensmittelRouter);
+apiRouter.use('/utensil', utensilRouter);
 apiRouter.use('/datei', dateiRouter);
 apiRouter.use('/config', configRouter);
 
