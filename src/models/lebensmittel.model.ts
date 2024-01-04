@@ -1,8 +1,10 @@
 import {prop, getModelForClass, modelOptions} from '@typegoose/typegoose';
 import {z} from "zod";
+import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
+import {Einheit} from "../shared-types";
 
 @modelOptions({schemaOptions: {collection: "lebensmittel"}})
-export class Lebensmittel {
+export class Lebensmittel extends TimeStamps {
   @prop()
   public kategorie?: string
 
@@ -38,15 +40,3 @@ export const LebensmittelModel = getModelForClass(Lebensmittel);
 export const lebensmittelSchema = z.object({
   name: z.string({required_error: "Das Lebensmittel muss einen Namen enthalten"}),
 });
-
-
-
-export enum Einheit {
-  ST = "St",
-  DZ = "dz",
-  LB = "lb",
-  G = "g",
-  KG = "kg",
-  ML = "ml",
-  L = "l",
-}

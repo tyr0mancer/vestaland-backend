@@ -1,7 +1,7 @@
 import * as express from "express";
 import {genericRouter} from "./generic/generic-router";
 
-import {Rezept, RezeptModel, rezeptSchema} from "../models/rezept.model";
+import {Rezept, RezeptModel, RezeptSchema} from "../models/rezept.model";
 import {Lebensmittel, LebensmittelModel, lebensmittelSchema} from "../models/lebensmittel.model";
 import {Hilfsmittel, HilfsmittelModel, hilfsmittelSchema} from "../models/hilfsmittel.model";
 import {Einkaufsliste, EinkaufslisteModel, einkaufslisteSchema} from "../models/einkaufsliste.model";
@@ -10,12 +10,12 @@ import {rezeptRouter} from "./api/rezept.route";
 import {lebensmittelRouter} from "./api/lebensmittel.route";
 import {dateiRouter} from "./api/datei.route";
 import {Essensplan, EssensplanModel, essensplanSchema} from "../models/essensplan.model";
-import {Vorrat, VorratModel, vorratSchema} from "../models/vorrat.model";
 import {Lagerort, LagerortModel, lagerortSchema} from "../models/lagerort.model";
 import {sendMail} from "../services/mailer-service/send-mail";
 import {handleGenericServerError} from "../middleware/error-handler";
 import {KochschrittAktion, KochschrittAktionModel, KochschrittAktionSchema} from "../models/kochschritt-aktion.model";
 import {configRouter} from "./api/config.route";
+import {Vorrat, VorratModel, vorratSchema} from "../models/vorrat.model";
 
 const apiRouter = express.Router();
 
@@ -30,7 +30,7 @@ apiRouter.use('/config', configRouter);
 
 
 // generic Routes
-apiRouter.use('/rezept', genericRouter<Rezept>(RezeptModel, rezeptSchema));
+apiRouter.use('/rezept', genericRouter<Rezept>(RezeptModel, RezeptSchema));
 apiRouter.use('/lebensmittel', genericRouter<Lebensmittel>(LebensmittelModel, lebensmittelSchema));
 apiRouter.use('/hilfsmittel', genericRouter<Hilfsmittel>(HilfsmittelModel, hilfsmittelSchema));
 
@@ -54,7 +54,7 @@ mainRouter.get('/mail-test', (req, res) => {
 
 
 function sendTestmail(to: string) {
-  const neuesPasswort = "PasswORT!"
+  const neuesPasswort = "what!"
   const benutzerName = "Mr Beast Fuck The World"
 
   return new Promise(async (resolve, reject) => {

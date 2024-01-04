@@ -19,7 +19,7 @@ export class Vorrat extends TimeStamps {
   public lebensmittel?: Ref<Lebensmittel>;
 
   @prop()
-  public einheit: Einheit = Einheit.STUECK;
+  public einheit: Einheit = Einheit.ST;
 
   @prop()
   public menge: number = 1;

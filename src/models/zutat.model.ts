@@ -10,7 +10,7 @@ export class Zutat {
   public freitext?: string;
 
   @prop()
-  public einheit: Einheit = Einheit.STUECK;
+  public einheit: Einheit = Einheit.ST;
 
   @prop()
   public menge: number = 1;

@@ -14,11 +14,16 @@ export enum KochschrittTypus {
 }
 
 export enum Einheit {
-  G = 'g',
-  KG = 'kg',
-  STUECK = 'St.',
-  ML = 'ml',
-  L = 'l'
+  ST = "St",
+  DZ = "dz",
+  G = "g",
+  KG = "kg",
+  LB = "lb",
+  ML = "ml",
+  TL = "TL",
+  EL = "EL",
+  L = "l",
+  CUP = "cp"
 }
 
 export interface LoginResponse {
