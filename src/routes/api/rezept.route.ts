@@ -9,7 +9,7 @@ import {
 } from "../../controllers/rezept.controller";
 import {readToken, validateAuthorization} from "../../middleware/validate-authorization";
 import {BenutzerRolle} from "../../shared-types";
-import {rezeptSchema} from "../../models/rezept.model";
+import {RezeptSchema} from "../../models/rezept.model";
 
 
 export const rezeptRouter: Router = express.Router();
@@ -23,5 +23,5 @@ rezeptRouter.post('/:id/upload',
 
 rezeptRouter.post('/',
   validateAuthorization(BenutzerRolle.BENUTZER),
-  validateRequest({body: rezeptSchema}),
+  validateRequest({body: RezeptSchema}),
   postRezept)

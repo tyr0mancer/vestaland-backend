@@ -6,52 +6,11 @@ import {Hilfsmittel} from "./hilfsmittel.model";
 import {Datei} from "./datei.model";
 import {Benutzer} from "./benutzer.model";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
-import {KochschrittAktion} from "./kochschritt-aktion.model";
+import {Kochschritt} from "./Kochschritt";
 
-export class KochschrittMeta {
-  @prop()
-  public temperatur?: number;
 
-  @prop()
-  public hitze?: string;
-}
-
-export class Kochschritt {
-  @prop({required: true})
-  public name?: string = "";
-
-  @prop()
-  public aktion?: Ref<KochschrittAktion>;
-
-  @prop()
-  public beschreibung?: string;
-
-  @prop()
-  public videoUrl?: string;
-
-  @prop()
-  public repeating?: boolean;
-
-  @prop()
-  public gesamtdauer?: number;
-
-  @prop()
-  public arbeitszeit?: number;
-
-  @prop()
-  public wartezeit?: number;
-
-  @prop({type: Zutat, _id: false})
-  public zutaten: Zutat[] = [];
-
-  @prop({ref: "Hilfsmittel", type: mongoose.Schema.Types.ObjectId})
-  public hilfsmittel: Ref<Hilfsmittel>[] = [];
-
-  @prop({type: KochschrittMeta, _id: false})
-  public meta?: KochschrittMeta;
-}
-
-export class RezeptMeta {
+//@todo make interface
+class RezeptMeta {
   @prop()
   public vegetarisch?: boolean;
 
@@ -63,14 +22,21 @@ export class RezeptMeta {
 }
 
 
+/*
+export const rezeptSchema = z.object({
+  name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}),
+});
+*/
+
+
 export const RezeptSchema = z.object({
   name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}).describe('Der Name des Rezeptes'),
-  quelleUrl: z.string().array().describe('Links zu Videos oder anderen Quellen des Rezeptes'),
-  beschreibung: z.string().max(150).optional().describe('Ein kurzer Beschreibungstext'),
-  freitext: z.string().optional().describe(''),
-  gesamtdauer: z.number().optional(),
-  arbeitszeit: z.number().optional(),
-  wartezeit: z.number().optional(),
+  beschreibung: z.string().max(150).optional().describe('Ein kurzer(!) Beschreibungstext'),
+  freitext: z.string().optional().describe('Freitext Beschreibung des Rezeptes'),
+  quelleUrl: z.string().array().describe('Links zu Quellen oder andere Verweise'),
+  berechneteGesamtdauer: z.number().optional(),
+  berechneteArbeitszeit: z.number().optional(),
+  realeGesamtzeit: z.number().optional(),
 }).strict()
 
 type RezeptType = z.infer<typeof RezeptSchema>;
@@ -82,19 +48,22 @@ export class Rezept extends TimeStamps implements RezeptType {
   public name: string = '';
 
   @prop()
-  public quelleUrl: string[] = [];
-
-  @prop()
   public beschreibung?: string;
 
   @prop()
-  public gesamtdauer?: number;
+  public freitext?: string;
 
   @prop()
-  public arbeitszeit?: number;
+  public quelleUrl: string[] = [];
 
   @prop()
-  public wartezeit?: number;
+  public berechneteGesamtdauer?: number;
+
+  @prop()
+  public berechneteArbeitszeit?: number;
+
+  @prop()
+  public realeGesamtzeit?: number;
 
   @prop({ref: "Benutzer", type: mongoose.Schema.Types.ObjectId})
   public autor?: Ref<Benutzer>;
@@ -119,8 +88,3 @@ export class Rezept extends TimeStamps implements RezeptType {
 }
 
 export const RezeptModel = getModelForClass(Rezept);
-
-export const rezeptSchema = z.object({
-  name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}),
-});
-
