@@ -2,7 +2,7 @@ import {getModelForClass, modelOptions, mongoose, prop, Ref} from '@typegoose/ty
 import {z} from "zod";
 
 import {Zutat} from "./zutat.model";
-import {Hilfsmittel} from "./hilfsmittel.model";
+import {Utensil} from "./utensil.model";
 import {Datei} from "./datei.model";
 import {Benutzer} from "./benutzer.model";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
@@ -66,8 +66,8 @@ export class Rezept extends TimeStamps implements RezeptType {
   @prop({type: Zutat, _id: false})
   public zutaten: Zutat[] = [];
 
-  @prop({ref: "Hilfsmittel", type: mongoose.Schema.Types.ObjectId})
-  public hilfsmittel: Ref<Hilfsmittel>[] = [];
+  @prop({ref: "Utensil", type: mongoose.Schema.Types.ObjectId})
+  public utensilien: Ref<Utensil>[] = [];
 
   @prop({type: Kochschritt, _id: false})
   public kochschritte: Kochschritt[] = [];

@@ -66,9 +66,9 @@ export async function getRezeptDetailController(req: Request, res: Response) {
       })
       .populate({path: 'bild'})
       .populate({path: 'zutaten.lebensmittel'})
-      .populate({path: 'hilfsmittel'})
+      .populate({path: 'utensilien'})
       .populate({path: 'kochschritte.zutaten.lebensmittel'})
-      .populate({path: 'kochschritte.hilfsmittel'})
+      .populate({path: 'kochschritte.utensilien'})
 
     res.status(200).json(rezept);
   } catch (error) {

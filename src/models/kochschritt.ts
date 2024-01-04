@@ -1,7 +1,7 @@
 import {mongoose, prop, Ref} from "@typegoose/typegoose";
 import {KochschrittAktion} from "./kochschritt-aktion.model";
 import {Zutat} from "./zutat.model";
-import {Hilfsmittel} from "./hilfsmittel.model";
+import {Utensil} from "./utensil.model";
 
 export class KochschrittMeta {
   @prop()
@@ -37,8 +37,8 @@ export class Kochschritt {
   @prop({type: Zutat, _id: false})
   public zutaten: Zutat[] = [];
 
-  @prop({ref: "Hilfsmittel", type: mongoose.Schema.Types.ObjectId})
-  public hilfsmittel: Ref<Hilfsmittel>[] = [];
+  @prop({ref: "Utensil", type: mongoose.Schema.Types.ObjectId})
+  public utensilien: Ref<Utensil>[] = [];
 
   @prop({type: KochschrittMeta, _id: false})
   public meta?: KochschrittMeta;
