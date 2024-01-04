@@ -3,6 +3,20 @@ import {z} from "zod";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Einheit} from "../shared-types";
 
+
+class Nutrients {
+  @prop()
+  public fett?: number;
+  @prop()
+  public proteine?: number;
+  @prop()
+  public kohlenhydrate?: number;
+  @prop()
+  public zucker?: number;
+  @prop()
+  public ballaststoffe?: number;
+}
+
 @modelOptions({schemaOptions: {collection: "lebensmittel"}})
 export class Lebensmittel extends TimeStamps {
   @prop()
@@ -33,6 +47,10 @@ export class Lebensmittel extends TimeStamps {
 
   @prop()
   public unitWeight?: number
+
+  @prop({type: Nutrients, _id: false})
+  public nutrients?: Nutrients;
+
 }
 
 export const LebensmittelModel = getModelForClass(Lebensmittel);
