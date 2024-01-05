@@ -1,10 +1,11 @@
 import {prop, getModelForClass, modelOptions} from '@typegoose/typegoose';
 import {z} from "zod";
+import {AktionIcon} from "../shared-types";
 
 
 export const KochschrittAktionSchema = z.object({
   aktionName: z.string(),
-  aktionIcon: z.string().optional().describe('relative URL zu einem passenden Icon'),
+  aktionIcon: z.nativeEnum(AktionIcon),
 }).strict();
 
 type KochschrittAktionType = z.infer<typeof KochschrittAktionSchema>;
@@ -17,7 +18,7 @@ export class KochschrittAktion implements KochschrittAktionType {
   public aktionName: string = '';
 
   @prop()
-  public aktionIcon?: string;
+  public aktionIcon: AktionIcon = AktionIcon.DUMMY;
 }
 
 

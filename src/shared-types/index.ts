@@ -5,28 +5,40 @@ export enum BenutzerRolle {
 }
 
 export enum Betriebsart {
-  TK = 'Gefrierschrank',
-  FRIDGE = 'im Kühlschrank',
-  ZIMMER = 'Zimmertemperatur',
-  HITZE_NIEDRIG = 'Niedrige Hitze',
-  HITZE_MITTEL = 'Mittlerer Hitze',
-  OBER_UNTER = 'Ober/Unter-Hitze',
-  UMLUFT = 'Umluft'
+  TK = 'TK',
+  KUEHLSCHRANK = 'KUEHLSCHRANK',
+  ZIMMERTEMPERATUR = 'ZIMMERTEMPERATUR',
+  HITZE_NIEDRIG = 'HITZE_NIEDRIG',
+  HITZE_MITTEL = 'HITZE_MITTEL',
+  OBER_UNTER = 'OBER_UNTER',
+  UMLUFT = 'UMLUFT'
 }
 
 
 export enum Einheit {
-  ST = "St",
-  DZ = "dz",
-  G = "g",
-  KG = "kg",
-  LB = "lb",
-  ML = "ml",
+  ST = "ST",
+  DZ = "DZ",
+  G = "G",
+  KG = "KG",
+  LB = "LB",
+  ML = "ML",
   TL = "TL",
   EL = "EL",
-  L = "l",
-  CUP = "cp"
+  L = "L",
+  CP = "CP"
 }
+
+export enum AktionIcon {
+  DUMMY = 'DUMMY',
+  MESSER = 'MESSER',
+  SCHNEEBESEN = 'SCHNEEBESEN',
+  NUDELHOLZ = 'NUDELHOLZ',
+  PFANNE = 'PFANNE',
+  TOPF = 'TOPF',
+  OFEN = 'OFEN',
+  UHR = 'UHR'
+}
+
 
 export interface LoginResponse {
   _id: string,
