@@ -1,6 +1,5 @@
 import {Request, Response} from "express";
-import { DocumentType } from '@typegoose/typegoose';
-import {UploadedFile} from "express-fileupload";
+import {DocumentType} from '@typegoose/typegoose';
 import * as path from "path";
 import mongoose from 'mongoose';
 
@@ -20,13 +19,13 @@ export async function uploadFile(req: Request, res: Response) {
 
 
 //@todo How to handle Array of images? Restrict amount? AV measurements
-export function handleFileUpload(req: Request, attributeName: string = "image"): Promise<DocumentType<Datei>> {
+export function handleFileUpload(req: Request): Promise<DocumentType<Datei>> {
   return new Promise<DocumentType<Datei>>((resolve, reject) => {
-    if (!req.files || !req.files[attributeName] || req.files[attributeName] === undefined) //@todo handle with ZOD
+    if (!req.files || Object.keys(req.files).length === 0) {
       return reject({status: 400, message: "Keine Datei mitgesendet"} as ApiError);
+    }
+    const uploadedFile = Array.isArray(req.files.file) ? req.files.file[0] : req.files.file
 
-    const fileOrFiles: UploadedFile | UploadedFile[] = req.files[attributeName]
-    const uploadedFile = Array.isArray(fileOrFiles) ? fileOrFiles[0] : fileOrFiles
     const fileExtension = path.extname(uploadedFile.name);
     const fileNameWithoutExtension = path.basename(uploadedFile.name, path.extname(uploadedFile.name));
     const randomFileName = generateRandomString(8) + fileExtension;
