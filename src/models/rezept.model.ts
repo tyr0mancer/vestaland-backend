@@ -7,6 +7,7 @@ import {Datei} from "./datei.model";
 import {Benutzer} from "./benutzer.model";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Kochschritt} from "./kochschritt";
+import {Nutrients} from "./lebensmittel.model";
 
 
 //@todo make interface
@@ -77,6 +78,10 @@ export class Rezept extends TimeStamps implements RezeptType {
 
   @prop()
   public portionen: number = 1;
+
+  @prop({type: Nutrients, _id: false})
+  public nutrients?: Nutrients;
+
 }
 
 export const RezeptModel = getModelForClass(Rezept);

@@ -4,7 +4,7 @@ import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Einheit} from "../shared-types";
 
 
-class Nutrients {
+export class Nutrients {
   @prop()
   public fett?: number;
   @prop()
