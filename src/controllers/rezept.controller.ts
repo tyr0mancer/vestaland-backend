@@ -78,6 +78,7 @@ export async function getRezeptDetailController(req: Request, res: Response) {
       .populate({path: 'utensilien'})
       .populate({path: 'kochschritte.zutaten.lebensmittel'})
       .populate({path: 'kochschritte.utensilien'})
+      .populate({path: 'kochschritte.aktion'})
 
     res.status(200).json(rezept);
   } catch (error) {

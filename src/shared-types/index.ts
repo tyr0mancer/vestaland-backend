@@ -4,13 +4,16 @@ export enum BenutzerRolle {
   ADMIN = 'admin'
 }
 
-export enum Temperatur {
+export enum Betriebsart {
   TK = 'Gefrierschrank',
   FRIDGE = 'im Kühlschrank',
   ZIMMER = 'Zimmertemperatur',
   HITZE_NIEDRIG = 'Niedrige Hitze',
-  HITZE_MITTEL = 'Mittlerer Hitze'
+  HITZE_MITTEL = 'Mittlerer Hitze',
+  OBER_UNTER = 'Ober/Unter-Hitze',
+  UMLUFT = 'Umluft'
 }
+
 
 export enum Einheit {
   ST = "St",

@@ -3,7 +3,7 @@ import {KochschrittAktion} from "./kochschritt-aktion.model";
 import {Zutat, ZutatSchema} from "./zutat.model";
 import {Utensil} from "./utensil.model";
 import {z} from "zod";
-import {Temperatur} from "../shared-types";
+import {Betriebsart} from "../shared-types";
 
 
 export const KochschrittSchema = z.object({
@@ -16,7 +16,7 @@ export const KochschrittSchema = z.object({
   wartezeit: z.number().optional(),
   zutaten: z.array(ZutatSchema),
   utensilien: z.array(z.any()),
-  temperaturString: z.nativeEnum(Temperatur).optional(),
+  betriebsart: z.nativeEnum(Betriebsart).optional(),
   temperatur: z.number().optional(),
 
 }).strict()
@@ -25,7 +25,7 @@ type KochschrittType = z.infer<typeof KochschrittSchema>;
 
 
 export class Kochschritt implements KochschrittType {
-  @prop()
+  @prop({ref: "KochschrittAktion", type: mongoose.Schema.Types.ObjectId})
   public aktion?: Ref<KochschrittAktion>;
 
   @prop()
@@ -53,7 +53,7 @@ export class Kochschritt implements KochschrittType {
   public utensilien: Ref<Utensil>[] = [];
 
   @prop()
-  public temperaturString?: Temperatur;
+  public betriebsart?: Betriebsart;
 
   @prop()
   public temperatur?: number; //  Grad Celsius
