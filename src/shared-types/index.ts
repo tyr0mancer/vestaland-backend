@@ -36,8 +36,12 @@ export enum AktionIcon {
   PFANNE = 'PFANNE',
   TOPF = 'TOPF',
   OFEN = 'OFEN',
-  UHR = 'UHR'
+  UHR = 'UHR',
+  KOCHEN = 'KOCHEN',
+  BLENDER = 'BLENDER',
+  GRILL = 'GRILL',
 }
+
 
 
 export interface LoginResponse {
