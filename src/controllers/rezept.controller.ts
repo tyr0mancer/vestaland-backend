@@ -37,15 +37,6 @@ export async function findeRezeptController(req: Request, res: Response) {
   booleanProps.forEach(prop => {
     if (typeof req.query[prop] == "string") query['meta.' + prop] = true
   })
-  /*
-
-    if (typeof req.query.vegetarisch == "string")
-      query['meta.vegetarisch'] = true
-    if (typeof req.query.healthy == "string")
-      query['meta.healthy'] = true
-    if (typeof req.query.soulfood == "string")
-      query['meta.soulfood'] = true
-  */
 
   if (typeof req.query.myRecipes == "string")
     query['autor'] = req.user?._id

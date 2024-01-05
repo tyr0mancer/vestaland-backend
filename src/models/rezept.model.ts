@@ -28,6 +28,9 @@ class RezeptMeta {
 
   @prop()
   public soulfood?: boolean;
+
+  @prop()
+  public schwierigkeitsgrad?: number;
 }
 
 export const RezeptSchema = z.object({
@@ -37,6 +40,7 @@ export const RezeptSchema = z.object({
   quelleUrl: z.string().array().describe('Links zu Quellen oder andere Verweise'),
   berechneteGesamtdauer: z.number().optional(),
   berechneteArbeitszeit: z.number().optional(),
+  extraZeitExtraPortion: z.number().optional(),
   realeGesamtzeit: z.number().optional(),
   portionen: z.number({required_error: "Die Anzahl an Portionen muss angegeben sein"}),
   nutrients: NutrientsSchema.optional(),
@@ -67,7 +71,7 @@ export class Rezept extends TimeStamps implements RezeptType {
   public freitext?: string;
 
 
-  @prop({ type: String, required: true, default: [] })
+  @prop({type: String, required: true, default: []})
   public quelleUrl!: mongoose.Types.Array<string>;
 
   @prop()
@@ -75,6 +79,9 @@ export class Rezept extends TimeStamps implements RezeptType {
 
   @prop()
   public berechneteArbeitszeit?: number;
+
+  @prop()
+  public extraZeitExtraPortion?: number;
 
   @prop()
   public realeGesamtzeit?: number;
