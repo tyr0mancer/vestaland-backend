@@ -2,7 +2,7 @@ import * as express from "express";
 import {genericRouter} from "./generic/generic-router";
 
 import {Rezept, RezeptModel, RezeptSchema} from "../models/rezept.model";
-import {Lebensmittel, LebensmittelModel, lebensmittelSchema} from "../models/lebensmittel.model";
+import {Lebensmittel, LebensmittelModel, LebensmittelSchema} from "../models/lebensmittel.model";
 import {Utensil, UtensilModel, UtensilSchema} from "../models/utensil.model";
 import {Einkaufsliste, EinkaufslisteModel, einkaufslisteSchema} from "../models/einkaufsliste.model";
 import {authRouter} from "./auth/auth.route";
@@ -33,7 +33,7 @@ apiRouter.use('/config', configRouter);
 
 // generic Routes
 apiRouter.use('/rezept', genericRouter<Rezept>(RezeptModel, RezeptSchema));
-apiRouter.use('/lebensmittel', genericRouter<Lebensmittel>(LebensmittelModel, lebensmittelSchema));
+apiRouter.use('/lebensmittel', genericRouter<Lebensmittel>(LebensmittelModel, LebensmittelSchema));
 apiRouter.use('/utensil', genericRouter<Utensil>(UtensilModel, UtensilSchema));
 
 apiRouter.use('/einkaufsliste', genericRouter<Einkaufsliste>(EinkaufslisteModel, einkaufslisteSchema));

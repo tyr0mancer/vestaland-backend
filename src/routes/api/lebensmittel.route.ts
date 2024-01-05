@@ -4,7 +4,7 @@ import {
   findeLebensmittelController,
   importiereLebensmittelController
 } from "../../controllers/lebensmittel.controller";
-import {lebensmittelSchema} from "../../models/lebensmittel.model";
+import {LebensmittelSchema} from "../../models/lebensmittel.model";
 import {z} from "zod";
 
 import {validateAuthorization} from "../../middleware/validate-authorization";
@@ -18,5 +18,5 @@ lebensmittelRouter.get('/',
 
 lebensmittelRouter.post('/import/',
   validateAuthorization(BenutzerRolle.ADMIN),
-  validateRequest({body: z.array(lebensmittelSchema)}),
+  validateRequest({body: z.array(LebensmittelSchema)}),
   importiereLebensmittelController)

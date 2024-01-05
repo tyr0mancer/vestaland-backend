@@ -4,13 +4,12 @@ export enum BenutzerRolle {
   ADMIN = 'admin'
 }
 
-export enum KochschrittTypus {
-  FREITEXT = '',
-  SCHNEIDEN = 'schneiden',
-  AUFHEIZEN = 'aufheizen',
-  BRATEN = 'braten',
-  HEISS_BRATEN = 'scharf anbraten',
-  PUTZEN = 'putzen',
+export enum Temperatur {
+  TK = 'Gefrierschrank',
+  FRIDGE = 'im Kühlschrank',
+  ZIMMER = 'Zimmertemperatur',
+  HITZE_NIEDRIG = 'Niedrige Hitze',
+  HITZE_MITTEL = 'Mittlerer Hitze'
 }
 
 export enum Einheit {

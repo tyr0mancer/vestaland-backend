@@ -14,9 +14,10 @@ export const findeRezeptSchema = {
   params: z.object({
     name: z.string().optional(),
     zutaten: z.string().optional(),
+    myRecipes: z.boolean().optional(),
+
     vegetarisch: z.boolean().optional(),
     healthy: z.boolean().optional(),
-    myRecipes: z.boolean().optional(),
     soulfood: z.boolean().optional(),
   }).strict()
 }
@@ -32,12 +33,20 @@ export async function findeRezeptController(req: Request, res: Response) {
     query['zutaten.lebensmittel'] = {$in: zutaten}
   }
 
-  if (typeof req.query.vegetarisch == "string")
-    query['meta.vegetarisch'] = true
-  if (typeof req.query.healthy == "string")
-    query['meta.healthy'] = true
-  if (typeof req.query.soulfood == "string")
-    query['meta.soulfood'] = true
+  const booleanProps = ['vegetarisch', 'healthy', 'soulfood']
+  booleanProps.forEach(prop => {
+    if (typeof req.query[prop] == "string") query['meta.' + prop] = true
+  })
+  /*
+
+    if (typeof req.query.vegetarisch == "string")
+      query['meta.vegetarisch'] = true
+    if (typeof req.query.healthy == "string")
+      query['meta.healthy'] = true
+    if (typeof req.query.soulfood == "string")
+      query['meta.soulfood'] = true
+  */
+
   if (typeof req.query.myRecipes == "string")
     query['autor'] = req.user?._id
 
