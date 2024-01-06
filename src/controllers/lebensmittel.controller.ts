@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {Lebensmittel, LebensmittelModel} from "../models/lebensmittel.model";
-import {handleGenericServerError} from "../middleware/error-handler";
+import {handleGenericServerError, sendErrorResponse} from "../middleware/error-handler";
 
 export function findeLebensmittelController(req: Request, res: Response) {
   let query: { [key: string]: any } = {};
@@ -16,9 +16,21 @@ export function findeLebensmittelController(req: Request, res: Response) {
     .catch((error: any) => handleGenericServerError(res, error))
 }
 
+
 export function importiereLebensmittelController(req: Request, res: Response) {
   LebensmittelModel.create(req.body)
     .then((response: Lebensmittel) => res.status(201).json(response))
     .catch((error: any) => handleGenericServerError(res, error))
+}
 
+export function deleteManyLebensmittelController(req: Request, res: Response) {
+  const idsToDelete = req.params.ids.split(',')
+  console.log(idsToDelete)
+  LebensmittelModel.deleteMany({_id: idsToDelete})
+    .then((response: any) => {
+      if (!response)
+        return sendErrorResponse(res, 404, "Eintrag nicht gefunden")
+      res.status(204).send();
+    })
+    .catch((error: any) => handleGenericServerError(res, error))
 }

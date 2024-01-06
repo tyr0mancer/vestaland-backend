@@ -28,6 +28,7 @@ export enum Einheit {
   CP = "CP"
 }
 
+
 export enum AktionIcon {
   DUMMY = 'DUMMY',
   MESSER = 'MESSER',
@@ -40,6 +41,7 @@ export enum AktionIcon {
   KOCHEN = 'KOCHEN',
   BLENDER = 'BLENDER',
   GRILL = 'GRILL',
+  WASCHEN = 'WASCHEN'
 }
 
 

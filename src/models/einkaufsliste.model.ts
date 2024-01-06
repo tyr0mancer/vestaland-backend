@@ -39,4 +39,4 @@ export class Einkaufsliste extends TimeStamps {
 
 export const EinkaufslisteModel = getModelForClass(Einkaufsliste);
 
-export const einkaufslisteSchema = z.object({});
+export const EinkaufslisteSchema = z.object({});

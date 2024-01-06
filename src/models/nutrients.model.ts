@@ -14,6 +14,8 @@ type NutrientsType = z.infer<typeof NutrientsSchema>;
 
 export class Nutrients implements NutrientsType {
   @prop()
+  public kalorien: number = 0;
+  @prop()
   public fett: number = 0;
   @prop()
   public proteine: number = 0;
