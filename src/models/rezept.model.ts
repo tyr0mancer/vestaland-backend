@@ -37,7 +37,7 @@ export const RezeptSchema = z.object({
   name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}).min(1).describe('Der Name des Rezeptes'),
   beschreibung: z.string().max(150).optional().describe('Ein kurzer(!) Beschreibungstext'),
   freitext: z.string().optional().describe('Freitext Beschreibung des Rezeptes'),
-  quelleUrl: z.string().array().describe('Links zu Quellen oder andere Verweise'),
+  quelleUrl: z.string().optional().array().describe('Links zu Quellen oder andere Verweise'),
   berechneteGesamtdauer: z.number().optional(),
   berechneteArbeitszeit: z.number().optional(),
   extraZeitExtraPortion: z.number().optional(),
