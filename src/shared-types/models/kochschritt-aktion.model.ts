@@ -1,6 +1,6 @@
 import {prop, getModelForClass, modelOptions} from '@typegoose/typegoose';
 import {z} from "zod";
-import {AktionIcon} from "../../../../vestaland-frontend/src/shared-types/enum";
+import {AktionIcon} from "../enum";
 
 
 export const KochschrittAktionSchema = z.object({

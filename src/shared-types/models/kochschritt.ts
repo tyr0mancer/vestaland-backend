@@ -3,7 +3,7 @@ import {KochschrittAktion} from "./kochschritt-aktion.model";
 import {Zutat, ZutatSchema} from "./zutat.model";
 import {Utensil} from "./utensil.model";
 import {z} from "zod";
-import {Betriebsart} from "../../../../vestaland-frontend/src/shared-types/enum";
+import {Betriebsart} from "../enum";
 
 
 export const KochschrittSchema = z.object({

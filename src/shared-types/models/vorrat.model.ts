@@ -3,8 +3,8 @@ import {z} from "zod";
 import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Lebensmittel} from "./lebensmittel.model";
-import {Einheit} from "../../../../vestaland-frontend/src/shared-types/enum";
 import {Lagerort} from "./lagerort.model";
+import {Einheit} from "../enum";
 
 
 @modelOptions({schemaOptions: {collection: "vorraete"}})

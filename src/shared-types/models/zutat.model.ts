@@ -1,7 +1,7 @@
 import {mongoose, prop, Ref} from '@typegoose/typegoose';
 import {Lebensmittel} from "./lebensmittel.model";
-import {Einheit} from "../../../../vestaland-frontend/src/shared-types/enum";
 import {z} from "zod";
+import {Einheit} from "../enum";
 
 
 export const ZutatSchema = z.object({
