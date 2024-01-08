@@ -6,8 +6,9 @@ import {Utensil} from "./utensil.model";
 import {Datei} from "./Datei";
 import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
-import {Kochschritt, KochschrittSchema} from "./kochschritt";
+import {Kochschritt} from "./Kochschritt";
 import {Nutrients, NutrientsSchema} from "./nutrients.model";
+import {KochschrittSchema} from "./kochschritt.schema";
 
 
 const extension = {

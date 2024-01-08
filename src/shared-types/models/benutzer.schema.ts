@@ -9,6 +9,7 @@ export const BenutzerSchema = z.object({
   resetPasswordHash: z.string().optional(),
   resetPasswordExpires: z.date().optional()
 }).strict()
+export type BenutzerType = z.infer<typeof BenutzerSchema>;
 
 
 export const changePasswordSchema = z.object({

@@ -1,27 +1,10 @@
 import {mongoose, prop, Ref} from "@typegoose/typegoose";
-import {KochschrittAktion} from "./kochschritt-aktion.model";
-import {Zutat, ZutatSchema} from "./zutat.model";
-import {Utensil} from "./utensil.model";
-import {z} from "zod";
+
+import {KochschrittType} from "./kochschritt.schema";
 import {Betriebsart} from "../enum";
-
-
-export const KochschrittSchema = z.object({
-  aktion: z.any().optional(),
-  beschreibung: z.string().optional(),
-  videoUrl: z.string().optional(),
-  repeating: z.boolean().optional(),
-  gesamtdauer: z.number().optional(),
-  arbeitszeit: z.number().optional(),
-  wartezeit: z.number().optional(),
-  zutaten: z.array(ZutatSchema),
-  utensilien: z.array(z.any()),
-  betriebsart: z.nativeEnum(Betriebsart).optional(),
-  temperatur: z.number().optional(),
-
-}).strict()
-
-type KochschrittType = z.infer<typeof KochschrittSchema>;
+import {KochschrittAktion} from "./kochschritt-aktion.model";
+import {Zutat} from "./zutat.model";
+import {Utensil} from "./utensil.model";
 
 
 export class Kochschritt implements KochschrittType {
