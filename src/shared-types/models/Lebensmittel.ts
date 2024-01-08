@@ -1,6 +1,6 @@
 import {prop, modelOptions} from '@typegoose/typegoose';
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
-import {Nutrients} from "./nutrients.model";
+import {Nutrients} from "./Nutrients";
 import {Einheit} from "../enum";
 import {LebensmittelType} from "./lebensmittel.schema";
 

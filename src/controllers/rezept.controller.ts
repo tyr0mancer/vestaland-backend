@@ -3,12 +3,13 @@ import {DocumentType} from '@typegoose/typegoose';
 import mongoose from "mongoose";
 
 import {Datei} from "../shared-types/models/Datei";
-import {Rezept, RezeptModel} from "../shared-types/models/rezept.model";
+import {Rezept} from "../shared-types/models/Rezept";
 
 import {sendErrorResponse, handleGenericServerError} from "../middleware/error-handler";
 import {handleFileUpload} from "./datei.controller";
 import {BenutzerRolle} from "../shared-types/enum";
 import {z} from "zod";
+import {RezeptModel} from "../db-model";
 
 export const findeRezeptSchema = {
   params: z.object({

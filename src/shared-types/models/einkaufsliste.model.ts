@@ -1,6 +1,6 @@
 import {prop, getModelForClass, modelOptions, mongoose, Ref} from '@typegoose/typegoose';
 import {Zutat} from "./Zutat";
-import {Rezept} from "./rezept.model";
+import {Rezept} from "./Rezept";
 import {z} from "zod";
 import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";

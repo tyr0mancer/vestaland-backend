@@ -1,17 +1,5 @@
 import {prop} from "@typegoose/typegoose";
-import {z} from "zod";
-
-export const NutrientsSchema = z.object({
-  kalorien: z.number(),
-  fett: z.number(),
-  proteine: z.number(),
-  kohlenhydrate: z.number(),
-  zucker: z.number(),
-  ballaststoffe: z.number(),
-}).strict()
-
-type NutrientsType = z.infer<typeof NutrientsSchema>;
-
+import {NutrientsType} from "./nutrients.schema";
 
 export class Nutrients implements NutrientsType {
   @prop()

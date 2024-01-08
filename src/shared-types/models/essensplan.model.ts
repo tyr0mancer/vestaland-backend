@@ -2,7 +2,7 @@ import {prop, getModelForClass, modelOptions, mongoose, Ref} from '@typegoose/ty
 import {z} from "zod";
 import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
-import {Rezept} from "./rezept.model";
+import {Rezept} from "./Rezept";
 
 export class EssensplanEintrag {
   @prop({ref: "Rezept", type: mongoose.Schema.Types.ObjectId})
