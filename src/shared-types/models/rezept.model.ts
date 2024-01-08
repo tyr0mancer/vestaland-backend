@@ -2,7 +2,7 @@ import {getModelForClass, modelOptions, mongoose, prop, Ref} from '@typegoose/ty
 import {z} from "zod";
 
 import {Zutat} from "./Zutat";
-import {Utensil} from "./utensil.model";
+import {Utensil} from "./Utensil";
 import {Datei} from "./Datei";
 import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";

@@ -2,7 +2,7 @@ import * as express from "express";
 import {genericRouter} from "./generic/generic-router";
 
 import {Rezept, RezeptModel, RezeptSchema} from "../shared-types/models/rezept.model";
-import {Utensil, UtensilModel, UtensilSchema} from "../shared-types/models/utensil.model";
+import {Utensil} from "../shared-types/models/Utensil";
 import {authRouter} from "./auth/auth.route";
 import {rezeptRouter} from "./api/rezept.route";
 import {lebensmittelRouter} from "./api/lebensmittel.route";
@@ -16,8 +16,9 @@ import {configRouter} from "./api/config.route";
 import {Vorrat, VorratModel, vorratSchema} from "../shared-types/models/vorrat.model";
 import {utensilRouter} from "./api/utensil.route";
 import {einkaufslistenRouter} from "./api/einkaufsliste.route";
-import {KochschrittAktionModel} from "../db-model";
+import {KochschrittAktionModel, UtensilModel} from "../db-model";
 import {KochschrittAktionSchema} from "../shared-types/models/kochschritt-aktion.schema";
+import {UtensilSchema} from "../shared-types/models/utensil.schema";
 
 const apiRouter = express.Router();
 

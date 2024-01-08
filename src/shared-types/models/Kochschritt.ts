@@ -4,7 +4,7 @@ import {KochschrittType} from "./kochschritt.schema";
 import {Betriebsart} from "../enum";
 import {KochschrittAktion} from "./KochschrittAktion";
 import {Zutat} from "./Zutat";
-import {Utensil} from "./utensil.model";
+import {Utensil} from "./Utensil";
 
 
 export class Kochschritt implements KochschrittType {

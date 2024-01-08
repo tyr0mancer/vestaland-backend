@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {handleGenericServerError} from "../middleware/error-handler";
-import {Utensil, UtensilModel} from "../shared-types/models/utensil.model";
+import {Utensil} from "../shared-types/models/Utensil";
+import {UtensilModel} from "../db-model";
 
 export function findeUtensilController(req: Request, res: Response) {
   let query: { [key: string]: any } = {};
