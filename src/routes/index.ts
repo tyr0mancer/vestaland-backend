@@ -11,11 +11,13 @@ import {Essensplan, EssensplanModel, essensplanSchema} from "../shared-types/mod
 import {Lagerort, LagerortModel, lagerortSchema} from "../shared-types/models/lagerort.model";
 import {sendMail} from "../services/mailer-service/send-mail";
 import {handleGenericServerError} from "../middleware/error-handler";
-import {KochschrittAktion, KochschrittAktionModel, KochschrittAktionSchema} from "../shared-types/models/kochschritt-aktion.model";
+import {KochschrittAktion} from "../shared-types/models/KochschrittAktion";
 import {configRouter} from "./api/config.route";
 import {Vorrat, VorratModel, vorratSchema} from "../shared-types/models/vorrat.model";
 import {utensilRouter} from "./api/utensil.route";
 import {einkaufslistenRouter} from "./api/einkaufsliste.route";
+import {KochschrittAktionModel} from "../db-model";
+import {KochschrittAktionSchema} from "../shared-types/models/kochschritt-aktion.schema";
 
 const apiRouter = express.Router();
 
