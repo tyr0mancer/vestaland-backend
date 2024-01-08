@@ -65,7 +65,7 @@ export class Rezept extends TimeStamps implements RezeptType {
   @prop({ref: "Utensil", type: mongoose.Schema.Types.ObjectId})
   public utensilien: Ref<Utensil>[] = [];
 
-  @prop({type: Kochschritt, _id: false})
+  @prop({type: Kochschritt})
   public kochschritte: Kochschritt[] = [];
 
   @prop({type: RezeptMeta, _id: false})

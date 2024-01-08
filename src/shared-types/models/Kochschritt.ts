@@ -24,10 +24,19 @@ export class Kochschritt implements KochschrittType {
   public gesamtdauer?: number;
 
   @prop()
+  public betriebsart?: Betriebsart;
+
+  @prop()
+  public temperatur?: number; //  Grad Celsius
+
+  @prop()
   public arbeitszeit?: number;
 
   @prop()
   public wartezeit?: number;
+
+  @prop()
+  public erforderlicheKochschritte?: mongoose.Schema.Types.ObjectId[];
 
   @prop({type: Zutat, _id: false})
   public zutaten: Zutat[] = [];
@@ -35,10 +44,5 @@ export class Kochschritt implements KochschrittType {
   @prop({ref: "Utensil", type: mongoose.Schema.Types.ObjectId})
   public utensilien: Ref<Utensil>[] = [];
 
-  @prop()
-  public betriebsart?: Betriebsart;
-
-  @prop()
-  public temperatur?: number; //  Grad Celsius
 
 }
