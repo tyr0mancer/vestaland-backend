@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {ZutatSchema} from "./zutat.model";
+import {ZutatSchema} from "./Zutat";
 import {Betriebsart} from "../enum";
 
 export const KochschrittSchema = z.object({

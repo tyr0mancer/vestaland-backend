@@ -1,7 +1,7 @@
 import {getModelForClass, modelOptions, mongoose, prop, Ref} from '@typegoose/typegoose';
 import {z} from "zod";
 
-import {Zutat} from "./zutat.model";
+import {Zutat} from "./Zutat";
 import {Utensil} from "./utensil.model";
 import {Datei} from "./Datei";
 import {Benutzer} from "./Benutzer";
