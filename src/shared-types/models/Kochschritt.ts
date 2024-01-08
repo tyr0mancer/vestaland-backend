@@ -9,7 +9,7 @@ import {Utensil} from "./Utensil";
 
 export class Kochschritt implements KochschrittType {
   @prop({ref: "KochschrittAktion", type: mongoose.Schema.Types.ObjectId})
-  public aktion?: Ref<KochschrittAktion>;
+  public aktionen: Ref<KochschrittAktion>[] = [];
 
   @prop()
   public beschreibung?: string;
@@ -33,7 +33,7 @@ export class Kochschritt implements KochschrittType {
   public wartezeit?: number;
 
   @prop()
-  public erforderlicheKochschritte?: mongoose.Schema.Types.ObjectId[];
+  public erforderlicheKochschritte?: string[];
 
   @prop({type: Zutat, _id: false})
   public zutaten: Zutat[] = [];

@@ -3,7 +3,7 @@ import {Betriebsart} from "../enum";
 import {ZutatSchema} from "./zutat.schema";
 
 export const KochschrittSchema = z.object({
-  aktion: z.any().optional(),
+  aktionen: z.array(z.any()),
   beschreibung: z.string().optional(),
   videoUrl: z.string().optional(),
   repeating: z.boolean().optional(),
@@ -14,7 +14,7 @@ export const KochschrittSchema = z.object({
   utensilien: z.array(z.any()),
   betriebsart: z.nativeEnum(Betriebsart).optional(),
   temperatur: z.number().optional(),
-
+  erforderlicheKochschritte: z.array(z.string()).optional(),
 }).strict()
 
 export type KochschrittType = z.infer<typeof KochschrittSchema>;
