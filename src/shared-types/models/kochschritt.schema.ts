@@ -1,6 +1,6 @@
 import {z} from "zod";
-import {ZutatSchema} from "./Zutat";
 import {Betriebsart} from "../enum";
+import {ZutatSchema} from "./zutat.schema";
 
 export const KochschrittSchema = z.object({
   aktion: z.any().optional(),

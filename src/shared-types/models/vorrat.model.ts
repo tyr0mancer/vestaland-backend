@@ -2,7 +2,7 @@ import {prop, getModelForClass, modelOptions, mongoose, Ref} from '@typegoose/ty
 import {z} from "zod";
 import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
-import {Lebensmittel} from "./lebensmittel.model";
+import {Lebensmittel} from "./Lebensmittel";
 import {Lagerort} from "./lagerort.model";
 import {Einheit} from "../enum";
 

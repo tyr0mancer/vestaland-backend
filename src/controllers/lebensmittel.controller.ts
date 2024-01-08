@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
-import {Lebensmittel, LebensmittelModel} from "../shared-types/models/lebensmittel.model";
+import {Lebensmittel} from "../shared-types/models/Lebensmittel";
 import {handleGenericServerError, sendErrorResponse} from "../middleware/error-handler";
+import {LebensmittelModel} from "../db-model";
 
 export function findeLebensmittelController(req: Request, res: Response) {
   let query: { [key: string]: any } = {};

@@ -1,15 +1,8 @@
-import {prop, getModelForClass, modelOptions} from '@typegoose/typegoose';
-import {z} from "zod";
+import {prop, modelOptions} from '@typegoose/typegoose';
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Nutrients} from "./nutrients.model";
 import {Einheit} from "../enum";
-
-
-export const LebensmittelSchema = z.object({
-  name: z.string({required_error: "Das Lebensmittel muss einen Namen enthalten"}),
-});
-
-type LebensmittelType = z.infer<typeof LebensmittelSchema>;
+import {LebensmittelType} from "./lebensmittel.schema";
 
 
 @modelOptions({schemaOptions: {collection: "lebensmittel"}})
@@ -47,6 +40,4 @@ export class Lebensmittel extends TimeStamps implements LebensmittelType {
   public nutrients?: Nutrients;
 
 }
-
-export const LebensmittelModel = getModelForClass(Lebensmittel);
 

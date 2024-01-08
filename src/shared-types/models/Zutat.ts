@@ -1,5 +1,5 @@
 import {mongoose, prop, Ref} from '@typegoose/typegoose';
-import {Lebensmittel} from "./lebensmittel.model";
+import {Lebensmittel} from "./Lebensmittel";
 import {Einheit} from "../enum";
 import {ZutatType} from "./zutat.schema";
 

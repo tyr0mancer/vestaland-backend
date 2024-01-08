@@ -5,12 +5,14 @@ import {
   findeLebensmittelController,
   importiereLebensmittelController
 } from "../../controllers/lebensmittel.controller";
-import {Lebensmittel, LebensmittelModel, LebensmittelSchema} from "../../shared-types/models/lebensmittel.model";
+import {Lebensmittel} from "../../shared-types/models/Lebensmittel";
 import {z} from "zod";
 
 import {validateAuthorization} from "../../middleware/validate-authorization";
 import {BenutzerRolle} from "../../shared-types/enum";
 import {genericGet, genericPost, genericPut} from "../../controllers/generic-controller";
+import {LebensmittelModel} from "../../db-model";
+import {LebensmittelSchema} from "../../shared-types/models/lebensmittel.schema";
 
 export const lebensmittelRouter: Router = express.Router();
 
