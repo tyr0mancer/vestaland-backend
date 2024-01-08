@@ -18,9 +18,6 @@ export class Kochschritt implements KochschrittType {
   public videoUrl?: string;
 
   @prop()
-  public repeating?: boolean;
-
-  @prop()
   public gesamtdauer?: number;
 
   @prop()
@@ -43,6 +40,5 @@ export class Kochschritt implements KochschrittType {
 
   @prop({ref: "Utensil", type: mongoose.Schema.Types.ObjectId})
   public utensilien: Ref<Utensil>[] = [];
-
 
 }
