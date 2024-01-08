@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {DocumentType} from '@typegoose/typegoose';
 import mongoose from "mongoose";
 
-import {Datei} from "../shared-types/models/datei.model";
+import {Datei} from "../shared-types/models/Datei";
 import {Rezept, RezeptModel} from "../shared-types/models/rezept.model";
 
 import {sendErrorResponse, handleGenericServerError} from "../middleware/error-handler";

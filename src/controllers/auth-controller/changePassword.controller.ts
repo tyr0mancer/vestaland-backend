@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {handleGenericServerError} from "../../middleware/error-handler";
-import {BenutzerModel} from "../../shared-types/models";
+import {BenutzerModel} from "../../db-model";
 import {generatePasswordHash} from "../../services/createHash";
 
 export async function changePassword(req: Request, res: Response) {

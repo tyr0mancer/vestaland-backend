@@ -3,9 +3,10 @@ import {DocumentType} from '@typegoose/typegoose';
 import * as path from "path";
 import mongoose from 'mongoose';
 
-import {Datei, DateiModel} from "../shared-types/models/datei.model";
+import {Datei} from "../shared-types/models/Datei";
 import {ApiErrorResponse} from "../shared-types/api";
 import {handleError, sendErrorResponse} from "../middleware/error-handler";
+import {DateiModel} from "../db-model";
 
 const crypto = require('crypto');
 const fs = require('fs');
@@ -35,9 +36,9 @@ export function handleFileUpload(req: Request): Promise<DocumentType<Datei>> {
     });
 
     const datei: Datei = {
-      name: fileNameWithoutExtension,
-      fileNameOriginal: uploadedFile.name,
-      fileName: randomFileName,
+      beschreibung: fileNameWithoutExtension,
+      dateiNameOriginal: uploadedFile.name,
+      dateiNameServer: randomFileName,
       uploadedBy: req.user?._id ? new mongoose.Types.ObjectId(req.user._id) : undefined
     }
 
@@ -55,7 +56,7 @@ export async function deleteFile(req: Request, res: Response) {
     const datei = await DateiModel.findById({_id: req.params.id})
     if (!datei)
       return sendErrorResponse(res, 404, "Datei nicht in DB gefunden")
-    const filename = path.join(__dirname, '../../public/uploads/' + datei.fileName)
+    const filename = path.join(__dirname, '../../public/uploads/' + datei.dateiNameServer)
     fs.unlink(filename, (err: any) => {
       if (err) {
         if (err.code === 'ENOENT') {

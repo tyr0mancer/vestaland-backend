@@ -8,7 +8,7 @@ import config from "../../config";
 
 import {LoginResponse} from "../../shared-types/auth";
 import {Benutzer} from "../../shared-types/models/Benutzer";
-import {BenutzerModel} from "../../shared-types/models";
+import {BenutzerModel} from "../../db-model";
 
 export function loginController(req: Request, res: Response) {
   BenutzerModel.findOne({email: req.body.username})

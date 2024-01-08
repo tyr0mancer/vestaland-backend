@@ -1,7 +1,7 @@
 import {prop, modelOptions} from '@typegoose/typegoose';
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {BenutzerRolle} from "../enum";
-import {BenutzerType} from "./index";
+import {BenutzerType} from "../../db-model";
 
 @modelOptions({schemaOptions: {collection: "benutzer"}})
 export class Benutzer extends TimeStamps implements BenutzerType {

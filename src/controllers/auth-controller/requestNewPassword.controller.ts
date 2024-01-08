@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {sendErrorResponse, handleGenericServerError} from "../../middleware/error-handler";
-import {BenutzerModel} from "../../shared-types/models";
+import {BenutzerModel} from "../../db-model";
 import {sendRequestPasswordResetMail} from "../../services/mailer-service/request-password-reset";
 import crypto from "crypto";
 import {generateTokenHash} from "../../services/createHash";

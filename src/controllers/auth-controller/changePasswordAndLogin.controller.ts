@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {sendErrorResponse, handleGenericServerError} from "../../middleware/error-handler";
-import {BenutzerModel} from "../../shared-types/models";
+import {BenutzerModel} from "../../db-model";
 import {loginController} from "./login.controller";
 import {generatePasswordHash, generateTokenHash} from "../../services/createHash";
 
