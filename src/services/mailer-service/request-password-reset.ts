@@ -1,5 +1,5 @@
 import {sendMail} from "./send-mail";
-import {Benutzer} from "../../models/benutzer.model";
+import {Benutzer} from "../../shared-types/models/Benutzer";
 
 export function sendRequestPasswordResetMail(benutzer: Benutzer, token: string) {
     return new Promise(async (resolve, reject) => {

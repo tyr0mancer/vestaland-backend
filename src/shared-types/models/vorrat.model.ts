@@ -1,9 +1,9 @@
 import {prop, getModelForClass, modelOptions, mongoose, Ref} from '@typegoose/typegoose';
 import {z} from "zod";
-import {Benutzer} from "./benutzer.model";
+import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Lebensmittel} from "./lebensmittel.model";
-import {Einheit} from "../shared-types";
+import {Einheit} from "../../../../vestaland-frontend/src/shared-types/enum";
 import {Lagerort} from "./lagerort.model";
 
 

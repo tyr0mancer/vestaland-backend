@@ -2,12 +2,12 @@ import {Request, Response} from "express";
 import {DocumentType} from '@typegoose/typegoose';
 import mongoose from "mongoose";
 
-import {Datei} from "../models/datei.model";
-import {Rezept, RezeptModel} from "../models/rezept.model";
+import {Datei} from "../shared-types/models/datei.model";
+import {Rezept, RezeptModel} from "../shared-types/models/rezept.model";
 
 import {sendErrorResponse, handleGenericServerError} from "../middleware/error-handler";
 import {handleFileUpload} from "./datei.controller";
-import {BenutzerRolle} from "../shared-types";
+import {BenutzerRolle} from "../shared-types/enum";
 import {z} from "zod";
 
 export const findeRezeptSchema = {

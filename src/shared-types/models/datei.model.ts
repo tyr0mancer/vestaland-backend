@@ -1,5 +1,5 @@
 import {prop, getModelForClass, Ref, mongoose, modelOptions} from '@typegoose/typegoose';
-import {Benutzer} from "./benutzer.model";
+import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 
 

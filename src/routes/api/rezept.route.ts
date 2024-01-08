@@ -8,8 +8,8 @@ import {
   postRezept
 } from "../../controllers/rezept.controller";
 import {readToken, validateAuthorization} from "../../middleware/validate-authorization";
-import {BenutzerRolle} from "../../shared-types";
-import {RezeptSchema} from "../../models/rezept.model";
+import {BenutzerRolle} from "../../shared-types/enum";
+import {RezeptSchema} from "../../shared-types/models/rezept.model";
 
 
 export const rezeptRouter: Router = express.Router();

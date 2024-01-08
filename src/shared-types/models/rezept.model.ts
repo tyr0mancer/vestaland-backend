@@ -4,7 +4,7 @@ import {z} from "zod";
 import {Zutat} from "./zutat.model";
 import {Utensil} from "./utensil.model";
 import {Datei} from "./datei.model";
-import {Benutzer} from "./benutzer.model";
+import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Kochschritt, KochschrittSchema} from "./kochschritt";
 import {Nutrients, NutrientsSchema} from "./nutrients.model";

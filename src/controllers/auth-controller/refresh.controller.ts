@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
 import jwt from "jsonwebtoken";
-import {BenutzerModel} from "../../models/benutzer.model";
+import {BenutzerModel} from "../../shared-types/models";
 import {successfulLogin} from "./login.controller";
-import {UserInformation} from "../../shared-types";
+import {UserInformation} from "../../shared-types/auth";
 import {sendErrorResponse} from "../../middleware/error-handler";
 import config from "../../config";
 

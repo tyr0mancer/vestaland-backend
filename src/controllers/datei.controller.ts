@@ -3,8 +3,8 @@ import {DocumentType} from '@typegoose/typegoose';
 import * as path from "path";
 import mongoose from 'mongoose';
 
-import {Datei, DateiModel} from "../models/datei.model";
-import {ApiError} from "../shared-types";
+import {Datei, DateiModel} from "../shared-types/models/datei.model";
+import {ApiErrorResponse} from "../shared-types/api";
 import {handleError, sendErrorResponse} from "../middleware/error-handler";
 
 const crypto = require('crypto');
@@ -22,7 +22,7 @@ export async function uploadFile(req: Request, res: Response) {
 export function handleFileUpload(req: Request): Promise<DocumentType<Datei>> {
   return new Promise<DocumentType<Datei>>((resolve, reject) => {
     if (!req.files || Object.keys(req.files).length === 0) {
-      return reject({status: 400, message: "Keine Datei mitgesendet"} as ApiError);
+      return reject({status: 400, message: "Keine Datei mitgesendet"} as ApiErrorResponse);
     }
     const uploadedFile = Array.isArray(req.files.file) ? req.files.file[0] : req.files.file
 

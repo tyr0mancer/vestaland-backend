@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {handleGenericServerError} from "../middleware/error-handler";
-import {KochschrittAktion, KochschrittAktionModel} from "../models/kochschritt-aktion.model";
+import {KochschrittAktion, KochschrittAktionModel} from "../shared-types/models/kochschritt-aktion.model";
 
 export function findeAktionenController(req: Request, res: Response) {
   let query: { [key: string]: any } = {};

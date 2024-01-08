@@ -3,7 +3,7 @@ import {ReturnModelType} from "@typegoose/typegoose/lib/types";
 import {mongoose} from "@typegoose/typegoose";
 import {z} from "zod";
 
-import {BenutzerRolle} from "../../shared-types";
+import {BenutzerRolle} from "../../shared-types/enum";
 import {validateRequest} from "../../middleware/validate-request";
 import {validateAuthorization} from "../../middleware/validate-authorization";
 import {genericDelete, genericGet, genericPost, genericPut, genericSearch} from "../../controllers/generic-controller";

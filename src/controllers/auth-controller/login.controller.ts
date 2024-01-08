@@ -1,11 +1,14 @@
 import {Request, Response} from "express";
-import {Benutzer, BenutzerModel} from "../../models/benutzer.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {Types} from "mongoose";
-import {LoginResponse} from "../../shared-types";
+
 import {sendErrorResponse, handleGenericServerError} from "../../middleware/error-handler";
 import config from "../../config";
+
+import {LoginResponse} from "../../shared-types/auth";
+import {Benutzer} from "../../shared-types/models/Benutzer";
+import {BenutzerModel} from "../../shared-types/models";
 
 export function loginController(req: Request, res: Response) {
   BenutzerModel.findOne({email: req.body.username})

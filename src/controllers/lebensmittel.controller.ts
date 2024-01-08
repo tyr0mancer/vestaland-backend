@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {Lebensmittel, LebensmittelModel} from "../models/lebensmittel.model";
+import {Lebensmittel, LebensmittelModel} from "../shared-types/models/lebensmittel.model";
 import {handleGenericServerError, sendErrorResponse} from "../middleware/error-handler";
 
 export function findeLebensmittelController(req: Request, res: Response) {

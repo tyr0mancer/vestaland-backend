@@ -2,7 +2,7 @@ import {prop, getModelForClass, modelOptions, mongoose, Ref} from '@typegoose/ty
 import {Zutat} from "./zutat.model";
 import {Rezept} from "./rezept.model";
 import {z} from "zod";
-import {Benutzer} from "./benutzer.model";
+import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 
 export class EinkaufslisteEintrag {

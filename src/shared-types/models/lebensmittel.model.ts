@@ -1,7 +1,7 @@
 import {prop, getModelForClass, modelOptions} from '@typegoose/typegoose';
 import {z} from "zod";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
-import {Einheit} from "../shared-types";
+import {Einheit} from "../../../../vestaland-frontend/src/shared-types/enum";
 import {Nutrients} from "./nutrients.model";
 
 

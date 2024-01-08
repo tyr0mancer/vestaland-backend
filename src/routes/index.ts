@@ -1,19 +1,19 @@
 import * as express from "express";
 import {genericRouter} from "./generic/generic-router";
 
-import {Rezept, RezeptModel, RezeptSchema} from "../models/rezept.model";
-import {Utensil, UtensilModel, UtensilSchema} from "../models/utensil.model";
+import {Rezept, RezeptModel, RezeptSchema} from "../shared-types/models/rezept.model";
+import {Utensil, UtensilModel, UtensilSchema} from "../shared-types/models/utensil.model";
 import {authRouter} from "./auth/auth.route";
 import {rezeptRouter} from "./api/rezept.route";
 import {lebensmittelRouter} from "./api/lebensmittel.route";
 import {dateiRouter} from "./api/datei.route";
-import {Essensplan, EssensplanModel, essensplanSchema} from "../models/essensplan.model";
-import {Lagerort, LagerortModel, lagerortSchema} from "../models/lagerort.model";
+import {Essensplan, EssensplanModel, essensplanSchema} from "../shared-types/models/essensplan.model";
+import {Lagerort, LagerortModel, lagerortSchema} from "../shared-types/models/lagerort.model";
 import {sendMail} from "../services/mailer-service/send-mail";
 import {handleGenericServerError} from "../middleware/error-handler";
-import {KochschrittAktion, KochschrittAktionModel, KochschrittAktionSchema} from "../models/kochschritt-aktion.model";
+import {KochschrittAktion, KochschrittAktionModel, KochschrittAktionSchema} from "../shared-types/models/kochschritt-aktion.model";
 import {configRouter} from "./api/config.route";
-import {Vorrat, VorratModel, vorratSchema} from "../models/vorrat.model";
+import {Vorrat, VorratModel, vorratSchema} from "../shared-types/models/vorrat.model";
 import {utensilRouter} from "./api/utensil.route";
 import {einkaufslistenRouter} from "./api/einkaufsliste.route";
 

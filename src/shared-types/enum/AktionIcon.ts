@@ -1,0 +1,14 @@
+export enum AktionIcon {
+  DUMMY = 'DUMMY',
+  MESSER = 'MESSER',
+  SCHNEEBESEN = 'SCHNEEBESEN',
+  NUDELHOLZ = 'NUDELHOLZ',
+  PFANNE = 'PFANNE',
+  TOPF = 'TOPF',
+  OFEN = 'OFEN',
+  UHR = 'UHR',
+  KOCHEN = 'KOCHEN',
+  BLENDER = 'BLENDER',
+  GRILL = 'GRILL',
+  WASCHEN = 'WASCHEN'
+}

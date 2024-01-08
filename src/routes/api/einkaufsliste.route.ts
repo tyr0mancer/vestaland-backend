@@ -2,13 +2,13 @@ import express, {Router} from "express";
 import {genericParams, validateRequest} from "../../middleware/validate-request";
 
 import {validateAuthorization} from "../../middleware/validate-authorization";
-import {BenutzerRolle} from "../../shared-types";
+import {BenutzerRolle} from "../../shared-types/enum";
 import {genericDelete, genericGet, genericPost, genericPut} from "../../controllers/generic-controller";
 import {
   Einkaufsliste,
   EinkaufslisteModel,
   EinkaufslisteSchema
-} from "../../models/einkaufsliste.model";
+} from "../../shared-types/models/einkaufsliste.model";
 
 export const einkaufslistenRouter: Router = express.Router();
 

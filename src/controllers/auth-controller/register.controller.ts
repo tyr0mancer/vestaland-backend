@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {BenutzerModel} from "../../models/benutzer.model";
+import {BenutzerModel} from "../../shared-types/models";
 import {sendErrorResponse, handleGenericServerError} from "../../middleware/error-handler";
 import {generatePasswordHash} from "../../services/createHash";
 

@@ -1,6 +1,6 @@
 import express, {Router} from "express";
 
-import {BenutzerRolle} from "../../shared-types";
+import {BenutzerRolle} from "../../shared-types/enum";
 import {validateAuthorization} from "../../middleware/validate-authorization";
 import {deleteFile, uploadFile} from "../../controllers/datei.controller";
 import {genericParams, validateRequest} from "../../middleware/validate-request";

@@ -1,6 +1,6 @@
 import {prop, getModelForClass, modelOptions, mongoose, Ref} from '@typegoose/typegoose';
 import {z} from "zod";
-import {Benutzer} from "./benutzer.model";
+import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 
 @modelOptions({schemaOptions: {collection: "lagerorte"}})
