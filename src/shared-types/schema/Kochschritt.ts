@@ -33,6 +33,9 @@ export class Kochschritt implements KochschrittType {
   public wartezeit?: number;
 
   @prop()
+  public resultatName?: string;
+
+  @prop()
   public erforderlicheKochschritte?: string[];
 
   @prop({type: Zutat, _id: false})

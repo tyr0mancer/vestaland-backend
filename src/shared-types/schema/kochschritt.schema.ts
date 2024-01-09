@@ -14,6 +14,7 @@ export const KochschrittSchema = z.object({
   utensilien: z.array(z.any()),
   betriebsart: z.nativeEnum(Betriebsart).optional(),
   temperatur: z.number().optional(),
+  resultatName: z.string().optional(),
   erforderlicheKochschritte: z.array(z.string()).optional(),
 }).strict()
 
