@@ -7,23 +7,9 @@ import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Kochschritt} from "./Kochschritt";
 import {Nutrients} from "./Nutrients";
-import {RezeptMetaType, RezeptType} from "./rezept.schema";
+import {RezeptType} from "./rezept.schema";
+import {Tags} from "../enum/Tags";
 
-
-//@todo make interface -> Tags
-class RezeptMeta implements RezeptMetaType {
-  @prop()
-  public vegetarisch?: boolean;
-
-  @prop()
-  public healthy?: boolean;
-
-  @prop()
-  public soulfood?: boolean;
-
-  @prop()
-  public schwierigkeitsgrad?: number;
-}
 
 @pre<Rezept>('findOne', function () {
   this.populate([
@@ -86,8 +72,11 @@ export class Rezept extends TimeStamps implements RezeptType {
   @prop({type: Kochschritt, _id: false})
   public kochschritte: Kochschritt[] = [];
 
-  @prop({type: RezeptMeta, _id: false})
-  public meta?: RezeptMeta;
+  @prop({type: String, enum: Tags})
+  public tags: Tags[] = [];
+
+  @prop()
+  public schwierigkeitsgrad?: number;
 
   @prop()
   public portionen: number = 1;

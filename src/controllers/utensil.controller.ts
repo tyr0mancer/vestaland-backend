@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {handleGenericServerError} from "../middleware/error-handler";
-import {Utensil} from "../shared-types/models/Utensil";
+import {Utensil} from "../shared-types/schema/Utensil";
 import {UtensilModel} from "../db-model";
 
 export function findeUtensilController(req: Request, res: Response) {

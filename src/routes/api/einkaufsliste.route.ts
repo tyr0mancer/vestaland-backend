@@ -8,7 +8,7 @@ import {
   Einkaufsliste,
   EinkaufslisteModel,
   EinkaufslisteSchema
-} from "../../shared-types/models/einkaufsliste.model";
+} from "../../shared-types/schema/einkaufsliste.model";
 
 export const einkaufslistenRouter: Router = express.Router();
 

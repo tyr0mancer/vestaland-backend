@@ -1,5 +1,5 @@
 import {sendMail} from "./send-mail";
-import {Benutzer} from "../../shared-types/models/Benutzer";
+import {Benutzer} from "../../shared-types/schema/Benutzer";
 
 export function sendNewPasswordMail(benutzer: Benutzer, neuesPasswort: string) {
     return new Promise(async (resolve, reject) => {

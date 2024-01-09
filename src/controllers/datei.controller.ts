@@ -3,7 +3,7 @@ import {DocumentType} from '@typegoose/typegoose';
 import * as path from "path";
 import mongoose from 'mongoose';
 
-import {Datei} from "../shared-types/models/Datei";
+import {Datei} from "../shared-types/schema/Datei";
 import {ApiErrorResponse} from "../shared-types/api";
 import {handleError, sendErrorResponse} from "../middleware/error-handler";
 import {DateiModel} from "../db-model";

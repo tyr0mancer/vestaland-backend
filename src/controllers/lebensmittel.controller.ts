@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {Lebensmittel} from "../shared-types/models/Lebensmittel";
+import {Lebensmittel} from "../shared-types/schema/Lebensmittel";
 import {handleGenericServerError, sendErrorResponse} from "../middleware/error-handler";
 import {LebensmittelModel} from "../db-model";
 

@@ -7,7 +7,7 @@ import {sendErrorResponse, handleGenericServerError} from "../../middleware/erro
 import config from "../../config";
 
 import {LoginResponse} from "../../shared-types/auth";
-import {Benutzer} from "../../shared-types/models/Benutzer";
+import {Benutzer} from "../../shared-types/schema/Benutzer";
 import {BenutzerModel} from "../../db-model";
 
 export function loginController(req: Request, res: Response) {

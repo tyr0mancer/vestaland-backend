@@ -7,7 +7,7 @@ import {
   loginParams,
   loginSchema,
   requestNewPasswordSchema
-} from "../../shared-types/models/benutzer.schema";
+} from "../../shared-types/schema/benutzer.schema";
 import {
   loginController,
   registerController

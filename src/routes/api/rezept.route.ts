@@ -9,7 +9,7 @@ import {
 } from "../../controllers/rezept.controller";
 import {readToken, validateAuthorization} from "../../middleware/validate-authorization";
 import {BenutzerRolle} from "../../shared-types/enum";
-import {RezeptSchema} from "../../shared-types/models/rezept.schema";
+import {RezeptSchema} from "../../shared-types/schema/rezept.schema";
 
 
 export const rezeptRouter: Router = express.Router();

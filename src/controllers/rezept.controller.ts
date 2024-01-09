@@ -2,8 +2,8 @@ import {Request, Response} from "express";
 import {DocumentType} from '@typegoose/typegoose';
 import mongoose from "mongoose";
 
-import {Datei} from "../shared-types/models/Datei";
-import {Rezept} from "../shared-types/models/Rezept";
+import {Datei} from "../shared-types/schema/Datei";
+import {Rezept} from "../shared-types/schema/Rezept";
 
 import {sendErrorResponse, handleGenericServerError} from "../middleware/error-handler";
 import {handleFileUpload} from "./datei.controller";
