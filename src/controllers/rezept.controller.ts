@@ -45,11 +45,6 @@ export async function findeRezeptController(req: Request, res: Response) {
 
   try {
     const rezepte = await RezeptModel.find(query)
-      .populate({
-        path: 'autor',
-        select: '_id, name'
-      })
-      .populate({path: 'bild'})
     res.status(200).json(rezepte);
   } catch (error) {
     handleGenericServerError(res, error)
@@ -59,19 +54,7 @@ export async function findeRezeptController(req: Request, res: Response) {
 
 export async function getRezeptDetailController(req: Request, res: Response) {
   try {
-    const rezept = await RezeptModel
-      .findById(req.params.id)
-      .populate({
-        path: 'autor',
-        select: '_id, name'
-      })
-      .populate({path: 'bild'})
-      .populate({path: 'zutaten.lebensmittel'})
-      .populate({path: 'utensilien'})
-      .populate({path: 'kochschritte.zutaten.lebensmittel'})
-      .populate({path: 'kochschritte.utensilien'})
-      .populate({path: 'kochschritte.aktion'})
-
+    const rezept = await RezeptModel.findById(req.params.id)
     res.status(200).json(rezept);
   } catch (error) {
     handleGenericServerError(res, error)

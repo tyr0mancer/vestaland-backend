@@ -1,4 +1,4 @@
-import {modelOptions, mongoose, prop, Ref} from '@typegoose/typegoose';
+import {modelOptions, mongoose,  pre, prop, Ref} from '@typegoose/typegoose';
 
 import {Zutat} from "./Zutat";
 import {Utensil} from "./Utensil";
@@ -25,7 +25,23 @@ class RezeptMeta implements RezeptMetaType {
   public schwierigkeitsgrad?: number;
 }
 
-
+@pre<Rezept>('findOne', function () {
+  this.populate([
+    {path: 'autor', select: '_id name'},
+    {path: 'bild'},
+    {path: 'zutaten.lebensmittel'},
+    {path: 'utensilien'},
+    {path: 'kochschritte.zutaten.lebensmittel'},
+    {path: 'kochschritte.utensilien'},
+    {path: 'kochschritte.aktionen'}
+  ])
+})
+@pre<Rezept>('find', function () {
+  this.populate([
+    {path: 'autor', select: '_id name'},
+    {path: 'bild'}
+  ])
+})
 @modelOptions({schemaOptions: {collection: "rezepte"}})
 export class Rezept extends TimeStamps implements RezeptType {
   @prop({required: true})
