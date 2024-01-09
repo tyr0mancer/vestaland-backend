@@ -1,4 +1,4 @@
-import {modelOptions, mongoose,  pre, prop, Ref} from '@typegoose/typegoose';
+import {modelOptions, mongoose, pre, prop, Ref} from '@typegoose/typegoose';
 
 import {Zutat} from "./Zutat";
 import {Utensil} from "./Utensil";
@@ -81,7 +81,7 @@ export class Rezept extends TimeStamps implements RezeptType {
   @prop({ref: "Utensil", type: mongoose.Schema.Types.ObjectId})
   public utensilien: Ref<Utensil>[] = [];
 
-  @prop({type: Kochschritt})
+  @prop({type: Kochschritt, _id: false})
   public kochschritte: Kochschritt[] = [];
 
   @prop({type: RezeptMeta, _id: false})
