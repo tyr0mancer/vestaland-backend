@@ -58,16 +58,18 @@ export class Rezept extends TimeStamps implements RezeptType {
   public quelleUrl!: mongoose.Types.Array<string>;
 
   @prop()
+  public realeGesamtzeit?: number;
+
+  @prop()
   public berechneteGesamtdauer?: number;
 
   @prop()
   public berechneteArbeitszeit?: number;
 
   @prop()
-  public extraZeitExtraPortion?: number;
-
+  public extraPortionArbeitszeit?: number;
   @prop()
-  public realeGesamtzeit?: number;
+  public extraPortionGesamtdauer?: number;
 
   @prop({ref: "Benutzer", type: mongoose.Schema.Types.ObjectId})
   public autor?: Ref<Benutzer>;
@@ -93,3 +95,4 @@ export class Rezept extends TimeStamps implements RezeptType {
   @prop({type: Nutrients, _id: false})
   public nutrients?: Nutrients;
 }
+
