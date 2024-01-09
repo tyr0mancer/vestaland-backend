@@ -39,12 +39,14 @@ export class Rezept extends TimeStamps implements RezeptType {
   @prop()
   public freitext?: string;
 
-
   @prop({type: String, required: true, default: []})
   public quelleUrl!: mongoose.Types.Array<string>;
 
   @prop()
-  public realeGesamtzeit?: number;
+  public realeGesamtdauer?: number;
+
+  @prop()
+  public realeArbeitszeit?: number;
 
   @prop()
   public berechneteGesamtdauer?: number;

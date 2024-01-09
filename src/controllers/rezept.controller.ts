@@ -34,10 +34,15 @@ export async function findeRezeptController(req: Request, res: Response) {
     query['zutaten.lebensmittel'] = {$in: zutaten}
   }
 
+
+  // @todo tag search
+/*
   const booleanProps = ['vegetarisch', 'healthy', 'soulfood']
   booleanProps.forEach(prop => {
     if (typeof req.query[prop] == "string") query['meta.' + prop] = true
   })
+*/
+
 
   if (typeof req.query.myRecipes == "string")
     query['autor'] = req.user?._id
