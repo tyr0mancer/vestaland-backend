@@ -10,6 +10,7 @@ export const KochschrittSchema = z.object({
   gesamtdauer: z.number().optional(),
   arbeitszeit: z.number().optional(),
   wartezeit: z.number().optional(),
+  wartenErforderlich: z.boolean().optional(),
   zutaten: z.array(ZutatSchema),
   utensilien: z.array(z.any()),
   betriebsart: z.nativeEnum(Betriebsart).optional(),
