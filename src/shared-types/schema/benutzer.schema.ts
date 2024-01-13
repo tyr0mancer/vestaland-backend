@@ -12,6 +12,15 @@ export const BenutzerSchema = z.object({
 export type BenutzerType = z.infer<typeof BenutzerSchema>;
 
 
+export const BenutzerPatchSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email().optional(),
+  rollen: z.string().array().optional()
+}).strict()
+
+
+
+
 export const changePasswordSchema = z.object({
   password: z.string({required_error: "Passwort erforderlich"}),
 });

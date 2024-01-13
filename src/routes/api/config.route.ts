@@ -1,12 +1,11 @@
 import express, {Router} from "express";
 
-import {BenutzerRolle} from "../../shared-types/enum";
-import {validateAuthorization} from "../../middleware/validate-authorization";
-import {findeAktionenController} from "../../controllers/config.controller";
+import {findeAktionenController} from "../../controllers/api/config.controller";
+import {authenticateToken} from "../../middleware/authenticate-token";
 
 export const configRouter: Router = express.Router();
 
 
 configRouter.get('/aktionen',
-  validateAuthorization(BenutzerRolle.BENUTZER),
+  authenticateToken,
   findeAktionenController)

@@ -2,26 +2,25 @@ import {Request, Response} from "express";
 import {DocumentType} from '@typegoose/typegoose';
 import mongoose from "mongoose";
 
-import {Datei} from "../shared-types/schema/Datei";
-import {Rezept} from "../shared-types/schema/Rezept";
+import {Datei} from "../../shared-types/schema/Datei";
+import {Rezept} from "../../shared-types/schema/Rezept";
 
-import {sendErrorResponse, handleGenericServerError} from "../middleware/error-handler";
+import {sendErrorResponse, handleGenericServerError} from "../../middleware/error-handler";
 import {handleFileUpload} from "./datei.controller";
-import {BenutzerRolle} from "../shared-types/enum";
-import {z} from "zod";
-import {RezeptModel} from "../db-model";
+import {BenutzerRolle} from "../../shared-types/enum";
+import {RezeptModel} from "../../db-model";
 
-export const findeRezeptSchema = {
-  params: z.object({
-    name: z.string().optional(),
-    zutaten: z.string().optional(),
-    myRecipes: z.boolean().optional(),
+export class RezeptController {
 
-    vegetarisch: z.boolean().optional(),
-    healthy: z.boolean().optional(),
-    soulfood: z.boolean().optional(),
-  }).strict()
+/*
+  static search(req: Request, res: Response) {
+
+  }
+*/
+  static getById() {}
+
 }
+
 
 export async function findeRezeptController(req: Request, res: Response) {
   let query: { [key: string]: any } = {};
@@ -33,15 +32,6 @@ export async function findeRezeptController(req: Request, res: Response) {
     const zutaten = req.query.zutaten.split(',').filter(id => mongoose.Types.ObjectId.isValid(id));
     query['zutaten.lebensmittel'] = {$in: zutaten}
   }
-
-
-  // @todo tag search
-/*
-  const booleanProps = ['vegetarisch', 'healthy', 'soulfood']
-  booleanProps.forEach(prop => {
-    if (typeof req.query[prop] == "string") query['meta.' + prop] = true
-  })
-*/
 
 
   if (typeof req.query.myRecipes == "string")

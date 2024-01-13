@@ -1,12 +1,12 @@
 import {prop, modelOptions} from '@typegoose/typegoose';
-import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Nutrients} from "./Nutrients";
 import {Einheit} from "../enum";
 import {LebensmittelType} from "./lebensmittel.schema";
+import {CustomOwnership} from "./CustomOwnership";
 
 
 @modelOptions({schemaOptions: {collection: "lebensmittel"}})
-export class Lebensmittel extends TimeStamps implements LebensmittelType {
+export class Lebensmittel extends CustomOwnership implements LebensmittelType {
   @prop()
   public kategorie?: string
 

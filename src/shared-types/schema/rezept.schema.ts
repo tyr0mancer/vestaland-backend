@@ -31,3 +31,12 @@ export const RezeptSchema = z.object({
 
 export type RezeptType = z.infer<typeof RezeptSchema>;
 
+export const RezeptSucheSchema = z.object({
+  name: z.string().optional(),
+  zutaten: z.string().optional(),
+  myRecipes: z.boolean().optional(),
+
+  vegetarisch: z.boolean().optional(),
+  healthy: z.boolean().optional(),
+  soulfood: z.boolean().optional(),
+})

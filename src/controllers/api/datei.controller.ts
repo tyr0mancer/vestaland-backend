@@ -2,11 +2,10 @@ import {Request, Response} from "express";
 import {DocumentType} from '@typegoose/typegoose';
 import * as path from "path";
 
-import {Datei} from "../shared-types/schema/Datei";
-import {ApiErrorResponse} from "../shared-types/api";
-import {handleError, handleGenericServerError, sendErrorResponse} from "../middleware/error-handler";
-import {BenutzerModel, DateiModel} from "../db-model";
-import {mayWrite} from "./permissions";
+import {Datei} from "../../shared-types/schema/Datei";
+import {ApiErrorResponse} from "../../shared-types/api";
+import {handleError, handleGenericServerError, sendErrorResponse} from "../../middleware/error-handler";
+import {BenutzerModel, DateiModel} from "../../db-model";
 
 const crypto = require('crypto');
 const fs = require('fs');
@@ -37,14 +36,15 @@ export function handleFileUpload(req: Request): Promise<DocumentType<Datei>> {
       return reject(err)
     });
 
-    const author = await BenutzerModel.findById(req.user?._id)
-    if (!author) return reject('Kann Urheber nicht in DB finden')
+    const owner = await BenutzerModel.findById(req.user?._id)
+    if (!owner) return reject('Kann Urheber nicht in DB finden')
 
     const datei: Datei = {
       beschreibung: fileNameWithoutExtension,
       dateiNameOriginal: uploadedFile.name,
       dateiNameServer: randomFileName,
-      authors: [author],
+      fileSize: uploadedFile.size,
+      owner: owner,
     }
 
     return resolve(DateiModel.create(datei))
@@ -61,8 +61,10 @@ export async function deleteFile(req: Request, res: Response) {
     console.log('deleting')
     const datei = await DateiModel.findById({_id: req.params.id})
 
+/*
     if (!mayWrite(datei, req))
       return sendErrorResponse(res, 401, "Keine Schreib-Rechte")
+*/
 
     if (!datei)
       return sendErrorResponse(res, 404, "Datei nicht in DB gefunden")
@@ -97,14 +99,6 @@ export function searchDatei(req: Request, res: Response) {
   if (req.query.name && typeof req.query.name == "string") {
     query.name = new RegExp(req.query.name, 'i');
   }
-
-  if (!req.user.isAdmin)
-    query = {
-      $or: [
-        {isPublic: true},
-        {'authors.$oid': req.user._id}
-      ]
-    }
 
 
   DateiModel.find(query)

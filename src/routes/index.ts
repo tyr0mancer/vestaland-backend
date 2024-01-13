@@ -1,23 +1,22 @@
 import * as express from "express";
 import {genericRouter} from "./generic/generic-router";
 
-import {Rezept} from "../shared-types/schema/Rezept";
 import {Utensil} from "../shared-types/schema/Utensil";
 import {authRouter} from "./auth/auth.route";
 import {rezeptRouter} from "./api/rezept.route";
-import {lebensmittelRouter} from "./api/lebensmittel.route";
 import {dateiRouter} from "./api/datei.route";
 import {Essensplan, EssensplanModel, essensplanSchema} from "../shared-types/schema/essensplan.model";
 import {Lagerort, LagerortModel, lagerortSchema} from "../shared-types/schema/lagerort.model";
 import {KochschrittAktion} from "../shared-types/schema/KochschrittAktion";
 import {configRouter} from "./api/config.route";
 import {Vorrat, VorratModel, vorratSchema} from "../shared-types/schema/vorrat.model";
-import {utensilRouter} from "./api/utensil.route";
-import {einkaufslistenRouter} from "./api/einkaufsliste.route";
-import {KochschrittAktionModel, RezeptModel, UtensilModel} from "../db-model";
+import {KochschrittAktionModel, LebensmittelModel, UtensilModel} from "../db-model";
 import {KochschrittAktionSchema} from "../shared-types/schema/kochschritt-aktion.schema";
-import {UtensilSchema} from "../shared-types/schema/utensil.schema";
-import {RezeptSchema} from "../shared-types/schema/rezept.schema";
+import {UtensilSchema, UtensilSucheSchema} from "../shared-types/schema/utensil.schema";
+import {Lebensmittel} from "../shared-types/schema/Lebensmittel";
+import {LebensmittelSchema, LebensmittelSucheSchema} from "../shared-types/schema/lebensmittel.schema";
+import {Einkaufsliste, EinkaufslisteModel, EinkaufslisteSchema} from "../shared-types/schema/einkaufsliste.model";
+import {benutzerRouter} from "./api/benutzer-router";
 
 const apiRouter = express.Router();
 
@@ -26,23 +25,21 @@ apiRouter.use('/auth', authRouter);
 
 // specific Api-Routes
 apiRouter.use('/rezept', rezeptRouter);
-apiRouter.use('/lebensmittel', lebensmittelRouter);
-apiRouter.use('/utensil', utensilRouter);
 apiRouter.use('/datei', dateiRouter);
-
-apiRouter.use('/einkaufsliste', einkaufslistenRouter);
-
 apiRouter.use('/config', configRouter);
+
+apiRouter.use('/benutzer', benutzerRouter);
+apiRouter.use('/config/aktionen', genericRouter<KochschrittAktion>(KochschrittAktionModel, KochschrittAktionSchema));
 
 
 // generic Routes
-apiRouter.use('/rezept', genericRouter<Rezept>(RezeptModel, RezeptSchema));
-apiRouter.use('/utensil', genericRouter<Utensil>(UtensilModel, UtensilSchema));
+apiRouter.use('/lebensmittel', genericRouter<Lebensmittel>(LebensmittelModel, LebensmittelSchema, LebensmittelSucheSchema));
+apiRouter.use('/utensil', genericRouter<Utensil>(UtensilModel, UtensilSchema, UtensilSucheSchema, ['utensilName']));
 apiRouter.use('/essensplan', genericRouter<Essensplan>(EssensplanModel, essensplanSchema));
+apiRouter.use('/einkaufsliste', genericRouter<Einkaufsliste>(EinkaufslisteModel, EinkaufslisteSchema));
 apiRouter.use('/lagerort', genericRouter<Lagerort>(LagerortModel, lagerortSchema));
 apiRouter.use('/vorrat', genericRouter<Vorrat>(VorratModel, vorratSchema));
 
-apiRouter.use('/config/aktionen', genericRouter<KochschrittAktion>(KochschrittAktionModel, KochschrittAktionSchema));
 
 export const mainRouter = express.Router();
 mainRouter.use('/api', apiRouter)

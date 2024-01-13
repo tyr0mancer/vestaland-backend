@@ -4,7 +4,6 @@ import {BenutzerModel} from "../../db-model";
 import {generatePasswordHash} from "../../services/createHash";
 
 export async function changePassword(req: Request, res: Response) {
-console.log(req.user?._id)
 
   try {
     const passwordHash = await generatePasswordHash(req.body.password)

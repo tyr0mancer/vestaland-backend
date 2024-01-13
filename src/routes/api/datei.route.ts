@@ -1,20 +1,52 @@
 import express, {Router} from "express";
 
-import {validateAuthorization} from "../../middleware/validate-authorization";
-import {deleteFile, searchDatei, uploadFile} from "../../controllers/datei.controller";
+import {deleteFile, searchDatei, uploadFile} from "../../controllers/api/datei.controller";
 import {genericParams, validateRequest} from "../../middleware/validate-request";
+import {authenticateToken} from "../../middleware/authenticate-token";
+import {DateiPatchSchema, DateiSchema, DateiSucheSchema} from "../../shared-types/schema/datei-schema";
+import {setOwnershipToRequestBody} from "../../middleware/set-ownership-to-request-body";
+import {GenericController} from "../../controllers/generic/generic-controller";
+import {Lebensmittel} from "../../shared-types/schema/Lebensmittel";
+import {DateiModel} from "../../db-model";
 
 export const dateiRouter: Router = express.Router();
 
 dateiRouter.get('/',
-  validateAuthorization(),
-  searchDatei)
+  authenticateToken,
+  validateRequest({query: DateiSucheSchema}),
+  searchDatei
+)
 
-dateiRouter.post('/',
-  validateAuthorization(),
-  uploadFile)
 
 dateiRouter.delete('/:id',
-  validateAuthorization(),
+  authenticateToken,
   validateRequest({params: genericParams}),
-  deleteFile)
+  deleteFile
+)
+
+
+dateiRouter.post('/',
+  authenticateToken,
+  validateRequest({body: DateiSchema}),
+  uploadFile
+)
+
+
+dateiRouter.patch('/:id',
+  authenticateToken,
+  validateRequest({
+    params: genericParams,
+    body: DateiPatchSchema
+  }),
+  //patch
+)
+
+dateiRouter.patch('/:id',
+  authenticateToken,
+  validateRequest({
+    params: genericParams,
+    body: DateiPatchSchema
+  }),
+  setOwnershipToRequestBody,
+  GenericController.patch<Lebensmittel>(DateiModel, true)
+)
