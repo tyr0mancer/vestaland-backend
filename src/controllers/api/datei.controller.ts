@@ -5,10 +5,29 @@ import * as path from "path";
 import {Datei} from "../../shared-types/schema/Datei";
 import {ApiErrorResponse} from "../../shared-types/api";
 import {handleError, handleGenericServerError, sendErrorResponse} from "../../middleware/error-handler";
-import {BenutzerModel, DateiModel} from "../../db-model";
+import {BenutzerModel, DateiModel, LebensmittelModel} from "../../db-model";
+import {LebensmittelSucheType} from "../../shared-types/schema/lebensmittel.schema";
+import {getPermissionQuery} from "../generic/filter-queries";
+import {Lebensmittel} from "../../shared-types/schema/Lebensmittel";
 
 const crypto = require('crypto');
 const fs = require('fs');
+
+
+export class DateiController {
+  static upload(req: Request, res: Response) {
+    const searchParams: LebensmittelSucheType = req.query
+    if (searchParams.name && !(searchParams.name instanceof RegExp))
+      searchParams.name = new RegExp(searchParams.name, 'i');
+
+    LebensmittelModel.find(getPermissionQuery(req, searchParams))
+      .then((response: Lebensmittel[]) => res.status(200).json(response))
+      .catch((error: any) => handleGenericServerError(res, error))
+  }
+
+
+}
+
 
 
 export async function uploadFile(req: Request, res: Response) {

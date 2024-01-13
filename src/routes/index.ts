@@ -4,7 +4,7 @@ import {genericRouter} from "./generic/generic-router";
 import {Utensil} from "../shared-types/schema/Utensil";
 import {authRouter} from "./auth/auth.route";
 import {rezeptRouter} from "./api/rezept.route";
-import {dateiRouter} from "./api/datei.route";
+import {dateiRouter} from "./api/datei-router";
 import {Essensplan, EssensplanModel, essensplanSchema} from "../shared-types/schema/essensplan.model";
 import {Lagerort, LagerortModel, lagerortSchema} from "../shared-types/schema/lagerort.model";
 import {KochschrittAktion} from "../shared-types/schema/KochschrittAktion";
