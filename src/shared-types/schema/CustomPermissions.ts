@@ -11,10 +11,10 @@ export class CustomPermissions extends TimeStamps {
   @prop()
   public isPublic?: boolean = false;
 
-  @prop()
+  @prop({type: String, enum: BenutzerRolle})
   public mayWriteWhitelist?: BenutzerRolle[] = []
 
-  @prop()
+  @prop({type: String, enum: BenutzerRolle})
   public mayReadWhitelist?: BenutzerRolle[] = []
 
 }

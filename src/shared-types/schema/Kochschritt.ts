@@ -38,8 +38,8 @@ export class Kochschritt implements KochschrittType {
   @prop()
   public resultatName?: string;
 
-  @prop()
-  public erforderlicheKochschritte?: string[];
+  @prop({type: String})
+  public erforderlicheKochschritte?: string[] = [];
 
   @prop({type: Zutat, _id: false})
   public zutaten: Zutat[] = [];
