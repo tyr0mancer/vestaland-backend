@@ -1,11 +1,8 @@
-import {prop, Ref, mongoose, modelOptions} from '@typegoose/typegoose';
-import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
-
-import {Benutzer} from "./Benutzer";
-
+import {modelOptions, prop} from '@typegoose/typegoose';
+import {CustomPermissions} from "./CustomPermissions";
 
 @modelOptions({schemaOptions: {collection: "dateien"}})
-export class Datei extends TimeStamps {
+export class Datei extends CustomPermissions {
 
   @prop({required: true})
   public dateiNameServer: string = '';
@@ -15,8 +12,4 @@ export class Datei extends TimeStamps {
 
   @prop()
   public beschreibung?: string;
-
-  @prop({ref: "Benutzer", type: mongoose.Schema.Types.ObjectId})
-  public uploadedBy?: Ref<Benutzer>;
 }
-
