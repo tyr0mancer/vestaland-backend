@@ -6,11 +6,11 @@ import {NutrientsSchema} from "./nutrients.schema";
 import {Tags} from "../enum/Tags";
 
 export const RezeptSchema = z.object({
-  name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}).min(2,"Der Rezeptname muss mindestens 2 Zeichen lang sein. :)").describe('Der Name des Rezeptes'),
-  beschreibung: z.string().max(150).optional().describe('Ein kurzer(!) Beschreibungstext'),
+  name: z.string().min(3, "Rezeptname muss mindestens 3 Zeichen lang sein").describe('Der Name des Rezeptes'),
+  beschreibung: z.string().max(150, "Der Text ist viel zu lang. Bitte maximal 150 Zeichen.").optional().describe('Ein kurzer(!) Beschreibungstext'),
   freitext: z.string().optional().describe('Freitext Beschreibung des Rezeptes'),
   quelleUrl: z.string().optional().array().describe('Links zu Quellen oder andere Verweise'),
-  schwierigkeitsgrad: z.number().optional(),
+  schwierigkeitsgrad: z.number().min(1).max(5).optional(),
   realeGesamtdauer: z.number().optional(),
   realeArbeitszeit: z.number().optional(),
   berechneteGesamtdauer: z.number().optional(),
@@ -26,7 +26,6 @@ export const RezeptSchema = z.object({
   zutaten: z.array(z.any()),
   aktion: z.any().optional(),
   bild: z.any().optional(),
-
 }).extend(MongoExtension).strict()
 
 
