@@ -1,8 +1,12 @@
 import mongoose from 'mongoose';
 import {app} from "./app";
-import config from "./config";
+import config from "./services/config";
 
-const start = async (): Promise<void> => {
+/**
+ * Starts the Express application.
+ * Connects to MongoDB and listens on the specified port.
+ */
+export const start = async (): Promise<void> => {
   try {
     console.log(new Date(), 'DB Verbindungsaufbau', config.db.host)
     await mongoose.connect(config.db.connectionString)
@@ -14,6 +18,5 @@ const start = async (): Promise<void> => {
     process.exit(1);
   }
 };
-
 
 void start();

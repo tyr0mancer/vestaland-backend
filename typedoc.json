@@ -1,0 +1,18 @@
+{
+  "titleLink": "https://github.com/tyr0mancer/vestaland-backend",
+
+  "includeVersion": true,
+  "hideGenerator": true,
+  "readme": "README.md",
+
+  "name": "Vestaland Backend Doc",
+  "entryPoints": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/node_modules/**",
+    "**/*.spec.ts"
+  ],
+  "out": "docs",
+  "excludeExternals": false
+}

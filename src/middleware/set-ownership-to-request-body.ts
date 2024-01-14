@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
-import {BenutzerModel} from "../db-model";
-import {sendErrorResponse} from "./error-handler";
+import {BenutzerModel} from "../services/database-service";
+import {sendErrorResponse} from "../services/error-handler";
 import {BenutzerRolle} from "../shared-types/enum";
 
 /**
@@ -23,3 +23,4 @@ export async function setOwnershipToRequestBody(req: Request, res: Response, nex
     req.body.publicVisible = false
   next()
 }
+
