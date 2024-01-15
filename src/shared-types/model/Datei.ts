@@ -6,13 +6,22 @@ import {DateiType} from "./datei-schema";
 @modelOptions({schemaOptions: {collection: "dateien"}})
 export class Datei extends CustomOwnership implements DateiType {
   @prop({required: true})
-  public fileNameServer: string = '';
+  public originalname: string = ''
 
   @prop({required: true})
-  public fileNameOriginal: string = '';
+  public mimetype: string = ''
 
   @prop({required: true})
-  public fileSize: number = 0;
+  public destination: string = ''
+
+  @prop({required: true})
+  public filename: string = ''
+
+  @prop({required: true})
+  public path: string = ''
+
+  @prop({required: true})
+  public size: number = 0
 
   @prop()
   public beschreibung?: string;

@@ -42,7 +42,7 @@ export function validateRequest(schemaObject: {
       body: req.body,
       query: req.query,
       params: req.params,
-      file: req.files
+      files: req.files
     })
     if (!result.success)
       return res.status(400).json({

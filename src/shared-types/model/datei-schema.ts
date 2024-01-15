@@ -1,10 +1,13 @@
 import {z} from "zod";
 
 export const DateiSchema = z.object({
-  fileNameServer: z.string(),
-  fileNameOriginal: z.string(),
+  originalname: z.string(),
+  mimetype: z.string(),
+  destination: z.string(),
+  filename: z.string(),
+  path: z.string(),
+  size: z.number(),
   beschreibung: z.string().optional(),
-  fileSize: z.number()
 }).strict()
 export type DateiType = z.infer<typeof DateiSchema>;
 
@@ -16,23 +19,17 @@ export const DateiPatchSchema = z.object({
   beschreibung: z.string().optional()
 }).strict()
 
+/*
 
-export const DateiUploadSchema = z.array(z.object({
-  // Name des Dateifelds im Formular
-  fieldname: z.string(),
+const FileSchema = z.object({
+  mimetype: z.enum(['image/jpeg', 'image/gif', 'image/png', 'image/webp']),
+})
+export const DateiUploadSchema = z.object({
+  bild: z.union([FileSchema, z.array(FileSchema).length(1)])
+});
+*/
 
-  // Dateiname der hochgeladenen Datei
-  originalname: z.string(),
 
-  // MIME-Typ der Datei
-  mimetype: z.string(),
+export const DateiUploadSchema = z.any();
 
-  // Größe der Datei in Bytes
-  size: z.number(),
 
-  // Pfad zur temporären Datei auf dem Server (kann variieren)
-  path: z.string(),
-
-  // Buffer-Objekt mit den Dateidaten
-  buffer: z.instanceof(Buffer),
-}))

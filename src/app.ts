@@ -67,14 +67,6 @@ app.use(cors({
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-/**
- * Fügt Middleware hinzu, um Datei-Uploads zu behandeln.
- * Konfiguriert die Dateigrößenbegrenzung auf 10 MB.
- */
-const fileUpload = require('express-fileupload');
-app.use(fileUpload({
-  limits: {fileSize: 10 * 1024 * 1024}, // 100 MB
-}));
 
 /**
  * Fügt den Haupt-Router als Middleware hinzu, um Routen zu behandeln.

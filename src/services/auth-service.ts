@@ -55,7 +55,7 @@ export class AuthService {
    *
    * @param tokenString Das zu verifizierende Token
    * @param tokenSecret Das Geheimnis zur Token-Verifikation
-   * 
+   *
    * @returns Ein Objekt, das den Verifizierung-Erfolg oder -fehler angibt
    */
   static async verifyToken<T>(tokenString: string, tokenSecret: string): Promise<VerifyTokenResponse<T>> {
@@ -66,12 +66,12 @@ export class AuthService {
       const result = await jwt.verify(tokenString, tokenSecret)
       return {value: result as T}
     } catch (e) {
-      if (e instanceof JsonWebTokenError) {
+      if (e instanceof TokenExpiredError) {
         // Token ist ungültig
-        return {error: {status: 401, message: "Token ist ungültig"}}
-      } else if (e instanceof TokenExpiredError) {
-        // Token ist abgelaufen //@todo expliziten Code an Client senden?
         return {error: {status: 401, message: "Gültigkeitsdauer des Token ist abgelaufen"}}
+      } else if (e instanceof JsonWebTokenError) {
+        // Token ist abgelaufen //@todo expliziten Code an Client senden?
+        return {error: {status: 401, message: "Token ist ungültig"}}
       }
     }
 
