@@ -10,6 +10,7 @@ import {BenutzerModel} from "../services/database-service";
 import {handleError, sendErrorResponse} from "../services/error-handler";
 import {generatePasswordHash, generateTokenHash} from "../services/crypt-service";
 import {MailerService} from "../services/mailer-service";
+import {AUTH_NO_TOKEN_ERROR_MESSAGE} from "../shared-types/config";
 
 
 /**
@@ -53,7 +54,7 @@ export class AuthController {
     // Lese Token aus dem Refresh Cookie des Clients
     const refreshTokenString = req.cookies[config.refreshTokenCookie.name]
     if (!refreshTokenString)
-      return sendErrorResponse(res, 401, "Client nicht angemeldet (kein Refresh Token gefunden)")
+      return sendErrorResponse(res, 401, AUTH_NO_TOKEN_ERROR_MESSAGE)
 
     // Entschlüssele Token
     const result = await AuthService.verifyToken<AuthTokenType>(refreshTokenString, config.refreshToken.secret)
