@@ -3,6 +3,7 @@
 dist/
 docs/
 public/uploads/
+tmp/
 
 # Node.js
 node_modules/

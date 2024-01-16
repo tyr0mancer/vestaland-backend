@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 
 import {handleError, sendErrorResponse} from "../../services/error-handler";
-import {Datei} from "../../shared-types/model/Datei";
+import {Datei} from "../../shared-types/models/Datei";
 import {BenutzerModel, DateiModel} from "../../services/database-service";
 import fs from "fs";
 
@@ -9,13 +9,17 @@ export class DateiController {
   static async post(req: Request, res: Response) {
     const tokenUser = await BenutzerModel.findById(req.user?._id)
     if (!tokenUser)
-      sendErrorResponse(res, 403, "User zu token nicht in Datenbank")
+      return sendErrorResponse(res, 403, "User zu token nicht in Datenbank")
 
     const newFile = Array.isArray(req.files) ? req.files[0] : req.files
+    if (!newFile)
+      return sendErrorResponse(res, 500, "Cant read file")
+
     const {originalname, mimetype, destination, filename, path, size} = newFile
 
     const datei = {
       originalname, mimetype, destination, filename, path, size,
+      beschreibung: originalname,
       owner: tokenUser
     } as Datei
 

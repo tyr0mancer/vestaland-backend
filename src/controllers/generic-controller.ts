@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import {ReturnModelType} from "@typegoose/typegoose/lib/types";
 import {sendErrorResponse, handleGenericServerError} from "../services/error-handler";
-import {Lebensmittel} from "../shared-types/model/Lebensmittel";
+import {Lebensmittel} from "../shared-types/models/Lebensmittel";
 import {mayReadFilterQuery, mayWriteFilterQuery} from "../services/permission-service";
 
 export class GenericController {

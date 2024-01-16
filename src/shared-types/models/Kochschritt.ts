@@ -1,6 +1,6 @@
 import {mongoose, prop, Ref} from "@typegoose/typegoose";
 
-import {KochschrittType} from "./kochschritt.schema";
+import {KochschrittType} from "../schemas/kochschritt-schema";
 import {Betriebsart} from "../enum";
 import {KochschrittAktion} from "./KochschrittAktion";
 import {Zutat} from "./Zutat";

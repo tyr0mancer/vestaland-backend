@@ -1,5 +1,5 @@
 import {prop} from "@typegoose/typegoose";
-import {NutrientsType} from "./nutrients.schema";
+import {NutrientsType} from "../schemas/nutrients-schema";
 
 export class Nutrients implements NutrientsType {
   @prop()

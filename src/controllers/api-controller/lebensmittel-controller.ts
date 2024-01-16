@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
 
 import {handleGenericServerError, sendErrorResponse} from "../../services/error-handler";
-import {Lebensmittel} from "../../shared-types/model/Lebensmittel";
-import {LebensmittelSucheType} from "../../shared-types/model/lebensmittel.schema";
+import {Lebensmittel} from "../../shared-types/models/Lebensmittel";
+import {LebensmittelSucheType} from "../../shared-types/schemas/lebensmittel-schema";
 import {BenutzerModel, LebensmittelModel} from "../../services/database-service"
 import {BenutzerRolle} from "../../shared-types/enum";
 import {getPermissionQuery} from "../../services/permission-service";

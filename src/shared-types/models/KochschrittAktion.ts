@@ -1,8 +1,8 @@
 import {prop, modelOptions} from '@typegoose/typegoose';
 import {AktionIcon} from "../enum";
-import {KochschrittAktionType} from "./kochschritt-aktion.schema";
+import {KochschrittAktionType} from "../schemas/kochschritt-aktion-schema";
 
-@modelOptions({schemaOptions: {collection: "config_aktionen"}})
+@modelOptions({schemaOptions: {collection: "aktionen"}})
 export class KochschrittAktion implements KochschrittAktionType {
 
   @prop()

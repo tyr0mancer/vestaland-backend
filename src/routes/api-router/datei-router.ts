@@ -3,15 +3,14 @@ import express, {Router} from "express";
 import {requireUser} from "../../middleware/auth/require-user";
 import {genericParams, validateRequest} from "../../middleware/validate-request";
 
-import {Datei} from "../../shared-types/model/Datei";
-import {DateiPatchSchema, DateiSucheSchema, DateiUploadSchema} from "../../shared-types/model/datei-schema";
+import {Datei} from "../../shared-types/models/Datei";
+import {DateiPatchSchema, DateiSucheSchema, DateiUploadSchema} from "../../shared-types/schemas/datei-schema";
 
 import {DateiController} from "../../controllers/api-controller";
 import {GenericController} from "../../controllers/generic-controller";
 import {DateiModel} from "../../services/database-service";
+import {uploadFile} from "../../middleware/upload-files";
 
-const multer = require('multer')
-const upload = multer({dest: './public/uploads/'})
 
 
 export const dateiRouter: Router = express.Router();
@@ -36,8 +35,8 @@ dateiRouter.delete('/:id',
 
 dateiRouter.post('/',
   requireUser,
+  uploadFile.array('bild', 1),
   validateRequest({files: DateiUploadSchema}),
-  upload.array('bild', 1),
   DateiController.post
 )
 

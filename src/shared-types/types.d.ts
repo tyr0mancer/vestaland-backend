@@ -1,5 +1,3 @@
-import {Types} from "mongoose";
-import {IObjectWithTypegooseFunction} from "@typegoose/typegoose/lib/types";
 import {BenutzerRolle} from "./enum";
 
 /* Auth Types */
@@ -23,6 +21,9 @@ type ApiErrorResponse = {
   error?: any
 }
 
-/* TypeGoose */
-type MyDocument<T> = (T & Omit<T & { _id: Types.ObjectId }, "typegooseName"> & IObjectWithTypegooseFunction)
+
+export type ObjectId = string //@todo ObjectId
+export type Ref<T> =
+  | T
+  | ObjectId
 

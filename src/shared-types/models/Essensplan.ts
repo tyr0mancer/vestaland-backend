@@ -1,8 +1,8 @@
-import {prop, getModelForClass, modelOptions, mongoose, Ref} from '@typegoose/typegoose';
-import {z} from "zod";
+import {prop, modelOptions, mongoose, Ref} from '@typegoose/typegoose';
 import {Benutzer} from "./Benutzer";
-import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Rezept} from "./Rezept";
+import {EssensplanType} from "../schemas/essensplan-schema";
+import {CustomOwnership} from "./_CustomOwnership";
 
 export class EssensplanEintrag {
   @prop({ref: "Rezept", type: mongoose.Schema.Types.ObjectId})
@@ -13,7 +13,7 @@ export class EssensplanEintrag {
 }
 
 @modelOptions({schemaOptions: {collection: "essensplaene"}})
-export class Essensplan extends TimeStamps {
+export class Essensplan extends CustomOwnership implements EssensplanType {
   @prop({required: true})
   public name: string = "";
 
@@ -27,6 +27,3 @@ export class Essensplan extends TimeStamps {
   public eintraege: EssensplanEintrag[] = [];
 }
 
-export const EssensplanModel = getModelForClass(Essensplan);
-
-export const essensplanSchema = z.object({});

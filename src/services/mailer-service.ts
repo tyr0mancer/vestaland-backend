@@ -2,7 +2,7 @@ import nodemailer, {Transporter} from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 import config from "./config";
-import {Benutzer} from "../shared-types/model/Benutzer";
+import {Benutzer} from "../shared-types/models/Benutzer";
 
 
 /**

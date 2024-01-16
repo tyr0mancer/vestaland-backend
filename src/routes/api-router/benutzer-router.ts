@@ -4,12 +4,12 @@ import {BenutzerModel} from "../../services/database-service";
 import {requireAdmin} from "../../middleware/auth/require-admin";
 import {validateRequest, genericParams} from "../../middleware/validate-request";
 import {GenericController} from "../../controllers/generic-controller";
-import {Benutzer} from "../../shared-types/model/Benutzer";
+import {Benutzer} from "../../shared-types/models/Benutzer";
 import {
   BenutzerPatchSchema,
   RegisterSchema,
   UpdateProfileSchema
-} from "../../shared-types/model/benutzer-schema";
+} from "../../shared-types/schemas/benutzer-schema";
 import {BenutzerController} from "../../controllers/api-controller";
 import {requireUser} from "../../middleware/auth/require-user";
 

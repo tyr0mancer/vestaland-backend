@@ -9,6 +9,7 @@ export class RezeptController {
   static async search(req: Request, res: Response) {
     let query: { [key: string]: any } = {};
 
+    //@todo apply RezeptSucheSchema
     if (typeof req.query.name == "string")
       query['name'] = new RegExp(req.query.name, 'i');
 

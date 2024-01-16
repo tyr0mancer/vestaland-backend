@@ -1,9 +1,11 @@
-import {ApiErrorResponse, LoginResponseType, MyDocument} from "../shared-types/types";
+import {ApiErrorResponse, LoginResponseType} from "../shared-types/types";
 import jwt, {JsonWebTokenError, TokenExpiredError} from "jsonwebtoken";
 
 import config from "./config";
-import {Benutzer} from "../shared-types/model/Benutzer";
+import {Benutzer} from "../shared-types/models/Benutzer";
 import crypto from "crypto";
+import {Types} from "mongoose";
+import {IObjectWithTypegooseFunction} from "@typegoose/typegoose/lib/types";
 
 /**
  * Service für Authentifizierungsfunktionalitäten.
@@ -93,3 +95,9 @@ export class AuthService {
 export type VerifyTokenResponse<T> =
   | { value: T, error?: never } // When value is present, error must not be present
   | { value?: never, error: ApiErrorResponse }; // When error is present, value must not be present
+
+/**
+ * Erweitert Objekt T um MongoDB properties, erforderlich um auf benutzer._id zuzugreifen und diese in das Auth Token
+ * zu schreiben.
+ */
+export type MyDocument<T> = (T & Omit<T & { _id: Types.ObjectId }, "typegooseName"> & IObjectWithTypegooseFunction)

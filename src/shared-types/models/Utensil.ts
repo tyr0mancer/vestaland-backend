@@ -1,6 +1,6 @@
 import {prop, modelOptions} from '@typegoose/typegoose';
-import {UtensilType} from "./utensil.schema";
-import {CustomOwnership} from "./CustomOwnership";
+import {UtensilType} from "../schemas/utensil-schema";
+import {CustomOwnership} from "./_CustomOwnership";
 
 @modelOptions({schemaOptions: {collection: "utensilien"}})
 export class Utensil extends CustomOwnership implements UtensilType {

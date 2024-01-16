@@ -7,18 +7,32 @@ import {dateiRouter} from "./datei-router";
 import {rezeptRouter} from "./rezept.route";
 import {lebensmittelRouter} from "./lebensmittel-router";
 
-/* Types, Schemata und Model für generic-router */
-import {UtensilSchema, UtensilSucheSchema} from "../../shared-types/model/utensil.schema";
-import {UtensilModel} from "../../services/database-service";
-import {Utensil} from "../../shared-types/model/Utensil";
-import {Essensplan, EssensplanModel, essensplanSchema} from "../../shared-types/model/essensplan.model";
-import {Lagerort, LagerortModel, lagerortSchema} from "../../shared-types/model/lagerort.model";
-import {Vorrat, VorratModel, vorratSchema} from "../../shared-types/model/vorrat.model";
-import {Einkaufsliste, EinkaufslisteModel, EinkaufslisteSchema} from "../../shared-types/model/einkaufsliste.model";
+/* DB-Services */
+import {
+  EinkaufslisteModel,
+  EssensplanModel,
+  LagerortModel,
+  UtensilModel,
+  VorratModel
+} from "../../services/database-service";
+
+/* Schemas */
+import {UtensilSchema, UtensilSucheSchema} from "../../shared-types/schemas/utensil-schema";
+import {EinkaufslisteSchema} from "../../shared-types/schemas/einkaufsliste-schema";
+import {EssensplanSchema} from "../../shared-types/schemas/essensplan-schema";
+import {LagerortSchema} from "../../shared-types/schemas/lagerort-schema";
+import {VorratSchema} from "../../shared-types/schemas/vorrat-schema";
+
+/* Models */
+import {Utensil} from "../../shared-types/models/Utensil";
+import {Einkaufsliste} from "../../shared-types/models/Einkaufsliste";
+import {Essensplan} from "../../shared-types/models/Essensplan";
+import {Lagerort} from "../../shared-types/models/Lagerort";
+import {Vorrat} from "../../shared-types/models/Vorrat";
+
 
 /**
- * Routes für API Aufrufe
- *
+ * Routes für alle API Aufrufe - meist ein Router pro Collection
  * @see genericRouter
  */
 export const apiRouter = express.Router();
@@ -32,8 +46,6 @@ apiRouter.use('/lebensmittel', lebensmittelRouter);
 // generic Routes
 apiRouter.use('/utensil', genericRouter<Utensil>(UtensilModel, UtensilSchema, UtensilSucheSchema, ['utensilName']));
 apiRouter.use('/einkaufsliste', genericRouter<Einkaufsliste>(EinkaufslisteModel, EinkaufslisteSchema));
-apiRouter.use('/essensplan', genericRouter<Essensplan>(EssensplanModel, essensplanSchema));
-apiRouter.use('/lagerort', genericRouter<Lagerort>(LagerortModel, lagerortSchema));
-apiRouter.use('/vorrat', genericRouter<Vorrat>(VorratModel, vorratSchema));
-
-
+apiRouter.use('/essensplan', genericRouter<Essensplan>(EssensplanModel, EssensplanSchema));
+apiRouter.use('/lagerort', genericRouter<Lagerort>(LagerortModel, LagerortSchema));
+apiRouter.use('/vorrat', genericRouter<Vorrat>(VorratModel, VorratSchema));

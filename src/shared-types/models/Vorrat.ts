@@ -1,14 +1,14 @@
-import {prop, getModelForClass, modelOptions, mongoose, Ref} from '@typegoose/typegoose';
-import {z} from "zod";
+import {prop, modelOptions, mongoose, Ref} from '@typegoose/typegoose';
 import {Benutzer} from "./Benutzer";
-import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Lebensmittel} from "./Lebensmittel";
-import {Lagerort} from "./lagerort.model";
+import {Lagerort} from "./Lagerort";
 import {Einheit} from "../enum";
+import {CustomOwnership} from "./_CustomOwnership";
+import {VorratType} from "../schemas/vorrat-schema";
 
 
 @modelOptions({schemaOptions: {collection: "vorraete"}})
-export class Vorrat extends TimeStamps {
+export class Vorrat extends CustomOwnership implements VorratType {
   @prop({ref: "Benutzer", type: mongoose.Schema.Types.ObjectId})
   public besitzer?: Ref<Benutzer>;
 
@@ -29,6 +29,3 @@ export class Vorrat extends TimeStamps {
 }
 
 
-export const VorratModel = getModelForClass(Vorrat);
-
-export const vorratSchema = z.object({});

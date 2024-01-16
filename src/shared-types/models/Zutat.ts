@@ -1,7 +1,7 @@
 import {mongoose, prop, Ref} from '@typegoose/typegoose';
 import {Lebensmittel} from "./Lebensmittel";
 import {Einheit} from "../enum";
-import {ZutatType} from "./zutat.schema";
+import {ZutatType} from "../schemas/zutat-schema";
 
 export class Zutat implements ZutatType {
   @prop({autopopulate: true, ref: "Lebensmittel", type: mongoose.Schema.Types.ObjectId})

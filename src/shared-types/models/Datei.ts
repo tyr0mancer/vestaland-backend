@@ -1,6 +1,6 @@
 import {modelOptions, prop} from '@typegoose/typegoose';
-import {CustomOwnership} from "./CustomOwnership";
-import {DateiType} from "./datei-schema";
+import {CustomOwnership} from "./_CustomOwnership";
+import {DateiType} from "../schemas/datei-schema";
 
 
 @modelOptions({schemaOptions: {collection: "dateien"}})

@@ -6,7 +6,7 @@ import {
   LoginSchema,
   ChangePasswordSchema,
   RequestNewPasswordSecretTokenSchema
-} from "../shared-types/model/benutzer-schema";
+} from "../shared-types/schemas/benutzer-schema";
 
 
 /**

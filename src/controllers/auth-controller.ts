@@ -1,11 +1,11 @@
 import {Request, Response} from "express";
 import bcrypt from "bcryptjs";
 
-import {AuthTokenType, MyDocument} from "../shared-types/types";
-import {Benutzer} from "../shared-types/model/Benutzer";
+import {AuthTokenType} from "../shared-types/types";
+import {Benutzer} from "../shared-types/models/Benutzer";
 
 import config from "../services/config";
-import {AuthService} from "../services/auth-service";
+import {AuthService, MyDocument} from "../services/auth-service";
 import {BenutzerModel} from "../services/database-service";
 import {handleError, sendErrorResponse} from "../services/error-handler";
 import {generatePasswordHash, generateTokenHash} from "../services/crypt-service";

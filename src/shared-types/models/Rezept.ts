@@ -3,17 +3,16 @@ import {modelOptions, mongoose, pre, prop, Ref} from '@typegoose/typegoose';
 import {Zutat} from "./Zutat";
 import {Utensil} from "./Utensil";
 import {Datei} from "./Datei";
-import {Benutzer} from "./Benutzer";
 import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Kochschritt} from "./Kochschritt";
 import {Nutrients} from "./Nutrients";
-import {RezeptType} from "./rezept.schema";
-import {Tags} from "../enum/Tags";
+import {RezeptType} from "../schemas/rezept-schema";
+import {Tags} from "../enum";
 
 
 @pre<Rezept>('findOne', function () {
   this.populate([
-    {path: 'autor', select: '_id name'},
+    {path: 'owner', select: '_id name'},
     {path: 'bild'},
     {path: 'zutaten.lebensmittel'},
     {path: 'utensilien'},
@@ -24,7 +23,7 @@ import {Tags} from "../enum/Tags";
 })
 @pre<Rezept>('find', function () {
   this.populate([
-    {path: 'autor', select: '_id name'},
+    {path: 'owner', select: '_id name'},
     {path: 'bild'}
   ])
 })
@@ -40,7 +39,7 @@ export class Rezept extends TimeStamps implements RezeptType {
   public freitext?: string;
 
   @prop({type: String, required: true, default: []})
-  public quelleUrl!: mongoose.Types.Array<string>;
+  public quelleUrl: string[] = []
 
   @prop()
   public realeGesamtdauer?: number;
@@ -56,11 +55,9 @@ export class Rezept extends TimeStamps implements RezeptType {
 
   @prop()
   public extraPortionArbeitszeit?: number;
+
   @prop()
   public extraPortionGesamtdauer?: number;
-
-  @prop({ref: "Benutzer", type: mongoose.Schema.Types.ObjectId})
-  public autor?: Ref<Benutzer>;
 
   @prop({ref: "Datei", type: mongoose.Schema.Types.ObjectId})
   public bild?: Ref<Datei>;

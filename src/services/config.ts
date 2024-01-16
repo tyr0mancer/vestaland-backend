@@ -32,6 +32,7 @@ export interface CookieConfig {
 export interface Config {
   host: string;
   port: number;
+  uploadedFilesPath: string;
   allowedOrigins: string[];
   authToken: TokenConfig;
   refreshToken: TokenConfig;
@@ -50,7 +51,7 @@ const config: Config = {
   host: process.env.HOST || 'http://localhost',
   port: Number(process.env.PORT) || 80,
   allowedOrigins: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['*'],
-
+  uploadedFilesPath:   process.env.UPLOADED_FILES_PATH || './public/uploads/',
   authToken: {
     secret: process.env.AUTH_TOKEN_SECRET || '',
     expiresIn: process.env.AUTH_TOKEN_EXPIRES || '15 Minutes',

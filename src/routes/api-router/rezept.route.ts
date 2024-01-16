@@ -2,8 +2,8 @@ import express, {Router} from "express";
 import {genericParams, validateRequest} from "../../middleware/validate-request";
 
 import {GenericController} from "../../controllers/generic-controller";
-import {RezeptSchema, RezeptSucheSchema} from "../../shared-types/model/rezept.schema";
-import {Rezept} from "../../shared-types/model/Rezept";
+import {RezeptSchema, RezeptSucheSchema} from "../../shared-types/schemas/rezept-schema";
+import {Rezept} from "../../shared-types/models/Rezept";
 
 import {requireUser} from "../../middleware/auth/require-user";
 import {setOwnershipToRequestBody} from "../../middleware/set-ownership-to-request-body";

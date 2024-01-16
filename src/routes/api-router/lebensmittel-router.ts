@@ -1,10 +1,10 @@
 import express, {Router} from "express";
 import {genericParams, validateRequest} from "../../middleware/validate-request";
-import {Lebensmittel} from "../../shared-types/model/Lebensmittel";
+import {Lebensmittel} from "../../shared-types/models/Lebensmittel";
 
 import {GenericController} from "../../controllers/generic-controller";
 import {LebensmittelModel} from "../../services/database-service";
-import {LebensmittelSchema, LebensmittelSucheSchema} from "../../shared-types/model/lebensmittel.schema";
+import {LebensmittelSchema, LebensmittelSucheSchema} from "../../shared-types/schemas/lebensmittel-schema";
 import {setOwnershipToRequestBody} from "../../middleware/set-ownership-to-request-body";
 import {requireUser} from "../../middleware/auth/require-user";
 

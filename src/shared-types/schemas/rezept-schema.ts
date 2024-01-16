@@ -1,15 +1,18 @@
 import {z} from "zod";
 
-import {KochschrittSchema} from "./kochschritt.schema";
-import {MongoExtension} from "../model-helper";
-import {NutrientsSchema} from "./nutrients.schema";
-import {Tags} from "../enum/Tags";
+import {Tags} from "../enum";
+import {RefType} from "./_ref-schema";
+import {KochschrittSchema} from "./kochschritt-schema";
+import {NutrientsSchema} from "./nutrients-schema";
+import {ZutatSchema} from "./zutat-schema";
+import {UtensilSchema} from "./utensil-schema";
+import {DateiSchema} from "./datei-schema";
 
 export const RezeptSchema = z.object({
   name: z.string().min(3, "Rezeptname muss mindestens 3 Zeichen lang sein").describe('Der Name des Rezeptes'),
   beschreibung: z.string().max(150, "Der Text ist viel zu lang. Bitte maximal 150 Zeichen.").optional().describe('Ein kurzer(!) Beschreibungstext'),
   freitext: z.string().optional().describe('Freitext Beschreibung des Rezeptes'),
-  quelleUrl: z.string().optional().array().describe('Links zu Quellen oder andere Verweise'),
+  quelleUrl: z.array(z.string()).describe('Links zu Quellen oder andere Verweise'),
   schwierigkeitsgrad: z.number().min(1).max(5).optional(),
   realeGesamtdauer: z.number().optional(),
   realeArbeitszeit: z.number().optional(),
@@ -21,22 +24,16 @@ export const RezeptSchema = z.object({
   nutrients: NutrientsSchema.optional(),
   kochschritte: z.array(KochschrittSchema),
   tags: z.array(z.nativeEnum(Tags)),
-  autor: z.any().optional(),
-  utensilien: z.array(z.any()),
-  zutaten: z.array(z.any()),
-  aktion: z.any().optional(),
-  bild: z.any().optional(),
-}).extend(MongoExtension).strict()
-
-
+  utensilien: z.array(RefType(UtensilSchema)),
+  zutaten: z.array(ZutatSchema),
+  bild: RefType(DateiSchema).optional(),
+}).strict()
 export type RezeptType = z.infer<typeof RezeptSchema>;
 
-export const RezeptSucheSchema = z.object({
-  name: z.string().optional(),
-  zutaten: z.string().optional(),
-  myRecipes: z.boolean().optional(),
 
-  vegetarisch: z.boolean().optional(),
-  healthy: z.boolean().optional(),
-  soulfood: z.boolean().optional(),
+export const RezeptSucheSchema = z.object({
+  name: z.union([z.string().min(2), z.instanceof(RegExp)]).optional(),
+  zutaten: z.string().optional(),
+  tags: z.array(z.nativeEnum(Tags))
 })
+

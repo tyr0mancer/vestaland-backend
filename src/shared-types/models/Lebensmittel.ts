@@ -1,14 +1,13 @@
 import {prop, modelOptions} from '@typegoose/typegoose';
 import {Nutrients} from "./Nutrients";
-import {Einheit} from "../enum";
-import {LebensmittelType} from "./lebensmittel.schema";
-import {CustomOwnership} from "./CustomOwnership";
-
+import {Einheit, HaendlerGruppe, LebensmittelKategorie} from "../enum";
+import {LebensmittelType} from "../schemas/lebensmittel-schema";
+import {CustomOwnership} from "./_CustomOwnership";
 
 @modelOptions({schemaOptions: {collection: "lebensmittel"}})
 export class Lebensmittel extends CustomOwnership implements LebensmittelType {
   @prop()
-  public kategorie?: string
+  public kategorie?: LebensmittelKategorie
 
   @prop({required: true})
   public name: string = ""
@@ -22,11 +21,17 @@ export class Lebensmittel extends CustomOwnership implements LebensmittelType {
   @prop()
   public beschreibung?: string
 
+  @prop({required: true})
+  public defaultAbteilung?: string
+
   @prop()
   public defaultEinheit: Einheit = Einheit.ST
 
   @prop()
   public defaultMenge?: number
+
+  @prop({type: String, enum: HaendlerGruppe})
+  public haendlerGruppen: HaendlerGruppe[] = [];
 
   // Gramm pro Kubikzentimeter bzw kg pro Liter
   // Beispiel: Mehl hat eine Dichte von 0.7 - das heißt das ein kg Mehl etwa 1,5 L Volumen haben, oder 1 L Mehl, etwa 0,7 kg wiegt.
@@ -40,4 +45,5 @@ export class Lebensmittel extends CustomOwnership implements LebensmittelType {
   public nutrients?: Nutrients;
 
 }
+
 

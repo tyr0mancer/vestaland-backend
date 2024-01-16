@@ -19,17 +19,7 @@ export const DateiPatchSchema = z.object({
   beschreibung: z.string().optional()
 }).strict()
 
-/*
-
 const FileSchema = z.object({
   mimetype: z.enum(['image/jpeg', 'image/gif', 'image/png', 'image/webp']),
 })
-export const DateiUploadSchema = z.object({
-  bild: z.union([FileSchema, z.array(FileSchema).length(1)])
-});
-*/
-
-
-export const DateiUploadSchema = z.any();
-
-
+export const DateiUploadSchema = z.union([FileSchema, z.array(FileSchema).length(1)])
