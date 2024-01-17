@@ -19,7 +19,7 @@ export const LebensmittelSchema = z.object({
 
   density: z.number().optional(),
   unitWeight: z.number().optional()
-}).strict()
+})
 export type LebensmittelType = z.infer<typeof LebensmittelSchema>;
 
 

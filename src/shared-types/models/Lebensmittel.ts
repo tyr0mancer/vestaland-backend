@@ -21,7 +21,7 @@ export class Lebensmittel extends CustomOwnership implements LebensmittelType {
   @prop()
   public beschreibung?: string
 
-  @prop({required: true})
+  @prop()
   public defaultAbteilung?: string
 
   @prop()

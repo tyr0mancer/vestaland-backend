@@ -1,9 +1,12 @@
 import * as express from "express";
+import path from "path";
+
+import {authenticateRequest} from "../middleware/auth/authenticateRequest";
 
 import {authRouter} from "./auth-router";
 import {apiRouter} from "./api-router";
 import {configRouter} from "./config-router";
-import {authenticateRequest} from "../middleware/auth/authenticateRequest";
+
 
 /**
  * Führt die sub-router zusammen
@@ -20,15 +23,23 @@ import {authenticateRequest} from "../middleware/auth/authenticateRequest";
  * ('/config')
  */
 export const mainRouter = express.Router();
-mainRouter.use(authenticateRequest)
-
-mainRouter.use('/api', apiRouter)
-mainRouter.use('/api/auth', authRouter) //@todo -> move to '/auth'
+mainRouter.use('/api', authenticateRequest, apiRouter)
+mainRouter.use('/auth', authRouter)
 mainRouter.use('/config', configRouter)
+
+
+/**
+ * Statischer Inhalt wie Bilder oder die Dokumentation
+ */
+const publicPath = path.join(__dirname, '../../public')
+mainRouter.use('/public', express.static(publicPath));
+
 
 /**
  * TestRoute
  */
-mainRouter.get('/', (req, res) => res.send('Hello Mundo!' + ((req.user) ? `
-Aktuell angemeldet als
-${JSON.stringify(req.user)}` : '')));
+mainRouter.get('/', (req, res) => res.redirect('/public/docs'))
+
+// mainRouter.get('/', (req, res) => res.send('Hello Mundo!' + ((req.user) ? `
+// Aktuell angemeldet als
+// ${JSON.stringify(req.user)}` : '')));

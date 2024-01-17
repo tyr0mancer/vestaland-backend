@@ -1,8 +1,8 @@
 import express from 'express';
-import {mainRouter} from "./routes/main-router";
 import morgan from 'morgan';
-import * as path from "path";
+
 import config from "./services/config";
+import {mainRouter} from "./routes/main-router";
 
 /**
  * Erstellt und konfiguriert eine Express-Anwendung.
@@ -72,5 +72,3 @@ app.use(cookieParser());
  * Fügt den Haupt-Router als Middleware hinzu, um Routen zu behandeln.
  */
 app.use('/', mainRouter);
-const publicPath = path.join(__dirname, '../public')
-app.use('/public', express.static(publicPath));

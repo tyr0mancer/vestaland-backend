@@ -1,8 +1,8 @@
 # Projektbezogen
 .env
 dist/
-docs/
 public/uploads/
+public/docs/
 tmp/
 
 # Node.js
