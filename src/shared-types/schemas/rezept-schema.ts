@@ -7,8 +7,9 @@ import {NutrientsSchema} from "./nutrients-schema";
 import {ZutatSchema} from "./zutat-schema";
 import {UtensilSchema} from "./utensil-schema";
 import {DateiSchema} from "./datei-schema";
+import {CustomOwnershipSchema} from "./_custom-ownership-schema";
 
-export const RezeptSchema = z.object({
+export const RezeptSchema = CustomOwnershipSchema.extend({
   name: z.string().min(3, "Rezeptname muss mindestens 3 Zeichen lang sein").describe('Der Name des Rezeptes'),
   beschreibung: z.string().max(150, "Der Text ist viel zu lang. Bitte maximal 150 Zeichen.").optional().describe('Ein kurzer(!) Beschreibungstext'),
   freitext: z.string().optional().describe('Freitext Beschreibung des Rezeptes'),

@@ -44,8 +44,21 @@ apiRouter.use('/benutzer', benutzerRouter);
 apiRouter.use('/lebensmittel', lebensmittelRouter);
 
 // generic Routes
-apiRouter.use('/utensil', genericRouter<Utensil>(UtensilModel, UtensilSchema, UtensilSucheSchema, ['utensilName']));
+apiRouter.use('/utensil',
+  genericRouter<Utensil>(
+    UtensilModel,
+    {
+      post: UtensilSchema,
+      put: UtensilSchema,
+      patch: UtensilSchema,
+      search: UtensilSucheSchema,
+    },
+    ['utensilName']
+  ));
+
+/*
 apiRouter.use('/einkaufsliste', genericRouter<Einkaufsliste>(EinkaufslisteModel, EinkaufslisteSchema));
 apiRouter.use('/essensplan', genericRouter<Essensplan>(EssensplanModel, EssensplanSchema));
 apiRouter.use('/lagerort', genericRouter<Lagerort>(LagerortModel, LagerortSchema));
 apiRouter.use('/vorrat', genericRouter<Vorrat>(VorratModel, VorratSchema));
+*/

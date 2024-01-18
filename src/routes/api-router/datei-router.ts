@@ -18,7 +18,7 @@ export const dateiRouter: Router = express.Router();
 dateiRouter.get('/',
   requireUser,
   validateRequest({query: DateiSucheSchema}),
-  GenericController.search<Datei>(DateiModel, ['fileNameOriginal', 'beschreibung'], true)
+  GenericController.search<Datei>(DateiModel, ['fileNameOriginal', 'beschreibung'])
 )
 
 dateiRouter.get('/:id',
@@ -46,5 +46,5 @@ dateiRouter.patch('/:id',
     params: genericParams,
     body: DateiPatchSchema
   }),
-  GenericController.patch<Datei>(DateiModel, true)
+  GenericController.patch<Datei>(DateiModel)
 )

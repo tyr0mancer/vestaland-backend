@@ -3,11 +3,11 @@ import {modelOptions, mongoose, pre, prop, Ref} from '@typegoose/typegoose';
 import {Zutat} from "./Zutat";
 import {Utensil} from "./Utensil";
 import {Datei} from "./Datei";
-import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 import {Kochschritt} from "./Kochschritt";
 import {Nutrients} from "./Nutrients";
 import {RezeptType} from "../schemas/rezept-schema";
 import {Tags} from "../enum";
+import {CustomOwnership} from "./_CustomOwnership";
 
 
 @pre<Rezept>('findOne', function () {
@@ -28,7 +28,7 @@ import {Tags} from "../enum";
   ])
 })
 @modelOptions({schemaOptions: {collection: "rezepte"}})
-export class Rezept extends TimeStamps implements RezeptType {
+export class Rezept extends CustomOwnership implements RezeptType {
   @prop({required: true})
   public name: string = '';
 

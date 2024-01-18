@@ -4,11 +4,20 @@ import {mongoose} from "@typegoose/typegoose";
 import {z} from "zod";
 
 import {validateRequest} from "../../middleware/validate-request";
-import {GenericController} from "../../controllers/generic-controller";
-import {setOwnershipToRequestBody} from "../../middleware/set-ownership-to-request-body";
 import {requireUser} from "../../middleware/auth/require-user";
+import {GenericController} from "../../controllers/generic-controller";
+import {requireRole} from "../../middleware/auth/require-role";
+import {BenutzerRolle} from "../../shared-types/enum";
 
 const genericParams = z.object({_id: z.custom<mongoose.Types.ObjectId>()})
+
+
+interface ValidationSchemas {
+  post: z.ZodObject<any>,
+  put: z.ZodObject<any>,
+  patch: z.ZodObject<any>,
+  search: z.ZodObject<any>
+}
 
 /**
  * Implementiert folgende CRUD Sub-Routes
@@ -22,23 +31,74 @@ const genericParams = z.object({_id: z.custom<mongoose.Types.ObjectId>()})
  *
  * @see GenericController
  *
- * @param MongoModel
- * @param BodySchema
- * @param SucheSchema
+ * @param MongoDbModel
+ * @param validationSchemas
  * @param regExProps  props in SucheSchema
  */
-export function genericRouter<T>(MongoModel: ReturnModelType<any>, BodySchema: z.ZodObject<any>, SucheSchema?: z.ZodObject<any> | null, regExProps = ['name']) {
-  const router: Router = express.Router();
-  if (!SucheSchema)
-    SucheSchema = z.object({})
+export function genericRouter<T>(MongoDbModel: ReturnModelType<any>,
+                                 validationSchemas: ValidationSchemas,
+                                 regExProps = ['name']) {
 
-  router.get('/', requireUser, validateRequest({query: SucheSchema}), GenericController.search<T>(MongoModel, regExProps, true))
-  router.get('/:id', requireUser, validateRequest({params: genericParams}), GenericController.getById<T>(MongoModel))
-  router.delete('/:id', requireUser, validateRequest({params: genericParams}), GenericController.delete(MongoModel, true))
-  router.post('/', requireUser, validateRequest({body: BodySchema}), setOwnershipToRequestBody, GenericController.post<T>(MongoModel))
-  router.put('/:id', requireUser, validateRequest({
-    params: genericParams,
-    body: BodySchema
-  }), setOwnershipToRequestBody, GenericController.put<T>(MongoModel, true))
+  const router: Router = express.Router();
+
+  /**
+   * Search
+   */
+  router.get('/',
+    requireUser,
+    validateRequest({query: validationSchemas.search}),
+    GenericController.search<T>(MongoDbModel, regExProps)
+  )
+
+  /**
+   * GetById
+   */
+  router.get('/:id',
+    requireUser,
+    validateRequest({params: genericParams}),
+    GenericController.getById<T>(MongoDbModel)
+  )
+
+  /**
+   * Delete
+   */
+  router.delete('/:id',
+    requireRole(BenutzerRolle.REDAKTEUR),
+    validateRequest({params: genericParams}),
+    GenericController.delete(MongoDbModel)
+  )
+
+  /**
+   * Post
+   */
+  router.post('/',
+    requireRole(BenutzerRolle.REDAKTEUR),
+    validateRequest({body: validationSchemas.post}),
+    GenericController.post<T>(MongoDbModel)
+  )
+
+  /**
+   * Replace
+   */
+  router.put('/:id',
+    requireRole(BenutzerRolle.REDAKTEUR),
+    validateRequest({
+      params: genericParams,
+      body: validationSchemas.put
+    }),
+    GenericController.put<T>(MongoDbModel)
+  )
+
+  /**
+   * Update
+   */
+  router.patch('/:id',
+    requireRole(BenutzerRolle.REDAKTEUR),
+    validateRequest({
+      params: genericParams,
+      body: validationSchemas.patch
+    }),
+    GenericController.patch<T>(MongoDbModel)
+  )
   return router
 }

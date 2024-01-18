@@ -6,7 +6,6 @@ import {RezeptSchema, RezeptSucheSchema} from "../../shared-types/schemas/rezept
 import {Rezept} from "../../shared-types/models/Rezept";
 
 import {requireUser} from "../../middleware/auth/require-user";
-import {setOwnershipToRequestBody} from "../../middleware/set-ownership-to-request-body";
 import {RezeptController} from "../../controllers/api-controller";
 import {RezeptModel} from "../../services/database-service";
 
@@ -27,14 +26,13 @@ rezeptRouter.get('/:id',
 rezeptRouter.delete('/:id',
   requireUser,
   validateRequest({params: genericParams}),
-  GenericController.delete(RezeptModel, true)
+  GenericController.delete(RezeptModel)
 )
 
 rezeptRouter.post('/',
   requireUser,
   validateRequest({body: RezeptSchema}),
-  setOwnershipToRequestBody,
-  GenericController.post<Rezept>(RezeptModel)
+  RezeptController.post,
 )
 
 rezeptRouter.put('/:id',
@@ -43,6 +41,6 @@ rezeptRouter.put('/:id',
     params: genericParams,
     body: RezeptSchema
   }),
-  GenericController.put<Rezept>(RezeptModel, true)
+  GenericController.put<Rezept>(RezeptModel)
 )
 

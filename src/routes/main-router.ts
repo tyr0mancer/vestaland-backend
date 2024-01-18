@@ -38,8 +38,6 @@ mainRouter.use('/public', express.static(publicPath));
 /**
  * TestRoute
  */
-mainRouter.get('/', (req, res) => res.redirect('/public/docs'))
-
-// mainRouter.get('/', (req, res) => res.send('Hello Mundo!' + ((req.user) ? `
-// Aktuell angemeldet als
-// ${JSON.stringify(req.user)}` : '')));
+mainRouter.get('/docs', (req, res) => res.redirect('/public/docs'))
+mainRouter.get('/', (req, res) => res.send('Hello Mundo!' + ((req.user) ? `
+Aktuell angemeldet als ${JSON.stringify(req.user)}` : '')));
