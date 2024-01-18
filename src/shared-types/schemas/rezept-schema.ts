@@ -8,6 +8,7 @@ import {ZutatSchema} from "./zutat-schema";
 import {UtensilSchema} from "./utensil-schema";
 import {DateiSchema} from "./datei-schema";
 import {CustomOwnershipSchema} from "./_custom-ownership-schema";
+import {LebensmittelSchema} from "./lebensmittel-schema";
 
 export const RezeptSchema = CustomOwnershipSchema.extend({
   name: z.string().min(3, "Rezeptname muss mindestens 3 Zeichen lang sein").describe('Der Name des Rezeptes'),
@@ -32,9 +33,23 @@ export const RezeptSchema = CustomOwnershipSchema.extend({
 export type RezeptType = z.infer<typeof RezeptSchema>;
 
 
+/**
+ * Schema zur Verarbeitung des Requests auf Serverseite
+ */
 export const RezeptSucheSchema = z.object({
   name: z.union([z.string().min(2), z.instanceof(RegExp)]).optional(),
   zutaten: z.string().optional(),
-  tags: z.array(z.nativeEnum(Tags)).optional()
-}) //.strict()
+  tags: z.string().optional(),
+  nurEigene: z.string().optional()
+}).strict()
 
+
+/***
+ * Schema für das zugehörige Client Formular
+ */
+export const RezeptSucheFormSchema = z.object({
+  name: z.string().optional(),
+  zutaten: z.array(LebensmittelSchema).optional(),
+  nurEigene: z.boolean().optional(),
+  tags: z.array(z.nativeEnum(Tags)).optional()
+}).strict()
