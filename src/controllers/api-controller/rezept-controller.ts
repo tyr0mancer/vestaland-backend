@@ -13,7 +13,7 @@ export class RezeptController {
    * @see RezeptSucheSchema
    */
   static async search(req: Request, res: Response) {
-    const rezeptFilter = []
+    const rezeptFilter = [{}]
 
     /**
      * Nach Rezept-Name suchen
@@ -34,17 +34,32 @@ export class RezeptController {
     }
 
     /**
-     * Zeige nur die eigenen Rezepte an. Sonst werden eigene und alle veröffentlichten angezeigt
+     * User nicht angemeldet, zeige nur öffentliche Rezepte an
      */
-    if (req.query.nurEigene) {
-      rezeptFilter.push({
-        "owner": req.user?._id
-      })
-    } else {
-      rezeptFilter.push({
-        $or: [{"owner": req.user?._id}, {"publicVisible": true}]
-      })
+    if (!req.user?._id)
+      rezeptFilter.push(
+        {"publicVisible": true}
+      )
+    else {
+
+      /**
+       * Zeige nur Rezepte des Users an
+       */
+      if (req.query.nurEigene) {
+        rezeptFilter.push({
+          "owner": req.user?._id
+        })
+      } else {
+        /**
+         * Zeige Rezepte, die der User sehen darf: als Admin alle, sonst nur eigene und öffentliche
+         */
+        if (!req.user?.rollen.includes(BenutzerRolle.ADMIN))
+          rezeptFilter.push({
+            $or: [{"owner": req.user?._id}, {"publicVisible": true}]
+          })
+      }
     }
+
 
     /**
      * Zeige Rezepte an, die alle Tags enthalten
@@ -61,6 +76,7 @@ export class RezeptController {
       .then((response: Rezept[]) => res.status(200).json(response))
       .catch((error: any) => handleGenericServerError(res, error))
   }
+
 
   static async post(req: Request, res: Response) {
     const neuesRezept: Rezept = req.body

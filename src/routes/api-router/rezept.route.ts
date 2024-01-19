@@ -2,7 +2,7 @@ import express, {Router} from "express";
 import {genericParams, validateRequest} from "../../middleware/validate-request";
 
 import {GenericController} from "../../controllers/generic-controller";
-import {RezeptSchema, RezeptSucheSchema} from "../../shared-types/schemas/rezept-schema";
+import {RezeptPutSchema, RezeptSchema, RezeptSucheSchema} from "../../shared-types/schemas/rezept-schema";
 import {Rezept} from "../../shared-types/models/Rezept";
 
 import {requireUser} from "../../middleware/auth/require-user";
@@ -39,7 +39,7 @@ rezeptRouter.put('/:id',
   requireUser,
   validateRequest({
     params: genericParams,
-    body: RezeptSchema
+    body: RezeptPutSchema
   }),
   GenericController.put<Rezept>(RezeptModel)
 )

@@ -53,7 +53,7 @@ export class GenericController {
       Model.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
         .then((response: T) => {
           if (!response)
-            return sendErrorResponse(res, 404, "Eintrag nicht gefunden oder keine ausreichenden Rechte")
+            return sendErrorResponse(res, 404, `Eintrag '${req.params.id}' nicht gefunden oder keine ausreichenden Rechte`)
           res.status(200).json(response)
         })
         .catch((error: any) => handleGenericServerError(res, error))
