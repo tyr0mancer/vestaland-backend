@@ -1,7 +1,7 @@
 import {z} from "zod";
-import {MongoDocumentSchema} from "./_mongo-document-schema";
+import {CustomOwnershipSchema} from "./_custom-ownership-schema";
 
-export const DateiSchema = MongoDocumentSchema.extend({
+export const DateiSchema = CustomOwnershipSchema.extend({
   originalname: z.string(),
   mimetype: z.string(),
   destination: z.string(),
