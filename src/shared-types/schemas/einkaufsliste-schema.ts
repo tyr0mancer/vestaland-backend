@@ -4,6 +4,7 @@ import {BenutzerSchema} from "./benutzer-schema";
 import {ZutatSchema} from "./zutat-schema";
 import {ProduktSchema} from "./produkt-schema";
 import {RezeptSchema} from "./rezept-schema";
+import {MongoDocumentSchema} from "./_mongo-document-schema";
 
 
 export const EinkaufslistenEintragSchema = z.object({
@@ -20,7 +21,7 @@ export type EinkaufslistenEintragType = z.infer<typeof EinkaufslistenEintragSche
 /**
  * Definiert das Hauptvalidierungsschema für Einkaufsliste
  */
-export const EinkaufslisteSchema = z.object({
+export const EinkaufslisteSchema = MongoDocumentSchema.extend({
   listenName: z.string().min(2),
   beschreibung: z.string().optional(),
   sharedWith: z.array(RefType(BenutzerSchema)),

@@ -1,8 +1,9 @@
 import {z} from "zod";
 import {Einheit, HaendlerGruppe, LebensmittelKategorie} from "../enum";
 import {NutrientsSchema} from "./nutrients-schema";
+import {MongoDocumentSchema} from "./_mongo-document-schema";
 
-export const LebensmittelSchema = z.object({
+export const LebensmittelSchema = MongoDocumentSchema.extend({
   name: z.string().min(2, "Der Lebensmittel-Namen muss mindestens 2 Zeichen lang sein"),
   nameDetail: z.string().optional(),
   nameSingular: z.string().optional(),

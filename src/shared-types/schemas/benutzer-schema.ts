@@ -1,5 +1,6 @@
 import {z} from "zod";
 import {BenutzerRolle} from "../enum";
+import {MongoDocumentSchema} from "./_mongo-document-schema";
 
 // Wiederverwendete Properties
 const passwordField = z.string({required_error: "Passwort erforderlich"})
@@ -9,7 +10,7 @@ const tokenField = z.string().length(6)
 /**
  * Definiert das Hauptvalidierungsschema für Benutzer
  */
-export const BenutzerSchema = z.object({
+export const BenutzerSchema = MongoDocumentSchema.extend({
   name: z.string({required_error: "Benutzername erforderlich"}),
   email: z.string({required_error: "Email erforderlich"}).email("Email ist ungültig"),
   password: passwordField,

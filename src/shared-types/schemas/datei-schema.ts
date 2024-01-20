@@ -1,6 +1,7 @@
 import {z} from "zod";
+import {MongoDocumentSchema} from "./_mongo-document-schema";
 
-export const DateiSchema = z.object({
+export const DateiSchema = MongoDocumentSchema.extend({
   originalname: z.string(),
   mimetype: z.string(),
   destination: z.string(),

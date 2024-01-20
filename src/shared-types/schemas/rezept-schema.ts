@@ -32,11 +32,6 @@ export const RezeptSchema = CustomOwnershipSchema.extend({
 }).strict()
 export type RezeptType = z.infer<typeof RezeptSchema>;
 
-export const RezeptPutSchema = RezeptSchema.extend({
-  _id: z.string()
-})
-
-
 /**
  * Schema zur Verarbeitung des Requests auf Serverseite
  */
