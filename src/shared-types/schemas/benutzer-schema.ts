@@ -40,6 +40,7 @@ export const BenutzerPatchSchema = BenutzerSchema.pick({
 export const RegisterSchema = BenutzerSchema.pick({
   name: true, email: true, password: true
 })
+export type RegisterType = z.infer<typeof RegisterSchema>;
 
 
 export const RequestNewPasswordSecretTokenSchema = BenutzerSchema.pick({
@@ -74,3 +75,4 @@ export const LoginSchema = z.object({
   username: z.string({required_error: "Benutzername fehlt."}),
   password: z.string({required_error: "Passwort fehlt."})
 });
+export type LoginType = z.infer<typeof LoginSchema>;

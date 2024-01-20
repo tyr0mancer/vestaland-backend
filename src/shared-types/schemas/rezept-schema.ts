@@ -41,14 +41,17 @@ export const RezeptSucheSchema = z.object({
   tags: z.string().optional(),
   nurEigene: z.string().optional()
 }).strict()
+export type RezeptSucheType = z.infer<typeof RezeptSucheSchema>;
 
 
 /***
  * Schema für das zugehörige Client Formular
  */
 export const RezeptSucheFormSchema = z.object({
-  name: z.string().optional(),
+  rezeptName: z.string().optional(),
   zutaten: z.array(LebensmittelSchema).optional(),
   nurEigene: z.boolean().optional(),
   tags: z.array(z.nativeEnum(Tags)).optional()
 }).strict()
+
+export type RezeptSucheFormType = z.infer<typeof RezeptSucheFormSchema>;
