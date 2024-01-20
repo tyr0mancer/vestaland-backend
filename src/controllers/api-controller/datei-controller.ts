@@ -6,6 +6,16 @@ import {BenutzerModel, DateiModel} from "../../services/database-service";
 import fs from "fs";
 
 export class DateiController {
+
+
+  static async list(req: Request, res: Response) {
+    if (!req.user?._id)
+      return sendErrorResponse(res, 401, "Anmeldung erforderlich")
+    return DateiModel.find({owner: req.user._id})
+      .then((response: Datei[]) => res.status(200).json(response))
+  }
+
+
   static async post(req: Request, res: Response) {
     const tokenUser = await BenutzerModel.findById(req.user?._id)
     if (!tokenUser)

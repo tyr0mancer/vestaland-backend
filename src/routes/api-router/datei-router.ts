@@ -10,7 +10,7 @@ import {DateiController} from "../../controllers/api-controller";
 import {GenericController} from "../../controllers/generic-controller";
 import {DateiModel} from "../../services/database-service";
 import {uploadFile} from "../../middleware/upload-files";
-
+import {requireAdmin} from "../../middleware/auth/require-admin";
 
 
 export const dateiRouter: Router = express.Router();
@@ -18,14 +18,16 @@ export const dateiRouter: Router = express.Router();
 dateiRouter.get('/',
   requireUser,
   validateRequest({query: DateiSucheSchema}),
-  GenericController.search<Datei>(DateiModel, ['fileNameOriginal', 'beschreibung'])
+  DateiController.list
 )
 
+/*
 dateiRouter.get('/:id',
   requireUser,
   validateRequest({params: genericParams}),
   GenericController.getById<Datei>(DateiModel)
 )
+*/
 
 dateiRouter.delete('/:id',
   requireUser,
@@ -42,6 +44,7 @@ dateiRouter.post('/',
 
 dateiRouter.patch('/:id',
   requireUser,
+  requireAdmin,
   validateRequest({
     params: genericParams,
     body: DateiPatchSchema

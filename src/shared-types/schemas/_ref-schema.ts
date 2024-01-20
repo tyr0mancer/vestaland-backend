@@ -1,4 +1,6 @@
 import {z, ZodObject} from "zod";
-import {Types} from "mongoose";
 
-export const RefType = (schema: ZodObject<any>) => z.union([z.instanceof(Types.ObjectId), schema.partial()]).optional()
+export const RefType = (schema: ZodObject<any>) => z.union([
+  z.string().regex(/^[0-9a-fA-F]{24}$/), // Regex to validate ObjectId format
+  schema.partial()
+]).optional()
