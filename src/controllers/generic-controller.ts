@@ -50,7 +50,7 @@ export class GenericController {
 
   static put<T>(Model: ReturnModelType<any>) {
     return (req: Request, res: Response) => {
-      Model.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
+      Model.findOneAndReplace({_id: req.params.id}, req.body, {new: true})
         .then((response: T) => {
           if (!response)
             return sendErrorResponse(res, 404, `Eintrag '${req.params.id}' nicht gefunden oder keine ausreichenden Rechte`)
@@ -61,7 +61,15 @@ export class GenericController {
   }
 
   static patch<T>(Model: ReturnModelType<any>) {
-    return this.put<T>(Model)
+    return (req: Request, res: Response) => {
+      Model.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
+        .then((response: T) => {
+          if (!response)
+            return sendErrorResponse(res, 404, `Eintrag '${req.params.id}' nicht gefunden oder keine ausreichenden Rechte`)
+          res.status(200).json(response)
+        })
+        .catch((error: any) => handleGenericServerError(res, error))
+    }
   }
 
 }
