@@ -15,7 +15,7 @@ export class Kochschritt implements KochschrittType {
   public beschreibung?: string;
 
   @prop()
-  public videoUrl?: string;
+  public quelleUrl?: string;
 
   @prop()
   public gesamtdauer?: number;

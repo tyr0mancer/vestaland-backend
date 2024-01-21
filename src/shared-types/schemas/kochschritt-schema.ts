@@ -8,7 +8,7 @@ import {KochschrittAktionSchema} from "./kochschritt-aktion-schema";
 export const KochschrittSchema = z.object({
   aktionen: z.array(RefType(KochschrittAktionSchema)),
   beschreibung: z.string().optional(),
-  videoUrl: z.string().optional(),
+  quelleUrl: z.string().optional(),
   repeating: z.boolean().optional(),
   gesamtdauer: z.number().optional(),
   arbeitszeit: z.number().optional(),

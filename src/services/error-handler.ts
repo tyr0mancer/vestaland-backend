@@ -20,7 +20,7 @@ function isApiError(error: any): error is ApiErrorResponse {
 }
 
 export function handleGenericServerError(res: Response, error: any) {
-  const errorMessage: ApiErrorResponse = {status: 500, message: "Fehler", description: "Details siehe error-logs"}
-  console.error(error)
+
+  const errorMessage: ApiErrorResponse = {status: 500, message: error._message, description: "Details siehe error-logs"}
   return res.status(500).json(errorMessage)
 }
