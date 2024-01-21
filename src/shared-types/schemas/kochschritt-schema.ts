@@ -18,8 +18,11 @@ export const KochschrittSchema = z.object({
   utensilien: z.array(RefType(UtensilSchema)),
   betriebsart: z.nativeEnum(Betriebsart).optional(),
   temperatur: z.number().optional(),
-  resultatName: z.string().optional(),
-  erforderlicheKochschritte: z.array(z.string()).optional(),
+  _id: z.string().optional(),
+  ergebnisName: z.string().optional(),
+  erforderlicheErgebnisse: z.array(z.string()),
+  totalWeight: z.number().optional(),
+  totalVolume: z.number().optional(),
 }).strict()
 
 export type KochschrittType = z.infer<typeof KochschrittSchema>;

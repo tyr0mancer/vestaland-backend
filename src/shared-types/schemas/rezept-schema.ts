@@ -28,11 +28,7 @@ export const RezeptSchema = CustomOwnershipSchema.extend({
   tags: z.array(z.nativeEnum(Tags)),
   utensilien: z.array(RefType(UtensilSchema)),
   zutaten: z.array(ZutatSchema),
-  bild: RefType(DateiSchema).optional(),
-  zwischenergebnisse: z.array(ZutatSchema),
-  unterRezepte: z.any().optional(),
-  dazuPassen: z.any().optional(),
-
+  bild: RefType(DateiSchema).optional()
 }).strict()
 export type RezeptType = z.infer<typeof RezeptSchema>;
 

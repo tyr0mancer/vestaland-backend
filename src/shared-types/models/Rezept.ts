@@ -83,16 +83,5 @@ export class Rezept extends CustomOwnership implements RezeptType {
   @prop({type: Nutrients, _id: false})
   public nutrients?: Nutrients;
 
-
-
-  @prop({type: Zutat, _id: false})
-  public zwischenergebnisse: Zutat[] = [];
-
-  @prop({ref: "Rezept", type: mongoose.Schema.Types.ObjectId})
-  public unterRezepte?: Ref<Rezept>[];
-
-  @prop({ref: "Rezept", type: mongoose.Schema.Types.ObjectId})
-  public dazuPassen?: Ref<Rezept>[];
-
 }
 
