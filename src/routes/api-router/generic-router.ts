@@ -14,11 +14,12 @@ const genericParams = z.object({_id: z.custom<mongoose.Types.ObjectId>()})
 
 interface ValidationSchemas {
   post: z.ZodObject<any>,
-  put: z.ZodObject<any>,
-  patch: z.ZodObject<any>,
+  put?: z.ZodObject<any>,
+  patch?: z.ZodObject<any>,
   search: z.ZodObject<any>
 }
 
+//@hausarbeit
 /**
  * Implementiert folgende CRUD Sub-Routes
  *
@@ -37,7 +38,7 @@ interface ValidationSchemas {
  */
 export function genericRouter<T>(MongoDbModel: ReturnModelType<any>,
                                  validationSchemas: ValidationSchemas,
-                                 regExProps = ['name']) {
+                                 regExProps: (keyof T)[] = []) {
 
   const router: Router = express.Router();
 
@@ -47,7 +48,7 @@ export function genericRouter<T>(MongoDbModel: ReturnModelType<any>,
   router.get('/',
     requireUser,
     validateRequest({query: validationSchemas.search}),
-    GenericController.search<T>(MongoDbModel, regExProps)
+    GenericController.search<T>(MongoDbModel, regExProps as string[])
   )
 
   /**

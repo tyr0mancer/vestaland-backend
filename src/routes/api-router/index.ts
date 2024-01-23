@@ -9,52 +9,61 @@ import {lebensmittelRouter} from "./lebensmittel-router";
 
 /* DB-Services */
 import {
-  EinkaufslisteModel,
-  EssensplanModel,
-  LagerortModel,
+  KochschrittAktionModel,
   UtensilModel,
-  VorratModel
 } from "../../services/database-service";
 
 /* Schemas */
 import {UtensilSchema, UtensilSucheSchema} from "../../shared-types/schemas/utensil-schema";
-import {EinkaufslisteSchema} from "../../shared-types/schemas/einkaufsliste-schema";
-import {EssensplanSchema} from "../../shared-types/schemas/essensplan-schema";
-import {LagerortSchema} from "../../shared-types/schemas/lagerort-schema";
-import {VorratSchema} from "../../shared-types/schemas/vorrat-schema";
 
 /* Models */
 import {Utensil} from "../../shared-types/models/Utensil";
-import {Einkaufsliste} from "../../shared-types/models/Einkaufsliste";
-import {Essensplan} from "../../shared-types/models/Essensplan";
-import {Lagerort} from "../../shared-types/models/Lagerort";
-import {Vorrat} from "../../shared-types/models/Vorrat";
+
+import {ApiRoutePath} from "../../shared-types/config";
+import {KochschrittAktion} from "../../shared-types/models/KochschrittAktion";
+import {
+  KochschrittAktionSchema,
+  KochschrittAktionSucheSchema
+} from "../../shared-types/schemas/kochschritt-aktion-schema";
 
 
 /**
  * Routes für alle API Aufrufe - meist ein Router pro Collection
  * @see genericRouter
+ * @see ApiRoutePath
  */
+
 export const apiRouter = express.Router();
 
-// specific Api-Routes
-apiRouter.use('/rezept', rezeptRouter);
-apiRouter.use('/datei', dateiRouter);
-apiRouter.use('/benutzer', benutzerRouter);
-apiRouter.use('/lebensmittel', lebensmittelRouter);
+function appendApiPath(path: ApiRoutePath, router: express.Router) {
+  apiRouter.use(`/${path}`, router)
+}
 
-// generic Routes
-apiRouter.use('/utensil',
-  genericRouter<Utensil>(
-    UtensilModel,
-    {
-      post: UtensilSchema,
-      put: UtensilSchema,
-      patch: UtensilSchema,
-      search: UtensilSucheSchema,
-    },
-    ['utensilName']
-  ));
+// specific Api-Router
+appendApiPath('rezept', rezeptRouter)
+appendApiPath('benutzer', benutzerRouter)
+appendApiPath('datei', dateiRouter)
+appendApiPath('lebensmittel', lebensmittelRouter)
+
+// generic Router
+appendApiPath('aktion', genericRouter<KochschrittAktion>(
+  KochschrittAktionModel,
+  {
+    post: KochschrittAktionSchema,
+    search: KochschrittAktionSucheSchema,
+  },
+  ['aktionName']
+))
+appendApiPath('utensil', genericRouter<Utensil>(
+  UtensilModel,
+  {
+    post: UtensilSchema,
+    put: UtensilSchema,
+    patch: UtensilSchema,
+    search: UtensilSucheSchema,
+  },
+  ['utensilName']
+))
 
 /*
 apiRouter.use('/einkaufsliste', genericRouter<Einkaufsliste>(EinkaufslisteModel, EinkaufslisteSchema));

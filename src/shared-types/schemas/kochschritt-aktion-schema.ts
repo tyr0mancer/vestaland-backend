@@ -9,3 +9,7 @@ export const KochschrittAktionSchema = MongoDocumentSchema.extend({
 
 export type KochschrittAktionType = z.infer<typeof KochschrittAktionSchema>;
 
+
+export const KochschrittAktionSucheSchema = z.object({
+  aktionName: z.union([z.string().min(2), z.instanceof(RegExp)]).optional()
+}).strict()

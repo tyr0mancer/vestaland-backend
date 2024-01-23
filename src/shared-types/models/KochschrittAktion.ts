@@ -1,9 +1,10 @@
 import {prop, modelOptions} from '@typegoose/typegoose';
 import {AktionIcon} from "../enum";
 import {KochschrittAktionType} from "../schemas/kochschritt-aktion-schema";
+import {TimeStamps} from "@typegoose/typegoose/lib/defaultClasses";
 
 @modelOptions({schemaOptions: {collection: "aktionen"}})
-export class KochschrittAktion implements KochschrittAktionType {
+export class KochschrittAktion extends TimeStamps implements KochschrittAktionType {
 
   @prop()
   public aktionName: string = '';
