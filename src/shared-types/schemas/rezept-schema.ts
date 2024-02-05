@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-import {Tags} from "../enum";
+import {Tag} from "../enum";
 import {RefType} from "./_ref-schema";
 import {KochschrittSchema} from "./kochschritt-schema";
 import {NutrientsSchema} from "./nutrients-schema";
@@ -25,7 +25,7 @@ export const RezeptSchema = CustomOwnershipSchema.extend({
   portionen: z.number({required_error: "Die Anzahl an Portionen muss angegeben sein"}),
   nutrients: NutrientsSchema.optional(),
   kochschritte: z.array(KochschrittSchema),
-  tags: z.array(z.nativeEnum(Tags)),
+  tags: z.array(z.nativeEnum(Tag)),
   utensilien: z.array(RefType(UtensilSchema)),
   zutaten: z.array(ZutatSchema),
   bild: RefType(DateiSchema).optional()
@@ -52,7 +52,7 @@ export const RezeptSucheFormSchema = z.object({
   rezeptName: z.string().optional(),
   zutaten: z.array(LebensmittelSchema).optional(),
   nurEigene: z.boolean().optional(),
-  tags: z.array(z.nativeEnum(Tags)).optional()
+  tags: z.array(z.nativeEnum(Tag)).optional()
 }).strict()
 
 export type RezeptSucheFormType = z.infer<typeof RezeptSucheFormSchema>;

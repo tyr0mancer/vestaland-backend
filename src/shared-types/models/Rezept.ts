@@ -6,7 +6,7 @@ import {Datei} from "./Datei";
 import {Kochschritt} from "./Kochschritt";
 import {Nutrients} from "./Nutrients";
 import {RezeptType} from "../schemas/rezept-schema";
-import {Tags} from "../enum";
+import {Tag} from "../enum";
 import {CustomOwnership} from "./_CustomOwnership";
 
 
@@ -71,8 +71,8 @@ export class Rezept extends CustomOwnership implements RezeptType {
   @prop({type: Kochschritt, _id: false})
   public kochschritte: Kochschritt[] = [];
 
-  @prop({type: String, enum: Tags})
-  public tags: Tags[] = [];
+  @prop({type: String, enum: Tag})
+  public tags: Tag[] = [];
 
   @prop()
   public schwierigkeitsgrad?: number;

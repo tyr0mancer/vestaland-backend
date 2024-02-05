@@ -62,7 +62,7 @@ export class RezeptController {
 
 
     /**
-     * Zeige Rezepte an, die alle Tags enthalten
+     * Zeige Rezepte an, die alle Tag enthalten
      */
     if (req.query.tags) {
       const filterTags = req.query.tags as string
